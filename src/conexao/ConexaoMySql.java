@@ -6,6 +6,8 @@ package conexao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +20,7 @@ public class ConexaoMySql {
     private String nomeDoBanco = "dbalunoscurso";
     private String porta = "3306";
     private String user = "root";
-    private String password = "privada3";
+    private String password = "";
     
     
     public ConexaoMySql() {
@@ -45,26 +47,17 @@ public class ConexaoMySql {
      */
     public Connection conectar() {
         try {
+            String url = "jdbc:mysql://localhot:3306/"+this.getNomeDoBanco()+"?serverTimezone=UTC";
             conexao = DriverManager.getConnection(
-                    url(), //URL do banco de dados
+                    url, //URL do banco de dados
                     this.getUser(), //Usuário de acesso ao banco de dados
                     this.getPassword()); //Senha de acesso ao banco de dados
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             return null;
         }
         System.out.println("Conectado");
         return conexao;
-    }
-    
-    /**
-     * Monta a url de acesso
-     * @return url
-     */
-    public String url() {
-        String url = "jdbc:mysql://"+this.getEnderecoServidor()+":"
-                +this.getPorta()+"/"+this.getNomeDoBanco()+"?serverTimezone=UTC";
-        return url;
     }
     
     private String getEnderecoServidor() {

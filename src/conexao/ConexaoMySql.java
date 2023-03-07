@@ -1,12 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package conexao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,82 +12,122 @@ import javax.swing.JOptionPane;
  * @author Diego Barbosa
  */
 public class ConexaoMySql {
-    
-    private Connection conexao = null;
-    private String enderecoServidor = "localhost";
-    private String nomeDoBanco = "dbalunoscurso";
+
+    private boolean status = false;
+    private Connection connection = null;
+    private Statement statement;
+    private ResultSet resultSet;
+
+    private String servidor = "localhost";
+    private String database = "dbalunoscurso";
     private String porta = "3306";
-    private String user = "root";
-    private String password = "";
-    
-    
+    private String usuario = "root";
+    private String senha = "";
+
     public ConexaoMySql() {
+
     }
-    
-    /**
-     * Costrutor com os dados para conexão
-     * @param enderecoServidor
-     * @param nomeDoBanco
-     * @param user
-     * @param password 
-     */
-    public ConexaoMySql(String enderecoServidor, String nomeDoBanco, String porta, String user, String password) {
-        this.setEnderecoServidor(enderecoServidor);
-        this.setNomeDoBanco(nomeDoBanco);
-        this.setPorta(porta);
-        this.setUser(user);
-        this.setPassword(password);
+
+    public ConexaoMySql(String servidor, String database, String porta, String usuario, String senha) {
+        this.servidor = servidor;
+        this.database = database;
+        this.porta = porta;
+        this.usuario = usuario;
+        this.senha = senha;
     }
-    
+
+    public String url() {
+        String url = "jdbc:mysql://" + this.getServidor() + ":" + this.getPorta() + "/" + this.database + "?serverTimezone=UTC";
+        return url;
+    }
+
     /**
-     * Método responsável pela conexão no banco de dados
-     * @return conexao
+     * Método que realiza a conexão ao banco de dados
+     * @return connection
      */
     public Connection conectar() {
         try {
-            String url = "jdbc:mysql://localhot:3306/"+this.getNomeDoBanco()+"?serverTimezone=UTC";
-            conexao = DriverManager.getConnection(
-                    url, //URL do banco de dados
-                    this.getUser(), //Usuário de acesso ao banco de dados
-                    this.getPassword()); //Senha de acesso ao banco de dados
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            // Carrega o driver do JDBC
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Conecta no banco de dados
+            this.setConnection((Connection) DriverManager.getConnection(
+                    url(),
+                    usuario,
+                    senha));
+            this.status = true;
+
+        } catch (ClassNotFoundException | SQLException erro) {
+            JOptionPane.showMessageDialog(null, erro.getMessage());
             return null;
         }
-        System.out.println("Conectado");
-        return conexao;
+        return connection;
     }
     
-    private String getEnderecoServidor() {
-        return enderecoServidor;
+    /**
+     * Método que encerra a conexão com o banco de dados
+     * @return boolean
+     */
+    public boolean desconectar() {
+        try {
+            if ((this.getResultSet() != null) && (this.statement != null)) {
+                this.getResultSet().close();
+                this.statement.close();
+            }
+            this.getConnection().close();
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return false;
     }
 
-    private void setEnderecoServidor(String enderecoServidor) {
-        this.enderecoServidor = enderecoServidor;
+    public ResultSet getResultSet() {
+        return resultSet;
     }
 
-    private String getNomeDoBanco() {
-        return nomeDoBanco;
+    public void setResultSet(ResultSet resultSet) {
+        this.resultSet = resultSet;
     }
 
-    private void setNomeDoBanco(String nomeDoBanco) {
-        this.nomeDoBanco = nomeDoBanco;
+    public boolean getStatus() {
+        return status;
     }
 
-    private String getUser() {
-        return user;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
-    private void setUser(String user) {
-        this.user = user;
+    private Connection getConnection() {
+        return connection;
     }
 
-    private String getPassword() {
-        return password;
+    private void setConnection(Connection connection) {
+        this.connection = connection;
     }
 
-    private void setPassword(String password) {
-        this.password = password;
+    private Statement getStatement() {
+        return statement;
+    }
+
+    private void setStatement(Statement statement) {
+        this.statement = statement;
+    }
+
+    public String getServidor() {
+        return servidor;
+    }
+
+    public void setServidor(String servidor) {
+        this.servidor = servidor;
+    }
+
+    public String getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(String database) {
+        this.database = database;
     }
 
     public String getPorta() {
@@ -99,6 +137,21 @@ public class ConexaoMySql {
     public void setPorta(String porta) {
         this.porta = porta;
     }
-    
-    
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
 }

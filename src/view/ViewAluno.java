@@ -4,7 +4,9 @@
  */
 package view;
 
+import controller.ControllerAluno;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import model.ModelAluno;
 
 /**
@@ -12,7 +14,11 @@ import model.ModelAluno;
  * @author di_an
  */
 public class ViewAluno extends javax.swing.JFrame {
-
+    
+    ModelAluno modelAluno = new ModelAluno();
+    ArrayList<ModelAluno> listaMoldelAlunos = new ArrayList<>();
+    ControllerAluno controllerAluno = new ControllerAluno();
+    
     /**
      * Creates new form ViewAluno
      */
@@ -51,6 +57,7 @@ public class ViewAluno extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel1.setText("Código do Aluno:");
 
+        jtfCodigoAluno.setEditable(false);
         jtfCodigoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jtfNomeAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -97,7 +104,7 @@ public class ViewAluno extends javax.swing.JFrame {
         }
 
         btnPesquisar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnPesquisar.setText("Novo");
+        btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPesquisarActionPerformed(evt);
@@ -107,6 +114,11 @@ public class ViewAluno extends javax.swing.JFrame {
         btnSalvar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSalvar.setForeground(new java.awt.Color(0, 153, 51));
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(0, 0, 153));
@@ -170,7 +182,7 @@ public class ViewAluno extends javax.swing.JFrame {
                             .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(0, 0, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel3)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -240,6 +252,16 @@ public class ViewAluno extends javax.swing.JFrame {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        modelAluno.setNomeAluno(this.jtfNomeAluno.getText());
+        if (controllerAluno.salvarAlunoController(modelAluno) > 0) {
+            JOptionPane.showMessageDialog(this,"Cadastrado aluno com sucesso!!");
+        } else {
+            JOptionPane.showMessageDialog(this,"Aluno não cadastrado, verifique as informações");
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -4,10 +4,32 @@
  */
 package dao;
 
+import conexao.ConexaoMySql;
+import java.sql.SQLException;
+import model.ModelAluno;
+
 /**
  *
  * @author Diego Barbosa
  */
-public class DaoAluno {
+public class DaoAluno extends ConexaoMySql {
+
+    public int salvarAlunoDAO(ModelAluno nome) {
+        try {
+            this.conectar();
+            //String sql = "INSERT INTO aluno (aluno_nome) VALUES (?)";
+            //this.getPreparedStatement().setString(1, nome.getNomeAluno());
+            return this.insertSql("INSERT INTO aluno (aluno_nome) VALUES ("
+                    + "'"+nome.getNomeAluno()+"');");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            this.desconectar();
+        }
+    }
+    
+    
+    
     
 }

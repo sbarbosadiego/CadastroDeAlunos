@@ -7,16 +7,17 @@ package view;
 import controller.ControllerAluno;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.ModelAluno;
 
 /**
  *
- * @author di_an
+ * @author Diego Barbosa
  */
 public class ViewAluno extends javax.swing.JFrame {
     
     ModelAluno modelAluno = new ModelAluno();
-    ArrayList<ModelAluno> listaMoldelAlunos = new ArrayList<>();
+    ArrayList<ModelAluno> listaModelAlunos = new ArrayList<>();
     ControllerAluno controllerAluno = new ControllerAluno();
     
     /**
@@ -59,6 +60,7 @@ public class ViewAluno extends javax.swing.JFrame {
 
         jtfCodigoAluno.setEditable(false);
         jtfCodigoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtfCodigoAluno.setDisabledTextColor(new java.awt.Color(102, 102, 102));
 
         jtfNomeAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -72,10 +74,7 @@ public class ViewAluno extends javax.swing.JFrame {
 
         jtableAluno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Código", "Nome"
@@ -258,6 +257,7 @@ public class ViewAluno extends javax.swing.JFrame {
         modelAluno.setNomeAluno(this.jtfNomeAluno.getText());
         if (controllerAluno.salvarAlunoController(modelAluno) > 0) {
             JOptionPane.showMessageDialog(this,"Cadastrado aluno com sucesso!!");
+            this.listarAlunos();
         } else {
             JOptionPane.showMessageDialog(this,"Aluno não cadastrado, verifique as informações");
         }
@@ -296,6 +296,23 @@ public class ViewAluno extends javax.swing.JFrame {
                 new ViewAluno().setVisible(true);
             }
         });
+    }
+    
+    /**
+     * Método que lista os alunos cadastrados no banco de dados
+     */
+    private void listarAlunos() {
+        listaModelAlunos = controllerAluno.retornarListarAlunosController();
+        DefaultTableModel tabela = (DefaultTableModel) this.jtableAluno.getModel();
+        tabela.setNumRows(0);
+        
+        int contador = listaModelAlunos.size();
+        for (int c = 0; c < contador; c++) {
+            tabela.addRow(new Object[]{
+                listaModelAlunos.get(c).getCodigoAluno(),
+                listaModelAlunos.get(c).getNomeAluno()
+            });
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

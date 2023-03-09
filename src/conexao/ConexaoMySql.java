@@ -16,7 +16,7 @@ public class ConexaoMySql {
     private boolean status = false;
     private Connection connection = null;
     private PreparedStatement statement;
-    private ResultSet resultSet;
+    protected ResultSet resultSet;
 
     private String servidor = "localhost";
     private String database = "";
@@ -55,9 +55,11 @@ public class ConexaoMySql {
                     this.url(),
                     this.usuario,
                     this.senha));
+            
+            // Chama o método que configura o banco de dados
             this.configurarBanco(connection);
             this.status = true;
-
+            
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return null;
@@ -81,36 +83,6 @@ public class ConexaoMySql {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return false;
-    }
-    
-    /**
-     * Método que inseri um novo registro no banco de dados
-     * @param sql
-     * @return int
-     */
-    public int insertSql(String sql) {
-        int status = 0;
-        System.out.println(status);
-        try {
-            // Seta o stament com o getConnection que chama o prepareStatement
-            this.setPreparedStatement(this.getConnection().prepareStatement(sql));
-            
-            // Executa a query no banco de dados
-            this.getPreparedStatement().executeUpdate();
-            
-            // Consulta o último código inserido na tabela
-            this.setResultSet(this.getPreparedStatement().executeQuery("SELECT last_insert_id();"));
-            
-            // Recupera o valor da primeira coluna da tabela
-            while (this.resultSet.next()) {
-                status = this.resultSet.getInt(1);
-            }
-            return status;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        System.out.println(status);
-        return status;
     }
 
     /**
@@ -148,27 +120,27 @@ public class ConexaoMySql {
         }
     }
 
-    public ResultSet getResultSet() {
+    protected ResultSet getResultSet() {
         return resultSet;
     }
 
-    public void setResultSet(ResultSet resultSet) {
+    protected void setResultSet(ResultSet resultSet) {
         this.resultSet = resultSet;
     }
 
-    public boolean getStatus() {
+    protected boolean getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    protected void setStatus(boolean status) {
         this.status = status;
     }
 
-    private Connection getConnection() {
+    protected Connection getConnection() {
         return connection;
     }
 
-    private void setConnection(Connection connection) {
+    protected void setConnection(Connection connection) {
         this.connection = connection;
     }
 
@@ -176,7 +148,7 @@ public class ConexaoMySql {
         return statement;
     }
 
-    private void setPreparedStatement(PreparedStatement statement) {
+    protected void setPreparedStatement(PreparedStatement statement) {
         this.statement = statement;
     }
 

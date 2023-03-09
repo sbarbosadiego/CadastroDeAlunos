@@ -5,6 +5,7 @@
 package controller;
 
 import dao.DaoAluno;
+import java.util.ArrayList;
 import model.ModelAluno;
 
 /**
@@ -19,4 +20,7 @@ public class ControllerAluno {
         return this.daoAluno.salvarAlunoDAO(nome);
     }
     
+    public ArrayList<ModelAluno> retornarListarAlunosController() {
+        return this.daoAluno.listarAlunos();
+    }
 }

@@ -17,10 +17,8 @@ public class DaoAluno extends ConexaoMySql {
     public int salvarAlunoDAO(ModelAluno nome) {
         try {
             this.conectar();
-            //String sql = "INSERT INTO aluno (aluno_nome) VALUES (?)";
-            //this.getPreparedStatement().setString(1, nome.getNomeAluno());
             return this.insertSql("INSERT INTO aluno (aluno_nome) VALUES ("
-                    + "'"+nome.getNomeAluno()+"');");
+                    + "'" + nome.getNomeAluno() + "');");
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
@@ -28,8 +26,5 @@ public class DaoAluno extends ConexaoMySql {
             this.desconectar();
         }
     }
-    
-    
-    
-    
+
 }

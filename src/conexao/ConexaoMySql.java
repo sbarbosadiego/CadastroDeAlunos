@@ -94,10 +94,13 @@ public class ConexaoMySql {
         try {
             // Seta o stament com o getConnection que chama o prepareStatement
             this.setPreparedStatement(this.getConnection().prepareStatement(sql));
+            
             // Executa a query no banco de dados
-            this.getPreparedStatement().executeUpdate(sql);
+            this.getPreparedStatement().executeUpdate();
+            
             // Consulta o último código inserido na tabela
             this.setResultSet(this.getPreparedStatement().executeQuery("SELECT last_insert_id();"));
+            
             // Recupera o valor da primeira coluna da tabela
             while (this.resultSet.next()) {
                 status = this.resultSet.getInt(1);

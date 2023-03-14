@@ -25,6 +25,8 @@ public class ViewAluno extends javax.swing.JFrame {
      */
     public ViewAluno() {
         initComponents();
+        this.listarAlunos();
+        this.habilitarDesabilitarCampos(false);
     }
 
     /**
@@ -38,7 +40,6 @@ public class ViewAluno extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jtfCodigoAluno = new javax.swing.JTextField();
         jtfNomeAluno = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -51,16 +52,13 @@ public class ViewAluno extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
+        jtfCodigoAluno = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel1.setText("Código do Aluno:");
-
-        jtfCodigoAluno.setEditable(false);
-        jtfCodigoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jtfCodigoAluno.setDisabledTextColor(new java.awt.Color(102, 102, 102));
 
         jtfNomeAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -154,6 +152,9 @@ public class ViewAluno extends javax.swing.JFrame {
             }
         });
 
+        jtfCodigoAluno.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jtfCodigoAluno.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -198,10 +199,10 @@ public class ViewAluno extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfCodigoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfNomeAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jtfNomeAluno)
+                    .addComponent(jtfCodigoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
@@ -233,27 +234,38 @@ public class ViewAluno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+        // A variável vai receber a linha que está selecionado na tabela
+        int linha = this.jtableAluno.getSelectedRow();
+        // Nesta é guardado o valor do código do aluno passando o número da linha, e na coluna 0 que é o código do mesmo
+        int codigoAluno = (int) this.jtableAluno.getValueAt(linha, 0); 
+        if (controllerAluno.excluirAlunoController(codigoAluno)) {
+            JOptionPane.showMessageDialog(this, "Aluno excluído", "ATENÇÃO",
+                    JOptionPane.WARNING_MESSAGE);
+            this.listarAlunos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        this.habilitarDesabilitarCampos(false);
+        this.limparCampos();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        // TODO add your handling code here:
+        this.habilitarDesabilitarCampos(true);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
         modelAluno.setNomeAluno(this.jtfNomeAluno.getText());
         if (controllerAluno.salvarAlunoController(modelAluno) > 0) {
             JOptionPane.showMessageDialog(this,"Cadastrado aluno com sucesso!!");
@@ -313,6 +325,22 @@ public class ViewAluno extends javax.swing.JFrame {
                 listaModelAlunos.get(c).getNomeAluno()
             });
         }
+    }
+    
+    /**
+     * Método para limpar os campos da tela
+     */
+    private void limparCampos() {
+        this.jtfCodigoAluno.setText("");
+        this.jtfNomeAluno.setText("");
+    }
+    
+    /**
+     * Método para desabilitar e habilitar campos de texto
+     * @param condicao 
+     */
+    private void habilitarDesabilitarCampos(boolean condicao) {
+        this.jtfNomeAluno.setEnabled(condicao);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

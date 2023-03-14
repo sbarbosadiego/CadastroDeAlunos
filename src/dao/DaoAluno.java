@@ -21,20 +21,56 @@ public class DaoAluno extends ConexaoMySql {
     
     /**
      * Faz o insert do aluno no banco de dados
-     * @param nome
+     * @param pModelAluno
      * @return int
      */
-    public int salvarAlunoDAO(ModelAluno nome) {
+    public int salvarAlunoDAO(ModelAluno pModelAluno) {
         try {
             String sql = "INSERT INTO aluno (aluno_nome) VALUES (?);";
             PreparedStatement stmt = this.conectar().prepareStatement(sql);
-            stmt.setString(1, nome.getNomeAluno());
+            stmt.setString(1, pModelAluno.getNomeAluno());
             stmt.executeUpdate();
 
             return 1;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return 0;
+        } finally {
+            this.desconectar();
+        }
+    }
+    
+    // Ainda fazendo
+    public boolean editarAlunoDAO(ModelAluno pModelAluno) {
+        try {
+            String sql = "UPDATE aluno SET aluno_nome = '?' WHERE pk_codigo_aluno = '?';";
+            PreparedStatement stmt = this.conectar().prepareStatement(sql);
+            stmt.setString(1, pModelAluno.getNomeAluno());
+            stmt.setInt(2, pModelAluno.getCodigoAluno());
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return false;
+        } finally {
+            this.desconectar();
+        }
+    }
+    
+    /**
+     * Faz a exclusão de um aluno no banco de dados
+     * @param codigoAluno
+     * @return boolean
+     */
+    public boolean excluirAlunoDAO(int codigoAluno) {
+        try {
+            String sql = "DELETE FROM aluno WHERE pk_codigo_aluno = ?;";
+            PreparedStatement stmt = this.conectar().prepareStatement(sql);
+            stmt.setInt(1, codigoAluno);
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return false;
         } finally {
             this.desconectar();
         }

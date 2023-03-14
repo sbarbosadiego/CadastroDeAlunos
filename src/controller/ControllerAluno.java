@@ -20,6 +20,10 @@ public class ControllerAluno {
         return this.daoAluno.salvarAlunoDAO(nome);
     }
     
+    public boolean excluirAlunoController(int codigoAluno) {
+        return this.daoAluno.excluirAlunoDAO(codigoAluno);
+    }
+    
     public ArrayList<ModelAluno> retornarListarAlunosController() {
         return this.daoAluno.listarAlunos();
     }

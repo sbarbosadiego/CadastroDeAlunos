@@ -19,6 +19,7 @@ public class ViewAluno extends javax.swing.JFrame {
     ModelAluno modelAluno = new ModelAluno();
     ArrayList<ModelAluno> listaModelAlunos = new ArrayList<>();
     ControllerAluno controllerAluno = new ControllerAluno();
+    String editarSalvar;
     
     /**
      * Creates new form ViewAluno
@@ -238,7 +239,18 @@ public class ViewAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        
+        // TODO add your handling code here:
+        editarSalvar = "editar";
+        int linha = this.jtableAluno.getSelectedRow();
+        this.habilitarDesabilitarCampos(true);
+        try {
+            int codigoAluno = (int) this.jtableAluno.getValueAt(linha, 0);
+            modelAluno = controllerAluno.retornarAlunoController(codigoAluno);
+            this.jtfCodigoAluno.setText(String.valueOf(modelAluno.getCodigoAluno()));
+            this.jtfNomeAluno.setText(modelAluno.getNomeAluno());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Nenhum registro selecionado");
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -263,15 +275,14 @@ public class ViewAluno extends javax.swing.JFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         this.habilitarDesabilitarCampos(true);
+        editarSalvar = "salvar";
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        modelAluno.setNomeAluno(this.jtfNomeAluno.getText());
-        if (controllerAluno.salvarAlunoController(modelAluno) > 0) {
-            JOptionPane.showMessageDialog(this,"Cadastrado aluno com sucesso!!");
-            this.listarAlunos();
-        } else {
-            JOptionPane.showMessageDialog(this,"Aluno não cadastrado, verifique as informações");
+        if (editarSalvar.equals("salvar")) {
+            this.salvarAluno();
+        } else if (editarSalvar.equals("editar")) {
+            this.editarAluno();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -324,6 +335,34 @@ public class ViewAluno extends javax.swing.JFrame {
                 listaModelAlunos.get(c).getCodigoAluno(),
                 listaModelAlunos.get(c).getNomeAluno()
             });
+        }
+    }
+    
+    private void salvarAluno() {
+        this.modelAluno.setNomeAluno(this.jtfNomeAluno.getText().toUpperCase());
+        if (controllerAluno.salvarAlunoController(modelAluno) > 0) {
+            JOptionPane.showMessageDialog(null, "Cadastrado aluno com sucesso", "ATENÇÃO",
+                    JOptionPane.INFORMATION_MESSAGE);
+            this.listarAlunos();
+            this.habilitarDesabilitarCampos(false);
+            this.limparCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Aluno não cadastrado", "ATENÇÃO",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
+    private void editarAluno() {
+        this.modelAluno.setNomeAluno(this.jtfNomeAluno.getText().toUpperCase());
+        if (controllerAluno.editarAlunoController(modelAluno)) {
+            JOptionPane.showMessageDialog(this, "Editado com sucesso!!", "ATENÇÃO",
+                    JOptionPane.INFORMATION_MESSAGE);
+            this.listarAlunos();
+            this.habilitarDesabilitarCampos(false);
+            this.limparCampos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Não foi aplicado a edição, verifique as informações", "ERRO",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
     

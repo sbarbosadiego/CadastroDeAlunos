@@ -24,6 +24,14 @@ public class ControllerAluno {
         return this.daoAluno.excluirAlunoDAO(codigoAluno);
     }
     
+    public boolean editarAlunoController(ModelAluno pModelAluno) {
+        return this.daoAluno.editarAlunoDAO(pModelAluno);
+    }
+    
+    public ModelAluno retornarAlunoController(int pIdAluno) {
+        return this.daoAluno.retornarAlunoDAO(pIdAluno);
+    }
+    
     public ArrayList<ModelAluno> retornarListarAlunosController() {
         return this.daoAluno.listarAlunos();
     }

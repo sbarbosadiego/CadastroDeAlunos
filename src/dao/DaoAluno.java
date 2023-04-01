@@ -43,7 +43,9 @@ public class DaoAluno extends ConexaoMySql {
     // Ainda fazendo
     public boolean editarAlunoDAO(ModelAluno pModelAluno) {
         try {
-            String sql = "UPDATE aluno SET aluno_nome = '?' WHERE pk_codigo_aluno = '?';";
+            String sql = "UPDATE aluno SET "
+                    + "aluno_nome = ? "
+                    + "WHERE pk_codigo_aluno = ?;";
             PreparedStatement stmt = this.conectar().prepareStatement(sql);
             stmt.setString(1, pModelAluno.getNomeAluno());
             stmt.setInt(2, pModelAluno.getCodigoAluno());
@@ -74,6 +76,28 @@ public class DaoAluno extends ConexaoMySql {
         } finally {
             this.desconectar();
         }
+    }
+    
+    public ModelAluno retornarAlunoDAO(int pIdAluno) {
+        ModelAluno modelAluno = new ModelAluno();
+        try {
+            String sql = "SELECT "
+                    + "pk_codigo_aluno, "
+                    + "aluno_nome "
+                    + "FROM aluno WHERE pk_codigo_aluno = ? ;";
+            PreparedStatement stmt = this.conectar().prepareStatement(sql);
+            stmt.setInt(1, pIdAluno);
+            stmt.executeQuery();
+            while (this.getResultSet().next()) {
+                modelAluno.setCodigoAluno(this.getResultSet().getInt(1));
+                modelAluno.setNomeAluno(this.getResultSet().getNString(2));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+            this.desconectar();
+        }
+        return modelAluno;
     }
     
     /**

@@ -16,7 +16,7 @@ public class ConexaoMySql {
     private boolean status = false;
     private Connection connection = null;
     private PreparedStatement statement;
-    protected ResultSet resultSet;
+    private ResultSet resultSet;
 
     private String servidor = "localhost";
     private String database = "";

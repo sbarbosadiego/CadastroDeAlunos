@@ -56,6 +56,7 @@ public class ViewAluno extends javax.swing.JFrame {
         jtfCodigoAluno = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(700, 200));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -249,6 +250,7 @@ public class ViewAluno extends javax.swing.JFrame {
             this.jtfCodigoAluno.setText(String.valueOf(modelAluno.getCodigoAluno()));
             this.jtfNomeAluno.setText(modelAluno.getNomeAluno());
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Nenhum registro selecionado");
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -353,7 +355,7 @@ public class ViewAluno extends javax.swing.JFrame {
     }
     
     private void editarAluno() {
-        this.modelAluno.setNomeAluno(this.jtfNomeAluno.getText().toUpperCase());
+        modelAluno.setNomeAluno(this.jtfNomeAluno.getText().toUpperCase());
         if (controllerAluno.editarAlunoController(modelAluno)) {
             JOptionPane.showMessageDialog(this, "Editado com sucesso!!", "ATENÇÃO",
                     JOptionPane.INFORMATION_MESSAGE);

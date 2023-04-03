@@ -40,17 +40,23 @@ public class DaoAluno extends ConexaoMySql {
         }
     }
     
-    // Ainda fazendo
+    /**
+     * Atualiza o cadastro de um aluno no banco de dados
+     * @param pModelAluno
+     * @return boolean
+     */
     public boolean editarAlunoDAO(ModelAluno pModelAluno) {
         try {
             String sql = "UPDATE aluno SET "
                     + "aluno_nome = ? "
-                    + "WHERE pk_codigo_aluno = ?;";
+                    + "WHERE pk_codigo_aluno = ?";
             PreparedStatement stmt = this.conectar().prepareStatement(sql);
             stmt.setString(1, pModelAluno.getNomeAluno());
             stmt.setInt(2, pModelAluno.getCodigoAluno());
+            stmt.execute();
             return true;
         } catch (SQLException e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null, e.getMessage());
             return false;
         } finally {
@@ -78,6 +84,11 @@ public class DaoAluno extends ConexaoMySql {
         }
     }
     
+    /**
+     * Retorna a consulta de dados de um aluno no banco de dados
+     * @param pIdAluno
+     * @return modelAluno
+     */
     public ModelAluno retornarAlunoDAO(int pIdAluno) {
         ModelAluno modelAluno = new ModelAluno();
         try {
@@ -89,8 +100,8 @@ public class DaoAluno extends ConexaoMySql {
             stmt.executeQuery(sql);
             ResultSet retorno = stmt.executeQuery(sql);
             while (retorno.next()) {
-                modelAluno.setCodigoAluno(this.getResultSet().getInt(1));
-                modelAluno.setNomeAluno(this.getResultSet().getString(2));
+                modelAluno.setCodigoAluno(retorno.getInt(1));
+                modelAluno.setNomeAluno(retorno.getString(2));
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());

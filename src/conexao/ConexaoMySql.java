@@ -17,7 +17,7 @@ public class ConexaoMySql {
     private Connection connection = null;
     private PreparedStatement statement;
     private ResultSet resultSet;
-
+    private Statement states;
     private String servidor = "localhost";
     private String database = "";
     private String porta = "3306";
@@ -35,7 +35,11 @@ public class ConexaoMySql {
         this.usuario = usuario;
         this.senha = senha;
     }
-
+    
+    /**
+     * Formata a URL de conexão ao banco de dados
+     * @return String
+     */
     private String url() {
         String url = "jdbc:mysql://" + this.servidor + ":" + this.porta + "/" + this.database + "?serverTimezone=UTC";
         return url;
@@ -149,7 +153,7 @@ public class ConexaoMySql {
     }
 
     protected void setPreparedStatement(PreparedStatement statement) {
-        this.statement = statement;
+        this.states = statement;
     }
 
 }

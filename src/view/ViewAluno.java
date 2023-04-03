@@ -6,8 +6,12 @@ package view;
 
 import controller.ControllerAluno;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import model.ModelAluno;
 
 /**
@@ -236,11 +240,18 @@ public class ViewAluno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        
+        DefaultTableModel modelo = (DefaultTableModel) this.jtableAluno.getModel();
+        final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
+        this.jtableAluno.setRowSorter(classifica);
+        String pesquisa = this.jtfPesquisa.getText();
+        if (this.testaString(pesquisa) == true) {
+            classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
+        } else {
+            classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 1));
+        }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
         editarSalvar = "editar";
         int linha = this.jtableAluno.getSelectedRow();
         this.habilitarDesabilitarCampos(true);
@@ -324,7 +335,7 @@ public class ViewAluno extends javax.swing.JFrame {
     }
     
     /**
-     * Método que lista os alunos cadastrados no banco de dados
+     * Lista os alunos cadastrados no banco de dados
      */
     private void listarAlunos() {
         listaModelAlunos = controllerAluno.retornarListarAlunosController();
@@ -340,6 +351,9 @@ public class ViewAluno extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Salva o cadastro de dados de um novo aluno no banco de dados
+     */
     private void salvarAluno() {
         this.modelAluno.setNomeAluno(this.jtfNomeAluno.getText().toUpperCase());
         if (controllerAluno.salvarAlunoController(modelAluno) > 0) {
@@ -354,6 +368,9 @@ public class ViewAluno extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Edita os dados de um aluno já existente no banco de dados
+     */
     private void editarAluno() {
         modelAluno.setNomeAluno(this.jtfNomeAluno.getText().toUpperCase());
         if (controllerAluno.editarAlunoController(modelAluno)) {
@@ -382,6 +399,19 @@ public class ViewAluno extends javax.swing.JFrame {
      */
     private void habilitarDesabilitarCampos(boolean condicao) {
         this.jtfNomeAluno.setEnabled(condicao);
+    }
+    
+    /**
+     * Método para verificar se uma String contém valores numéricos
+     * @param texto
+     * @return boolean
+     */
+    private boolean testaString(String texto) {
+        Pattern p = Pattern.compile("[0-9]+");
+        String pesquisa;
+        pesquisa = texto;
+        boolean numerico = (pesquisa != null && p.matcher(pesquisa).find());
+        return numerico;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

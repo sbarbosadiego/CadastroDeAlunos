@@ -60,6 +60,7 @@ public class ViewAluno extends javax.swing.JFrame {
         jtfCodigoAluno = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro de Alunos");
         setLocation(new java.awt.Point(700, 200));
         setResizable(false);
 

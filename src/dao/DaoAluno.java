@@ -18,7 +18,7 @@ import model.ModelAluno;
  * @author Diego Barbosa
  */
 public class DaoAluno extends ConexaoMySql {
-    
+
     /**
      * Faz o insert do aluno no banco de dados
      * @param pModelAluno
@@ -30,7 +30,6 @@ public class DaoAluno extends ConexaoMySql {
             PreparedStatement stmt = this.conectar().prepareStatement(sql);
             stmt.setString(1, pModelAluno.getNomeAluno());
             stmt.executeUpdate();
-
             return 1;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -39,7 +38,7 @@ public class DaoAluno extends ConexaoMySql {
             this.desconectar();
         }
     }
-    
+
     /**
      * Atualiza o cadastro de um aluno no banco de dados
      * @param pModelAluno
@@ -63,7 +62,7 @@ public class DaoAluno extends ConexaoMySql {
             this.desconectar();
         }
     }
-    
+
     /**
      * Faz a exclusão de um aluno no banco de dados
      * @param codigoAluno
@@ -83,7 +82,7 @@ public class DaoAluno extends ConexaoMySql {
             this.desconectar();
         }
     }
-    
+
     /**
      * Retorna a consulta de dados de um aluno no banco de dados
      * @param pIdAluno
@@ -95,7 +94,7 @@ public class DaoAluno extends ConexaoMySql {
             String sql = "SELECT "
                     + "pk_codigo_aluno, "
                     + "aluno_nome "
-                    + "FROM aluno WHERE pk_codigo_aluno = '"+pIdAluno+"'";
+                    + "FROM aluno WHERE pk_codigo_aluno = '" + pIdAluno + "'";
             Statement stmt = this.conectar().createStatement();
             stmt.executeQuery(sql);
             ResultSet retorno = stmt.executeQuery(sql);
@@ -110,9 +109,10 @@ public class DaoAluno extends ConexaoMySql {
         }
         return modelAluno;
     }
-    
+
     /**
      * Retorna lista de alunos
+     *
      * @return ArrayList
      */
     public ArrayList<ModelAluno> listarAlunos() {
@@ -121,7 +121,7 @@ public class DaoAluno extends ConexaoMySql {
             String sql = "SELECT * FROM aluno;";
             Statement consulta = this.conectar().createStatement();
             ResultSet retorno = consulta.executeQuery(sql);
-            
+
             while (retorno.next()) {
                 ModelAluno modelAlunos = new ModelAluno();
                 modelAlunos.setCodigoAluno(retorno.getInt(1));

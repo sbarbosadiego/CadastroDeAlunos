@@ -11,7 +11,8 @@ package model;
 public class ModelCurso {
     
     private int codigoCurso;
-    private String ementaCurso, descricaoCurso;
+    private String ementaCurso;
+    private String descricaoCurso;
     
     
     public int getCodigoCurso() {

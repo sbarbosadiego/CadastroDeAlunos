@@ -85,7 +85,7 @@ public class ViewCurso extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Curso"
+                "Código do Curso", "Curso"
             }
         ) {
             Class[] types = new Class [] {
@@ -106,8 +106,8 @@ public class ViewCurso extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jtableCurso);
         if (jtableCurso.getColumnModel().getColumnCount() > 0) {
             jtableCurso.getColumnModel().getColumn(0).setMinWidth(60);
-            jtableCurso.getColumnModel().getColumn(0).setPreferredWidth(80);
-            jtableCurso.getColumnModel().getColumn(0).setMaxWidth(100);
+            jtableCurso.getColumnModel().getColumn(0).setPreferredWidth(100);
+            jtableCurso.getColumnModel().getColumn(1).setPreferredWidth(120);
         }
 
         btnPesquisar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -259,6 +259,7 @@ public class ViewCurso extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
@@ -290,18 +291,20 @@ public class ViewCurso extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // A variável vai receber a linha que está selecionado na tabela
         int linha = this.jtableCurso.getSelectedRow();
-        // Nesta é guardado o valor do código do Curso passando o número da linha, e na coluna 0 que é o código do mesmo
-        int codigoCurso = (int) this.jtableCurso.getValueAt(linha, 0); 
-        if (controllerCurso.excluirCursoController(codigoCurso)) {
-            JOptionPane.showMessageDialog(this, "Curso excluído", "ATENÇÃO",
-                    JOptionPane.WARNING_MESSAGE);
-            this.listarCursos();
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
-                    JOptionPane.ERROR_MESSAGE);
+        int codigoCurso = (int) this.jtableCurso.getValueAt(linha, 0);
+        if (JOptionPane.showConfirmDialog(this, "Excluir Curso?", "Excluir",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (controllerCurso.excluirCursoController(codigoCurso)) {
+                JOptionPane.showMessageDialog(this, "Curso excluído", "ATENÇÃO",
+                        JOptionPane.WARNING_MESSAGE);
+                this.listarCursos();
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
+        
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

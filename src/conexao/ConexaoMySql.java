@@ -120,7 +120,8 @@ public class ConexaoMySql {
                     + "FOREIGN KEY (fk_curso) REFERENCES curso(pk_codigo_curso)"
                     + ");");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "Falha ao criar base de dados", "ERRO",
+                        JOptionPane.ERROR_MESSAGE);
         }
     }
 

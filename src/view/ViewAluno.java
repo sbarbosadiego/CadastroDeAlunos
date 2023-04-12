@@ -238,6 +238,7 @@ public class ViewAluno extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
@@ -271,15 +272,19 @@ public class ViewAluno extends javax.swing.JFrame {
         // A variável vai receber a linha que está selecionado na tabela
         int linha = this.jtableAluno.getSelectedRow();
         // Nesta é guardado o valor do código do aluno passando o número da linha, e na coluna 0 que é o código do mesmo
-        int codigoAluno = (int) this.jtableAluno.getValueAt(linha, 0); 
-        if (controllerAluno.excluirAlunoController(codigoAluno)) {
-            JOptionPane.showMessageDialog(this, "Aluno excluído", "ATENÇÃO",
-                    JOptionPane.WARNING_MESSAGE);
-            this.listarAlunos();
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
-                    JOptionPane.ERROR_MESSAGE);
+        int codigoAluno = (int) this.jtableAluno.getValueAt(linha, 0);
+        if (JOptionPane.showConfirmDialog(this, "Excluir Aluno?", "Excluir",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (controllerAluno.excluirAlunoController(codigoAluno)) {
+                JOptionPane.showMessageDialog(this, "Aluno excluído", "ATENÇÃO",
+                        JOptionPane.WARNING_MESSAGE);
+                this.listarAlunos();
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
+        
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

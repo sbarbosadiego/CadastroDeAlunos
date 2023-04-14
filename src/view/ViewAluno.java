@@ -19,12 +19,12 @@ import model.ModelAluno;
  * @author Diego Barbosa
  */
 public class ViewAluno extends javax.swing.JFrame {
-    
+
     ModelAluno modelAluno = new ModelAluno();
     ArrayList<ModelAluno> listaModelAlunos = new ArrayList<>();
     ControllerAluno controllerAluno = new ControllerAluno();
     String editarSalvar;
-    
+
     /**
      * Creates new form ViewAluno
      */
@@ -32,6 +32,7 @@ public class ViewAluno extends javax.swing.JFrame {
         initComponents();
         this.listarAlunos();
         this.habilitarDesabilitarCampos(false);
+        this.jObrigatorio.setVisible(false);
     }
 
     /**
@@ -58,6 +59,7 @@ public class ViewAluno extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
         jtfCodigoAluno = new javax.swing.JTextField();
+        jObrigatorio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Alunos");
@@ -162,6 +164,11 @@ public class ViewAluno extends javax.swing.JFrame {
         jtfCodigoAluno.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jtfCodigoAluno.setEnabled(false);
 
+        jObrigatorio.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jObrigatorio.setForeground(new java.awt.Color(255, 0, 0));
+        jObrigatorio.setText("*");
+        jObrigatorio.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -175,28 +182,33 @@ public class ViewAluno extends javax.swing.JFrame {
                             .addComponent(jtfCodigoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfNomeAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jtfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(11, 11, 11))
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jtfNomeAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jObrigatorio)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                                .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(11, 11, 11))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +219,9 @@ public class ViewAluno extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jtfNomeAluno)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jtfNomeAluno)
+                        .addComponent(jObrigatorio))
                     .addComponent(jtfCodigoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -254,6 +268,7 @@ public class ViewAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        this.jObrigatorio.setVisible(false);
         editarSalvar = "editar";
         int linha = this.jtableAluno.getSelectedRow();
         this.habilitarDesabilitarCampos(true);
@@ -270,6 +285,7 @@ public class ViewAluno extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // A variável vai receber a linha que está selecionado na tabela
+        this.jObrigatorio.setVisible(false);
         int linha = this.jtableAluno.getSelectedRow();
         // Nesta é guardado o valor do código do aluno passando o número da linha, e na coluna 0 que é o código do mesmo
         int codigoAluno = (int) this.jtableAluno.getValueAt(linha, 0);
@@ -284,12 +300,13 @@ public class ViewAluno extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.habilitarDesabilitarCampos(false);
         this.limparCampos();
+        this.jObrigatorio.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
@@ -339,7 +356,7 @@ public class ViewAluno extends javax.swing.JFrame {
             }
         });
     }
-    
+
     /**
      * Lista os alunos cadastrados no banco de dados
      */
@@ -347,7 +364,7 @@ public class ViewAluno extends javax.swing.JFrame {
         listaModelAlunos = controllerAluno.retornarListarAlunosController();
         DefaultTableModel tabela = (DefaultTableModel) this.jtableAluno.getModel();
         tabela.setNumRows(0);
-        
+
         int contador = listaModelAlunos.size();
         for (int c = 0; c < contador; c++) {
             tabela.addRow(new Object[]{
@@ -356,41 +373,62 @@ public class ViewAluno extends javax.swing.JFrame {
             });
         }
     }
-    
+
     /**
      * Salva o cadastro de dados de um novo aluno no banco de dados
      */
     private void salvarAluno() {
-        this.modelAluno.setNomeAluno(this.jtfNomeAluno.getText().toUpperCase());
-        if (controllerAluno.salvarAlunoController(modelAluno) > 0) {
-            JOptionPane.showMessageDialog(null, "Cadastrado aluno com sucesso", "ATENÇÃO",
-                    JOptionPane.INFORMATION_MESSAGE);
-            this.listarAlunos();
-            this.habilitarDesabilitarCampos(false);
-            this.limparCampos();
+        if (this.jtfNomeAluno.getText().isEmpty()) {
+            this.jObrigatorio.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Campo vazio", "ATENÇÃO",
+                    JOptionPane.WARNING_MESSAGE);
+        } else if (this.jtfNomeAluno.getText().length() >= 51) {
+            this.jObrigatorio.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!!", "ATENÇÃO",
+                    JOptionPane.WARNING_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Aluno não cadastrado", "ATENÇÃO",
-                    JOptionPane.INFORMATION_MESSAGE);
+            this.modelAluno.setNomeAluno(this.jtfNomeAluno.getText().toUpperCase());
+            if (controllerAluno.salvarAlunoController(modelAluno) > 0) {
+                JOptionPane.showMessageDialog(null, "Cadastrado aluno com sucesso", "ATENÇÃO",
+                        JOptionPane.INFORMATION_MESSAGE);
+                this.listarAlunos();
+                this.habilitarDesabilitarCampos(false);
+                this.limparCampos();
+                this.jObrigatorio.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Aluno não cadastrado", "ATENÇÃO",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
         }
+
     }
-    
+
     /**
      * Edita os dados de um aluno já existente no banco de dados
      */
     private void editarAluno() {
-        modelAluno.setNomeAluno(this.jtfNomeAluno.getText().toUpperCase());
-        if (controllerAluno.editarAlunoController(modelAluno)) {
-            JOptionPane.showMessageDialog(this, "Editado com sucesso!!", "ATENÇÃO",
-                    JOptionPane.INFORMATION_MESSAGE);
-            this.listarAlunos();
-            this.habilitarDesabilitarCampos(false);
-            this.limparCampos();
+        if (this.jtfNomeAluno.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campo vazio", "ATENÇÃO",
+                    JOptionPane.WARNING_MESSAGE);
+        } else if (this.jtfNomeAluno.getText().length() >= 51) {
+            JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!!", "ATENÇÃO",
+                    JOptionPane.WARNING_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Não foi aplicado a edição, verifique as informações", "ERRO",
-                    JOptionPane.ERROR_MESSAGE);
+            modelAluno.setNomeAluno(this.jtfNomeAluno.getText().toUpperCase());
+            if (controllerAluno.editarAlunoController(modelAluno)) {
+                JOptionPane.showMessageDialog(this, "Editado com sucesso!!", "ATENÇÃO",
+                        JOptionPane.INFORMATION_MESSAGE);
+                this.listarAlunos();
+                this.habilitarDesabilitarCampos(false);
+                this.limparCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "Não foi aplicado a edição, verifique as informações", "ERRO",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
+
     }
-    
+
     /**
      * Método para limpar os campos da tela
      */
@@ -398,17 +436,19 @@ public class ViewAluno extends javax.swing.JFrame {
         this.jtfCodigoAluno.setText("");
         this.jtfNomeAluno.setText("");
     }
-    
+
     /**
      * Método para desabilitar e habilitar campos de texto
-     * @param condicao 
+     *
+     * @param condicao
      */
     private void habilitarDesabilitarCampos(boolean condicao) {
         this.jtfNomeAluno.setEnabled(condicao);
     }
-    
+
     /**
      * Método para verificar se uma String contém valores numéricos
+     *
      * @param texto
      * @return boolean
      */
@@ -430,6 +470,7 @@ public class ViewAluno extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jObrigatorio;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtableAluno;

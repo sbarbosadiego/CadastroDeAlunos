@@ -19,12 +19,12 @@ import model.ModelCurso;
  * @author Diego Barbosa
  */
 public class ViewCurso extends javax.swing.JFrame {
-    
+
     ModelCurso modelCurso = new ModelCurso();
     ArrayList<ModelCurso> listaModelCursos = new ArrayList<>();
     ControllerCurso controllerCurso = new ControllerCurso();
     String editarSalvar;
-    
+
     /**
      * Creates new form ViewCurso
      */
@@ -32,6 +32,7 @@ public class ViewCurso extends javax.swing.JFrame {
         initComponents();
         this.listarCursos();
         this.habilitarDesabilitarCampos(false);
+        this.jObrigatorio.setVisible(false);
     }
 
     /**
@@ -61,6 +62,7 @@ public class ViewCurso extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtextEmenta = new javax.swing.JTextArea();
+        jObrigatorio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Cursos");
@@ -172,6 +174,10 @@ public class ViewCurso extends javax.swing.JFrame {
         jtextEmenta.setRows(5);
         jScrollPane3.setViewportView(jtextEmenta);
 
+        jObrigatorio.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jObrigatorio.setForeground(new java.awt.Color(255, 0, 0));
+        jObrigatorio.setText("*");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -191,29 +197,31 @@ public class ViewCurso extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jtfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jtfCodigoCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jtfNomeCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel2)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(11, 11, 11))))
+                                .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(1, 1, 1))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jtfCodigoCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jtfNomeCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jObrigatorio))))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(10, 10, 10))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,7 +232,9 @@ public class ViewCurso extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jtfNomeCurso)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jtfNomeCurso)
+                        .addComponent(jObrigatorio))
                     .addComponent(jtfCodigoCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
@@ -275,6 +285,7 @@ public class ViewCurso extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        this.jObrigatorio.setVisible(false);
         editarSalvar = "editar";
         int linha = this.jtableCurso.getSelectedRow();
         this.habilitarDesabilitarCampos(true);
@@ -291,6 +302,7 @@ public class ViewCurso extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        this.jObrigatorio.setVisible(false);
         int linha = this.jtableCurso.getSelectedRow();
         int codigoCurso = (int) this.jtableCurso.getValueAt(linha, 0);
         if (JOptionPane.showConfirmDialog(this, "Excluir Curso?", "Excluir",
@@ -304,12 +316,13 @@ public class ViewCurso extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.habilitarDesabilitarCampos(false);
         this.limparCampos();
+        this.jObrigatorio.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
@@ -360,7 +373,7 @@ public class ViewCurso extends javax.swing.JFrame {
             }
         });
     }
-    
+
     /**
      * Lista os Cursos cadastrados no banco de dados
      */
@@ -368,7 +381,7 @@ public class ViewCurso extends javax.swing.JFrame {
         listaModelCursos = controllerCurso.retornarListarCursosController();
         DefaultTableModel tabela = (DefaultTableModel) this.jtableCurso.getModel();
         tabela.setNumRows(0);
-        
+
         int contador = listaModelCursos.size();
         for (int c = 0; c < contador; c++) {
             tabela.addRow(new Object[]{
@@ -377,43 +390,65 @@ public class ViewCurso extends javax.swing.JFrame {
             });
         }
     }
-    
+
     /**
      * Salva o cadastro de dados de um novo Curso no banco de dados
      */
     private void salvarCurso() {
-        this.modelCurso.setDescricaoCurso(this.jtfNomeCurso.getText().toUpperCase());
-        modelCurso.setEmentaCurso(this.jtextEmenta.getText());
-        if (controllerCurso.salvarCursoController(modelCurso) > 0) {
-            JOptionPane.showMessageDialog(null, "Cadastrado Curso com sucesso", "ATENÇÃO",
-                    JOptionPane.INFORMATION_MESSAGE);
-            this.listarCursos();
-            this.habilitarDesabilitarCampos(false);
-            this.limparCampos();
+        if (this.jtfNomeCurso.getText().isEmpty()) {
+            this.jObrigatorio.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Campo vazio", "ATENÇÃO",
+                    JOptionPane.WARNING_MESSAGE);
+        } else if (this.jtfNomeCurso.getText().length() >= 51) {
+            this.jObrigatorio.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!!", "ATENÇÃO",
+                    JOptionPane.WARNING_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Curso não cadastrado", "ATENÇÃO",
-                    JOptionPane.INFORMATION_MESSAGE);
+            this.modelCurso.setDescricaoCurso(this.jtfNomeCurso.getText().toUpperCase());
+            modelCurso.setEmentaCurso(this.jtextEmenta.getText());
+            if (controllerCurso.salvarCursoController(modelCurso) > 0) {
+                JOptionPane.showMessageDialog(null, "Cadastrado Curso com sucesso", "ATENÇÃO",
+                        JOptionPane.INFORMATION_MESSAGE);
+                this.listarCursos();
+                this.habilitarDesabilitarCampos(false);
+                this.limparCampos();
+                this.jObrigatorio.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Curso não cadastrado", "ATENÇÃO",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }
-    
+
     /**
      * Edita os dados de um Curso já existente no banco de dados
      */
     private void editarCurso() {
-        modelCurso.setDescricaoCurso(this.jtfNomeCurso.getText().toUpperCase());
-        modelCurso.setEmentaCurso(this.jtextEmenta.getText());
-        if (controllerCurso.editarCursoController(modelCurso)) {
-            JOptionPane.showMessageDialog(this, "Editado com sucesso!!", "ATENÇÃO",
-                    JOptionPane.INFORMATION_MESSAGE);
-            this.listarCursos();
-            this.habilitarDesabilitarCampos(false);
-            this.limparCampos();
+        if (this.jtfNomeCurso.getText().isEmpty()) {
+            this.jObrigatorio.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Campo vazio", "ATENÇÃO",
+                    JOptionPane.WARNING_MESSAGE);
+        } else if (this.jtfNomeCurso.getText().length() >= 51) {
+            this.jObrigatorio.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!!", "ATENÇÃO",
+                    JOptionPane.WARNING_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Não foi aplicado a edição, verifique as informações", "ERRO",
-                    JOptionPane.ERROR_MESSAGE);
+            modelCurso.setDescricaoCurso(this.jtfNomeCurso.getText().toUpperCase());
+            modelCurso.setEmentaCurso(this.jtextEmenta.getText());
+            if (controllerCurso.editarCursoController(modelCurso)) {
+                JOptionPane.showMessageDialog(this, "Editado com sucesso!!", "ATENÇÃO",
+                        JOptionPane.INFORMATION_MESSAGE);
+                this.listarCursos();
+                this.habilitarDesabilitarCampos(false);
+                this.limparCampos();
+                this.jObrigatorio.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Não foi aplicado a edição, verifique as informações", "ERRO",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
-    
+
     /**
      * Método para limpar os campos da tela
      */
@@ -422,18 +457,20 @@ public class ViewCurso extends javax.swing.JFrame {
         this.jtfNomeCurso.setText("");
         this.jtextEmenta.setText("");
     }
-    
+
     /**
      * Método para desabilitar e habilitar campos de texto
-     * @param condicao 
+     *
+     * @param condicao
      */
     private void habilitarDesabilitarCampos(boolean condicao) {
         this.jtfNomeCurso.setEnabled(condicao);
         this.jtextEmenta.setEnabled(condicao);
     }
-    
+
     /**
      * Método para verificar se uma String contém valores numéricos
+     *
      * @param texto
      * @return boolean
      */
@@ -456,6 +493,7 @@ public class ViewCurso extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jObrigatorio;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;

@@ -1,13 +1,10 @@
-/* Cria o banco de dados */
-CREATE SCHEMA dbalunoscurso;
+/* Cria a base de dados */
+CREATE DATABASE dbalunoscurso;
 
-/* OPCIONAL conferir se a base de dados foi realmente criada */
-SHOW DATABASES;
-
-/* Conecta na base de dados que será utilizada */
+/* Seleciona a base de dados */
 USE dbalunoscurso;
 
-/* Cria as tabelas */
+/* Cria as tabelas e configura as fks */
 CREATE TABLE IF NOT EXISTS curso (
 pk_codigo_curso SERIAL NOT NULL PRIMARY KEY,
 curso_descricao VARCHAR(50) NOT NULL,
@@ -26,14 +23,3 @@ fk_curso BIGINT UNSIGNED,
 FOREIGN KEY (fk_aluno) REFERENCES aluno(pk_codigo_aluno),
 FOREIGN KEY (fk_curso) REFERENCES curso(pk_codigo_curso)
 );
-
-/* OPCIONAL conferir se as tabelas realmente foram criadas */
-SHOW TABLES;
-
-/* OPCIONAL conferir as informações das tabelas criadas */
-DESCRIBE aluno;
-DESCRIBE curso;
-DESCRIBE curso_aluno;
-
-/* OPCIONAL conferir as informações da tabela curso_aluno */
-DESCRIBE curso_aluno;

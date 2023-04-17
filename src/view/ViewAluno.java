@@ -358,7 +358,7 @@ public class ViewAluno extends javax.swing.JFrame {
     }
 
     /**
-     * Lista os alunos cadastrados no banco de dados
+     * Lista os alunos cadastrados no banco de dados.
      */
     private void listarAlunos() {
         listaModelAlunos = controllerAluno.retornarListarAlunosController();
@@ -375,7 +375,7 @@ public class ViewAluno extends javax.swing.JFrame {
     }
 
     /**
-     * Salva o cadastro de dados de um novo aluno no banco de dados
+     * Salva o cadastro de dados de um novo aluno no banco de dados.
      */
     private void salvarAluno() {
         if (this.jtfNomeAluno.getText().isEmpty()) {
@@ -404,7 +404,7 @@ public class ViewAluno extends javax.swing.JFrame {
     }
 
     /**
-     * Edita os dados de um aluno já existente no banco de dados
+     * Edita os dados de um aluno já existente no banco de dados.
      */
     private void editarAluno() {
         if (this.jtfNomeAluno.getText().isEmpty()) {
@@ -430,7 +430,7 @@ public class ViewAluno extends javax.swing.JFrame {
     }
 
     /**
-     * Método para limpar os campos da tela
+     * Método para limpar os campos da tela.
      */
     private void limparCampos() {
         this.jtfCodigoAluno.setText("");
@@ -438,8 +438,7 @@ public class ViewAluno extends javax.swing.JFrame {
     }
 
     /**
-     * Método para desabilitar e habilitar campos de texto
-     *
+     * Habilitar e desabilitar campos de texto.
      * @param condicao
      */
     private void habilitarDesabilitarCampos(boolean condicao) {
@@ -447,8 +446,7 @@ public class ViewAluno extends javax.swing.JFrame {
     }
 
     /**
-     * Método para verificar se uma String contém valores numéricos
-     *
+     * Verifica se uma string possuí números.
      * @param texto
      * @return boolean
      */

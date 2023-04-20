@@ -295,6 +295,7 @@ public class ViewAluno extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Aluno excluído", "ATENÇÃO",
                         JOptionPane.WARNING_MESSAGE);
                 this.listarAlunos();
+                this.limparCampos();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
                         JOptionPane.ERROR_MESSAGE);
@@ -310,6 +311,7 @@ public class ViewAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        this.limparCampos();
         this.habilitarDesabilitarCampos(true);
         editarSalvar = "salvar";
     }//GEN-LAST:event_btnNovoActionPerformed

@@ -112,13 +112,35 @@ public class DaoAluno extends ConexaoMySql {
 
     /**
      * Retorna lista de alunos
-     *
      * @return ArrayList
      */
     public ArrayList<ModelAluno> listarAlunos() {
         ArrayList<ModelAluno> listaModelAlunos = new ArrayList<>();
         try {
             String sql = "SELECT * FROM aluno;";
+            Statement consulta = this.conectar().createStatement();
+            ResultSet retorno = consulta.executeQuery(sql);
+
+            while (retorno.next()) {
+                ModelAluno modelAlunos = new ModelAluno();
+                modelAlunos.setCodigoAluno(retorno.getInt(1));
+                modelAlunos.setNomeAluno(retorno.getString(2));
+                listaModelAlunos.add(modelAlunos);
+            }
+            retorno.close();
+            consulta.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+            this.desconectar();
+        }
+        return listaModelAlunos;
+    }
+    
+    public ArrayList<ModelAluno> listarPesquisaAluno(String nome) {
+        ArrayList<ModelAluno> listaModelAlunos = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM aluno WHERE aluno_nome like '" + nome + "%';";
             Statement consulta = this.conectar().createStatement();
             ResultSet retorno = consulta.executeQuery(sql);
 

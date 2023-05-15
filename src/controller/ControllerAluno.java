@@ -59,4 +59,8 @@ public class ControllerAluno {
     public ArrayList<ModelAluno> retornarListarAlunosController() {
         return this.daoAluno.listarAlunos();
     }
+    
+    public ArrayList<ModelAluno> retornarListarPesquisaAlunosController(String nome) {
+        return this.daoAluno.listarPesquisaAluno(nome);
+    }
 }

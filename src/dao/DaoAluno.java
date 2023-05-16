@@ -109,9 +109,33 @@ public class DaoAluno extends ConexaoMySql {
         }
         return modelAluno;
     }
+    
+    /**
+     * Retorna aluno da pesquisa por caracteres.
+     * @param nome
+     * @return 
+     */
+    public ModelAluno retornarAlunoNomeDAO(String nome) {
+        ModelAluno modelAluno = new ModelAluno();
+        try {
+            String sql = "SELECT * FROM aluno WHERE aluno_nome like '" + nome + "%' LIMIT 1;";
+            Statement stmt = this.conectar().createStatement();
+            stmt.executeQuery(sql);
+            ResultSet retorno = stmt.executeQuery(sql);
+            while (retorno.next()) {
+                modelAluno.setCodigoAluno(retorno.getInt(1));
+                modelAluno.setNomeAluno(retorno.getString(2));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+            this.desconectar();
+        }
+        return modelAluno;
+    }
 
     /**
-     * Retorna lista de alunos
+     * Retorna lista de alunos.
      * @return ArrayList
      */
     public ArrayList<ModelAluno> listarAlunos() {
@@ -137,10 +161,15 @@ public class DaoAluno extends ConexaoMySql {
         return listaModelAlunos;
     }
     
+    /**
+     * Retorna lista de alunos pelo nome.
+     * @param nome
+     * @return 
+     */
     public ArrayList<ModelAluno> listarPesquisaAluno(String nome) {
         ArrayList<ModelAluno> listaModelAlunos = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM aluno WHERE aluno_nome like '" + nome + "%';";
+            String sql = "SELECT * FROM aluno WHERE aluno_nome like '" + nome + "%' ORDER BY aluno_nome;";
             Statement consulta = this.conectar().createStatement();
             ResultSet retorno = consulta.executeQuery(sql);
 

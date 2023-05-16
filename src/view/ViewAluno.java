@@ -5,14 +5,17 @@
 package view;
 
 import controller.ControllerAluno;
+import controller.ControllerCurso;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import model.ModelAluno;
+import model.ModelCurso;
 
 /**
  *
@@ -21,8 +24,18 @@ import model.ModelAluno;
 public class ViewAluno extends javax.swing.JFrame {
 
     ModelAluno modelAluno = new ModelAluno();
-    ArrayList<ModelAluno> listaModelAlunos = new ArrayList<>();
     ControllerAluno controllerAluno = new ControllerAluno();
+    ArrayList<ModelAluno> listaModelAlunos = new ArrayList<>();
+    ArrayList<ModelAluno> listaModelPesquisaAlunos = new ArrayList<>();
+    DefaultListModel listaCurso;
+    
+    ModelCurso modelCurso = new ModelCurso();
+    ControllerCurso controllerCurso = new ControllerCurso();
+    ArrayList<ModelCurso> listaModelCursos = new ArrayList<>();
+    ArrayList<ModelCurso> listaModelPesquisaCursos = new ArrayList<>();
+    DefaultListModel listaAluno;
+    
+    int Enter = 0;
     String editarSalvar;
 
     /**
@@ -31,8 +44,18 @@ public class ViewAluno extends javax.swing.JFrame {
     public ViewAluno() {
         initComponents();
         this.listarAlunos();
-        this.habilitarDesabilitarCampos(false);
-        this.jObrigatorio.setVisible(false);
+        this.listarCursos();
+        this.habilitarDesabilitarCamposAluno(false);
+        this.habilitarDesabilitarCamposCurso(false);
+        listaAluno = new DefaultListModel();
+        listaCurso = new DefaultListModel();
+        this.listaPesquisaAluno.setModel(listaAluno);
+        this.listaPesquisaCurso.setModel(listaCurso);
+        this.jObrigatorioAluno.setVisible(false);
+        this.jObrigatorioCurso.setVisible(false);
+        this.listaPesquisaAluno.setVisible(false);
+        this.listaPesquisaCurso.setVisible(false);
+        ListarPesquisaAluno();
     }
 
     /**
@@ -44,22 +67,53 @@ public class ViewAluno extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jpAluno = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jtfNomeAluno = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jtfPesquisa = new javax.swing.JTextField();
+        jtfPesquisaAluno = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtableAluno = new javax.swing.JTable();
-        btnPesquisar = new javax.swing.JButton();
-        btnSalvar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        btnNovo = new javax.swing.JButton();
+        btnPesquisarAluno = new javax.swing.JButton();
+        btnSalvarAluno = new javax.swing.JButton();
+        btnEditarAluno = new javax.swing.JButton();
+        btnExcluirAluno = new javax.swing.JButton();
+        btnCancelarAluno = new javax.swing.JButton();
+        btnNovoAluno = new javax.swing.JButton();
         jtfCodigoAluno = new javax.swing.JTextField();
-        jObrigatorio = new javax.swing.JLabel();
+        jObrigatorioAluno = new javax.swing.JLabel();
+        jpCurso = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jtfNomeCurso = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jtfPesquisaCurso = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtableCurso = new javax.swing.JTable();
+        btnPesquisarCurso = new javax.swing.JButton();
+        btnSalvarCurso = new javax.swing.JButton();
+        btnEditarCurso = new javax.swing.JButton();
+        btnExcluirCurso = new javax.swing.JButton();
+        btnCancelarCurso = new javax.swing.JButton();
+        btnNovoCurso = new javax.swing.JButton();
+        jtfCodigoCurso = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jtextEmentaCurso = new javax.swing.JTextArea();
+        jObrigatorioCurso = new javax.swing.JLabel();
+        jpCursoAluno = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        campoPesquisaCurso = new javax.swing.JTextField();
+        campoPesquisaAluno = new javax.swing.JTextField();
+        listaPesquisaAluno = new javax.swing.JList<>();
+        listaPesquisaCurso = new javax.swing.JList<>();
+        btnExcluirCursoAluno = new javax.swing.JButton();
+        btnCancelarCursoAluno = new javax.swing.JButton();
+        btnEditarCursoAluno = new javax.swing.JButton();
+        btnSalvarCursoAluno = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Alunos");
@@ -67,7 +121,7 @@ public class ViewAluno extends javax.swing.JFrame {
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jLabel1.setText("Código do Aluno:");
+        jLabel1.setText("Cód. do Aluno");
 
         jtfNomeAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -77,26 +131,19 @@ public class ViewAluno extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel3.setText("Pesquisar:");
 
-        jtfPesquisa.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtfPesquisaAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jtableAluno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome"
+                "Cód.", "Nome"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -104,174 +151,495 @@ public class ViewAluno extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtableAluno);
         if (jtableAluno.getColumnModel().getColumnCount() > 0) {
-            jtableAluno.getColumnModel().getColumn(0).setMinWidth(60);
+            jtableAluno.getColumnModel().getColumn(0).setMinWidth(80);
             jtableAluno.getColumnModel().getColumn(0).setPreferredWidth(80);
-            jtableAluno.getColumnModel().getColumn(0).setMaxWidth(100);
+            jtableAluno.getColumnModel().getColumn(0).setMaxWidth(80);
         }
 
-        btnPesquisar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnPesquisar.setText("Pesquisar");
-        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+        btnPesquisarAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnPesquisarAluno.setText("Filtrar");
+        btnPesquisarAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisarActionPerformed(evt);
+                btnPesquisarAlunoActionPerformed(evt);
             }
         });
 
-        btnSalvar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSalvar.setForeground(new java.awt.Color(0, 153, 51));
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvarAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSalvarAluno.setForeground(new java.awt.Color(0, 153, 51));
+        btnSalvarAluno.setText("Salvar");
+        btnSalvarAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
+                btnSalvarAlunoActionPerformed(evt);
             }
         });
 
-        btnEditar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnEditar.setForeground(new java.awt.Color(0, 0, 153));
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+        btnEditarAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEditarAluno.setForeground(new java.awt.Color(0, 0, 153));
+        btnEditarAluno.setText("Editar");
+        btnEditarAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
+                btnEditarAlunoActionPerformed(evt);
             }
         });
 
-        btnExcluir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnExcluir.setForeground(new java.awt.Color(255, 0, 0));
-        btnExcluir.setText("Excluir");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+        btnExcluirAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnExcluirAluno.setForeground(new java.awt.Color(255, 0, 0));
+        btnExcluirAluno.setText("Excluir");
+        btnExcluirAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
+                btnExcluirAlunoActionPerformed(evt);
             }
         });
 
-        btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(255, 0, 0));
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelarAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCancelarAluno.setForeground(new java.awt.Color(255, 0, 0));
+        btnCancelarAluno.setText("Cancelar");
+        btnCancelarAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
+                btnCancelarAlunoActionPerformed(evt);
             }
         });
 
-        btnNovo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnNovo.setText("Novo");
-        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+        btnNovoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnNovoAluno.setText("Novo");
+        btnNovoAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoActionPerformed(evt);
+                btnNovoAlunoActionPerformed(evt);
             }
         });
 
         jtfCodigoAluno.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jtfCodigoAluno.setEnabled(false);
 
-        jObrigatorio.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jObrigatorio.setForeground(new java.awt.Color(255, 0, 0));
-        jObrigatorio.setText("*");
-        jObrigatorio.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jObrigatorioAluno.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jObrigatorioAluno.setForeground(new java.awt.Color(255, 0, 0));
+        jObrigatorioAluno.setText("*");
+        jObrigatorioAluno.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jpAlunoLayout = new javax.swing.GroupLayout(jpAluno);
+        jpAluno.setLayout(jpAlunoLayout);
+        jpAlunoLayout.setHorizontalGroup(
+            jpAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpAlunoLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jpAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpAlunoLayout.createSequentialGroup()
+                        .addGroup(jpAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jtfCodigoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jpAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jtfNomeAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpAlunoLayout.createSequentialGroup()
+                                .addComponent(jtfNomeAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jObrigatorio)))
+                                .addComponent(jObrigatorioAluno)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpAlunoLayout.createSequentialGroup()
+                        .addGroup(jpAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpAlunoLayout.createSequentialGroup()
+                                .addComponent(btnExcluirAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnCancelarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnEditarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSalvarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnNovoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jpAlunoLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jtfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                                .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(11, 11, 11))))
+                                .addComponent(jtfPesquisaAluno)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPesquisarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(10, 10, 10))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jpAlunoLayout.setVerticalGroup(
+            jpAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpAlunoLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jpAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jtfNomeAluno)
-                        .addComponent(jObrigatorio))
-                    .addComponent(jtfCodigoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(btnPesquisar))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnEditar)
-                    .addComponent(btnExcluir)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnNovo))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(jpAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jpAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jtfNomeAluno, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                        .addComponent(jObrigatorioAluno))
+                    .addComponent(jtfCodigoAluno, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPesquisarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jtfPesquisaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                .addGap(17, 17, 17)
+                .addGroup(jpAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluirAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelarAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNovoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
         );
+
+        jTabbedPane1.addTab("Aluno", jpAluno);
+
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel4.setText("Cód. do Curso:");
+
+        jtfNomeCurso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel5.setText("Curso:");
+
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel6.setText("Pesquisar:");
+
+        jtfPesquisaCurso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+        jtableCurso.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Cód.", "Curso"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jtableCurso);
+        if (jtableCurso.getColumnModel().getColumnCount() > 0) {
+            jtableCurso.getColumnModel().getColumn(0).setMinWidth(80);
+            jtableCurso.getColumnModel().getColumn(0).setPreferredWidth(80);
+            jtableCurso.getColumnModel().getColumn(0).setMaxWidth(80);
+        }
+
+        btnPesquisarCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnPesquisarCurso.setText("Filtrar");
+        btnPesquisarCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarCursoActionPerformed(evt);
+            }
+        });
+
+        btnSalvarCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSalvarCurso.setForeground(new java.awt.Color(0, 153, 51));
+        btnSalvarCurso.setText("Salvar");
+        btnSalvarCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarCursoActionPerformed(evt);
+            }
+        });
+
+        btnEditarCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEditarCurso.setForeground(new java.awt.Color(0, 0, 153));
+        btnEditarCurso.setText("Editar");
+        btnEditarCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarCursoActionPerformed(evt);
+            }
+        });
+
+        btnExcluirCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnExcluirCurso.setForeground(new java.awt.Color(255, 0, 0));
+        btnExcluirCurso.setText("Excluir");
+        btnExcluirCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirCursoActionPerformed(evt);
+            }
+        });
+
+        btnCancelarCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCancelarCurso.setForeground(new java.awt.Color(255, 0, 0));
+        btnCancelarCurso.setText("Cancelar");
+        btnCancelarCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarCursoActionPerformed(evt);
+            }
+        });
+
+        btnNovoCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnNovoCurso.setText("Novo");
+        btnNovoCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoCursoActionPerformed(evt);
+            }
+        });
+
+        jtfCodigoCurso.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jtfCodigoCurso.setEnabled(false);
+
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel7.setText("Ementa:");
+
+        jtextEmentaCurso.setColumns(20);
+        jtextEmentaCurso.setRows(5);
+        jScrollPane3.setViewportView(jtextEmentaCurso);
+
+        jObrigatorioCurso.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jObrigatorioCurso.setForeground(new java.awt.Color(255, 0, 0));
+        jObrigatorioCurso.setText("*");
+
+        javax.swing.GroupLayout jpCursoLayout = new javax.swing.GroupLayout(jpCurso);
+        jpCurso.setLayout(jpCursoLayout);
+        jpCursoLayout.setHorizontalGroup(
+            jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpCursoLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpCursoLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpCursoLayout.createSequentialGroup()
+                        .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpCursoLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfPesquisaCurso)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPesquisarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(1, 1, 1))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpCursoLayout.createSequentialGroup()
+                                .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpCursoLayout.createSequentialGroup()
+                                        .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jtfCodigoCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addGroup(jpCursoLayout.createSequentialGroup()
+                                                .addComponent(jtfNomeCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jObrigatorioCurso))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpCursoLayout.createSequentialGroup()
+                                        .addComponent(btnExcluirCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnCancelarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnEditarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnSalvarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnNovoCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(10, 10, 10))))
+        );
+        jpCursoLayout.setVerticalGroup(
+            jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpCursoLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jtfNomeCurso, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                        .addComponent(jObrigatorioCurso))
+                    .addComponent(jtfCodigoCurso, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addGap(5, 5, 5)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpCursoLayout.createSequentialGroup()
+                        .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jtfPesquisaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSalvarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEditarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnExcluirCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancelarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNovoCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnPesquisarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(10, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Curso", jpCurso);
+
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel8.setText("Curso:");
+
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel9.setText("Aluno:");
+
+        campoPesquisaCurso.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        campoPesquisaCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoPesquisaCursoActionPerformed(evt);
+            }
+        });
+        campoPesquisaCurso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoPesquisaCursoKeyReleased(evt);
+            }
+        });
+
+        campoPesquisaAluno.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        campoPesquisaAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoPesquisaAlunoActionPerformed(evt);
+            }
+        });
+        campoPesquisaAluno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoPesquisaAlunoKeyReleased(evt);
+            }
+        });
+
+        listaPesquisaAluno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                listaPesquisaAlunoMousePressed(evt);
+            }
+        });
+
+        listaPesquisaCurso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                listaPesquisaCursoMousePressed(evt);
+            }
+        });
+
+        btnExcluirCursoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnExcluirCursoAluno.setForeground(new java.awt.Color(255, 0, 0));
+        btnExcluirCursoAluno.setText("Excluir");
+        btnExcluirCursoAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirCursoAlunoActionPerformed(evt);
+            }
+        });
+
+        btnCancelarCursoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCancelarCursoAluno.setForeground(new java.awt.Color(255, 0, 0));
+        btnCancelarCursoAluno.setText("Cancelar");
+        btnCancelarCursoAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarCursoAlunoActionPerformed(evt);
+            }
+        });
+
+        btnEditarCursoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEditarCursoAluno.setForeground(new java.awt.Color(0, 0, 153));
+        btnEditarCursoAluno.setText("Editar");
+        btnEditarCursoAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarCursoAlunoActionPerformed(evt);
+            }
+        });
+
+        btnSalvarCursoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSalvarCursoAluno.setForeground(new java.awt.Color(0, 153, 51));
+        btnSalvarCursoAluno.setText("Salvar");
+        btnSalvarCursoAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarCursoAlunoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpCursoAlunoLayout = new javax.swing.GroupLayout(jpCursoAluno);
+        jpCursoAluno.setLayout(jpCursoAlunoLayout);
+        jpCursoAlunoLayout.setHorizontalGroup(
+            jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpCursoAlunoLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpCursoAlunoLayout.createSequentialGroup()
+                        .addComponent(btnExcluirCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                        .addComponent(btnCancelarCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addComponent(btnEditarCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addComponent(btnSalvarCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpCursoAlunoLayout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(listaPesquisaAluno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(campoPesquisaAluno))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(listaPesquisaCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(campoPesquisaCurso, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))))
+                .addGap(10, 10, 10))
+        );
+        jpCursoAlunoLayout.setVerticalGroup(
+            jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpCursoAlunoLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(campoPesquisaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(campoPesquisaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addGroup(jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(listaPesquisaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(listaPesquisaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 307, Short.MAX_VALUE)
+                .addGroup(jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExcluirCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelarCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditarCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvarCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
+        );
+
+        jTabbedPane1.addTab("Curso/Aluno", jpCursoAluno);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+    private void btnPesquisarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarAlunoActionPerformed
         DefaultTableModel modelo = (DefaultTableModel) this.jtableAluno.getModel();
         final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
         this.jtableAluno.setRowSorter(classifica);
-        String pesquisa = this.jtfPesquisa.getText();
+        String pesquisa = this.jtfPesquisaAluno.getText();
         if (this.testaString(pesquisa) == true) {
             classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
         } else {
             classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 1));
         }
-    }//GEN-LAST:event_btnPesquisarActionPerformed
+    }//GEN-LAST:event_btnPesquisarAlunoActionPerformed
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        this.jObrigatorio.setVisible(false);
+    private void btnEditarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlunoActionPerformed
+        this.jObrigatorioAluno.setVisible(false);
         editarSalvar = "editar";
         int linha = this.jtableAluno.getSelectedRow();
-        this.habilitarDesabilitarCampos(true);
+        this.habilitarDesabilitarCamposAluno(true);
         try {
             int codigoAluno = (int) this.jtableAluno.getValueAt(linha, 0);
             modelAluno = controllerAluno.retornarAlunoController(codigoAluno);
@@ -281,11 +649,11 @@ public class ViewAluno extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Nenhum registro selecionado");
         }
-    }//GEN-LAST:event_btnEditarActionPerformed
+    }//GEN-LAST:event_btnEditarAlunoActionPerformed
 
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+    private void btnExcluirAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirAlunoActionPerformed
         // A variável vai receber a linha que está selecionado na tabela
-        this.jObrigatorio.setVisible(false);
+        this.jObrigatorioAluno.setVisible(false);
         int linha = this.jtableAluno.getSelectedRow();
         // Nesta é guardado o valor do código do aluno passando o número da linha, e na coluna 0 que é o código do mesmo
         int codigoAluno = (int) this.jtableAluno.getValueAt(linha, 0);
@@ -295,34 +663,153 @@ public class ViewAluno extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Aluno excluído", "ATENÇÃO",
                         JOptionPane.WARNING_MESSAGE);
                 this.listarAlunos();
-                this.limparCampos();
+                this.limparCamposAluno();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
                         JOptionPane.ERROR_MESSAGE);
             }
         }
 
-    }//GEN-LAST:event_btnExcluirActionPerformed
+    }//GEN-LAST:event_btnExcluirAlunoActionPerformed
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.habilitarDesabilitarCampos(false);
-        this.limparCampos();
-        this.jObrigatorio.setVisible(false);
-    }//GEN-LAST:event_btnCancelarActionPerformed
+    private void btnCancelarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarAlunoActionPerformed
+        this.habilitarDesabilitarCamposAluno(false);
+        this.limparCamposAluno();
+        this.jObrigatorioAluno.setVisible(false);
+    }//GEN-LAST:event_btnCancelarAlunoActionPerformed
 
-    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        this.limparCampos();
-        this.habilitarDesabilitarCampos(true);
+    private void btnNovoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoAlunoActionPerformed
+        this.limparCamposAluno();
+        this.habilitarDesabilitarCamposAluno(true);
         editarSalvar = "salvar";
-    }//GEN-LAST:event_btnNovoActionPerformed
+    }//GEN-LAST:event_btnNovoAlunoActionPerformed
 
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+    private void btnSalvarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarAlunoActionPerformed
         if (editarSalvar.equals("salvar")) {
             this.salvarAluno();
         } else if (editarSalvar.equals("editar")) {
             this.editarAluno();
         }
-    }//GEN-LAST:event_btnSalvarActionPerformed
+    }//GEN-LAST:event_btnSalvarAlunoActionPerformed
+
+    private void btnPesquisarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarCursoActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) this.jtableCurso.getModel();
+        final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
+        this.jtableCurso.setRowSorter(classifica);
+        String pesquisa = this.jtfPesquisaCurso.getText();
+        if (this.testaString(pesquisa) == true) {
+            classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
+        } else {
+            classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 1));
+        }
+    }//GEN-LAST:event_btnPesquisarCursoActionPerformed
+
+    private void btnSalvarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCursoActionPerformed
+        if (editarSalvar.equals("salvar")) {
+            this.salvarCurso();
+        } else if (editarSalvar.equals("editar")) {
+            this.editarCurso();
+        }
+    }//GEN-LAST:event_btnSalvarCursoActionPerformed
+
+    private void btnEditarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCursoActionPerformed
+        this.jObrigatorioAluno.setVisible(false);
+        editarSalvar = "editar";
+        int linha = this.jtableCurso.getSelectedRow();
+        this.habilitarDesabilitarCamposCurso(true);
+        try {
+            int codigoCurso = (int) this.jtableCurso.getValueAt(linha, 0);
+            modelCurso = controllerCurso.retornarCursoController(codigoCurso);
+            this.jtfCodigoCurso.setText(String.valueOf(modelCurso.getCodigoCurso()));
+            this.jtfNomeCurso.setText(modelCurso.getDescricaoCurso());
+            this.jtextEmentaCurso.setText(modelCurso.getEmentaCurso());
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Nenhum registro selecionado");
+        }
+    }//GEN-LAST:event_btnEditarCursoActionPerformed
+
+    private void btnExcluirCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirCursoActionPerformed
+        this.jObrigatorioAluno.setVisible(false);
+        int linha = this.jtableCurso.getSelectedRow();
+        int codigoCurso = (int) this.jtableCurso.getValueAt(linha, 0);
+        if (JOptionPane.showConfirmDialog(this, "Excluir Curso?", "Excluir",
+            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        if (controllerCurso.excluirCursoController(codigoCurso)) {
+            JOptionPane.showMessageDialog(this, "Curso excluído", "ATENÇÃO",
+                JOptionPane.WARNING_MESSAGE);
+            this.listarCursos();
+            this.limparCamposAluno();
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
+                JOptionPane.ERROR_MESSAGE);
+        }
+        }
+    }//GEN-LAST:event_btnExcluirCursoActionPerformed
+
+    private void btnCancelarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCursoActionPerformed
+        this.habilitarDesabilitarCamposCurso(false);
+        this.limparCamposCurso();
+        this.jObrigatorioCurso.setVisible(false);
+    }//GEN-LAST:event_btnCancelarCursoActionPerformed
+
+    private void btnNovoCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoCursoActionPerformed
+        this.limparCamposAluno();
+        this.habilitarDesabilitarCamposCurso(true);
+        editarSalvar = "salvar";
+    }//GEN-LAST:event_btnNovoCursoActionPerformed
+
+    private void campoPesquisaCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisaCursoActionPerformed
+        this.listaPesquisaCurso.setVisible(false);
+        Enter = 1;
+    }//GEN-LAST:event_campoPesquisaCursoActionPerformed
+
+    private void campoPesquisaCursoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPesquisaCursoKeyReleased
+        if (Enter == 0 ) {
+            ListarPesquisaCurso();
+        } else {
+            Enter = 0;
+        }
+    }//GEN-LAST:event_campoPesquisaCursoKeyReleased
+
+    private void campoPesquisaAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisaAlunoActionPerformed
+        this.listaPesquisaAluno.setVisible(false);
+        Enter = 1;
+    }//GEN-LAST:event_campoPesquisaAlunoActionPerformed
+
+    private void campoPesquisaAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPesquisaAlunoKeyReleased
+        if (Enter == 0 ) {
+            ListarPesquisaAluno();
+        } else {
+            Enter = 0;
+        }
+    }//GEN-LAST:event_campoPesquisaAlunoKeyReleased
+
+    private void listaPesquisaAlunoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPesquisaAlunoMousePressed
+        this.RecuperarPesquisaAluno();
+        this.listaPesquisaAluno.setVisible(false);
+    }//GEN-LAST:event_listaPesquisaAlunoMousePressed
+
+    private void listaPesquisaCursoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPesquisaCursoMousePressed
+        this.RecuperarPesquisaCurso();
+        this.listaPesquisaCurso.setVisible(false);
+    }//GEN-LAST:event_listaPesquisaCursoMousePressed
+
+    private void btnExcluirCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirCursoAlunoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcluirCursoAlunoActionPerformed
+
+    private void btnCancelarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCursoAlunoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarCursoAlunoActionPerformed
+
+    private void btnEditarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCursoAlunoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarCursoAlunoActionPerformed
+
+    private void btnSalvarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCursoAlunoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvarCursoAlunoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -375,17 +862,34 @@ public class ViewAluno extends javax.swing.JFrame {
             });
         }
     }
+    
+    /**
+     * Lista os Cursos cadastrados no banco de dados.
+     */
+    private void listarCursos() {
+        listaModelCursos = controllerCurso.retornarListarCursosController();
+        DefaultTableModel tabela = (DefaultTableModel) this.jtableCurso.getModel();
+        tabela.setNumRows(0);
+
+        int contador = listaModelCursos.size();
+        for (int c = 0; c < contador; c++) {
+            tabela.addRow(new Object[]{
+                listaModelCursos.get(c).getCodigoCurso(),
+                listaModelCursos.get(c).getDescricaoCurso()
+            });
+        }
+    }
 
     /**
      * Salva o cadastro de dados de um novo aluno no banco de dados.
      */
     private void salvarAluno() {
         if (this.jtfNomeAluno.getText().isEmpty()) {
-            this.jObrigatorio.setVisible(true);
+            this.jObrigatorioAluno.setVisible(true);
             JOptionPane.showMessageDialog(null, "Campo vazio", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
         } else if (this.jtfNomeAluno.getText().length() >= 51) {
-            this.jObrigatorio.setVisible(true);
+            this.jObrigatorioAluno.setVisible(true);
             JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
         } else {
@@ -394,15 +898,44 @@ public class ViewAluno extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Cadastrado aluno com sucesso", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
                 this.listarAlunos();
-                this.habilitarDesabilitarCampos(false);
-                this.limparCampos();
-                this.jObrigatorio.setVisible(false);
+                this.habilitarDesabilitarCamposAluno(false);
+                this.limparCamposAluno();
+                this.jObrigatorioAluno.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Aluno não cadastrado", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         }
 
+    }
+    
+    /**
+     * Salva o cadastro de dados de um novo Curso no banco de dados.
+     */
+    private void salvarCurso() {
+        if (this.jtfNomeCurso.getText().isEmpty()) {
+            this.jObrigatorioAluno.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Campo vazio", "ATENÇÃO",
+                    JOptionPane.WARNING_MESSAGE);
+        } else if (this.jtfNomeCurso.getText().length() >= 51) {
+            this.jObrigatorioAluno.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!!", "ATENÇÃO",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            this.modelCurso.setDescricaoCurso(this.jtfNomeCurso.getText().toUpperCase());
+            modelCurso.setEmentaCurso(this.jtextEmentaCurso.getText());
+            if (controllerCurso.salvarCursoController(modelCurso) > 0) {
+                JOptionPane.showMessageDialog(null, "Cadastrado Curso com sucesso", "ATENÇÃO",
+                        JOptionPane.INFORMATION_MESSAGE);
+                this.listarCursos();
+                this.habilitarDesabilitarCamposCurso(false);
+                this.limparCamposCurso();
+                this.jObrigatorioAluno.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Curso não cadastrado", "ATENÇÃO",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }
 
     /**
@@ -421,8 +954,8 @@ public class ViewAluno extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Editado com sucesso!!", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
                 this.listarAlunos();
-                this.habilitarDesabilitarCampos(false);
-                this.limparCampos();
+                this.habilitarDesabilitarCamposAluno(false);
+                this.limparCamposAluno();
             } else {
                 JOptionPane.showMessageDialog(this, "Não foi aplicado a edição, verifique as informações", "ERRO",
                         JOptionPane.ERROR_MESSAGE);
@@ -430,23 +963,112 @@ public class ViewAluno extends javax.swing.JFrame {
         }
 
     }
+    
+    /**
+     * Edita os dados de um Curso já existente no banco de dados.
+     */
+    private void editarCurso() {
+        if (this.jtfNomeCurso.getText().isEmpty()) {
+            this.jObrigatorioAluno.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Campo vazio", "ATENÇÃO",
+                    JOptionPane.WARNING_MESSAGE);
+        } else if (this.jtfNomeCurso.getText().length() >= 51) {
+            this.jObrigatorioAluno.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!!", "ATENÇÃO",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            modelCurso.setDescricaoCurso(this.jtfNomeCurso.getText().toUpperCase());
+            modelCurso.setEmentaCurso(this.jtextEmentaCurso.getText());
+            if (controllerCurso.editarCursoController(modelCurso)) {
+                JOptionPane.showMessageDialog(this, "Editado com sucesso!!", "ATENÇÃO",
+                        JOptionPane.INFORMATION_MESSAGE);
+                this.listarCursos();
+                this.habilitarDesabilitarCamposCurso(false);
+                this.limparCamposCurso();
+                this.jObrigatorioAluno.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Não foi aplicado a edição, verifique as informações", "ERRO",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 
     /**
-     * Método para limpar os campos da tela.
+     * Método para limpar os campos da tela aluno.
      */
-    private void limparCampos() {
+    private void limparCamposAluno() {
         this.jtfCodigoAluno.setText("");
         this.jtfNomeAluno.setText("");
+    }
+    
+    /**
+     * Método para limpar os campos da tela curso.
+     */
+    private void limparCamposCurso() {
+        this.jtfCodigoCurso.setText("");
+        this.jtfNomeCurso.setText("");
+        this.jtextEmentaCurso.setText("");
     }
 
     /**
      * Habilitar e desabilitar campos de texto.
      * @param condicao
      */
-    private void habilitarDesabilitarCampos(boolean condicao) {
+    private void habilitarDesabilitarCamposAluno(boolean condicao) {
         this.jtfNomeAluno.setEnabled(condicao);
     }
-
+    
+    /**
+     * Habilitar e desabilitar campos de texto.
+     * @param condicao
+     */
+    private void habilitarDesabilitarCamposCurso(boolean condicao) {
+        this.jtfNomeCurso.setEnabled(condicao);
+        this.jtextEmentaCurso.setEnabled(condicao);
+    }
+    
+    private void ListarPesquisaAluno() {
+        String nomeAluno = this.campoPesquisaAluno.getText();
+        listaModelPesquisaAlunos = controllerAluno.retornarListarPesquisaAlunosController(nomeAluno);
+        listaAluno.removeAllElements();
+        for (int c = 0; c < listaModelPesquisaAlunos.size(); c++) {
+            listaAluno.addElement(listaModelPesquisaAlunos.get(c).getNomeAluno());
+        }
+        if (this.campoPesquisaAluno.getText().isEmpty()) {
+            this.listaPesquisaAluno.setVisible(false);
+        } else {
+            this.listaPesquisaAluno.setVisible(true);
+        }
+    }
+    
+    private void ListarPesquisaCurso() {
+        String nomeCurso = this.campoPesquisaCurso.getText();
+        listaModelPesquisaCursos = controllerCurso.retornarListarPesquisaCursosController(nomeCurso);
+        listaCurso.removeAllElements();
+        for (int c = 0; c < listaModelPesquisaCursos.size(); c++) {
+            listaCurso.addElement(listaModelPesquisaCursos.get(c).getDescricaoCurso());
+        }
+        if (this.campoPesquisaCurso.getText().isEmpty()) {
+            this.listaPesquisaCurso.setVisible(false);
+        } else {
+            this.listaPesquisaCurso.setVisible(true);
+        }
+    }
+    
+    private void RecuperarPesquisaAluno() {
+        int linha = this.listaPesquisaAluno.getSelectedIndex();
+        String nome = this.listaPesquisaAluno.getSelectedValue();
+        this.campoPesquisaAluno.setText(nome);
+        modelAluno = controllerAluno.retornarAlunoController(nome);
+    }
+    
+    private void RecuperarPesquisaCurso() {
+        int linha = this.listaPesquisaCurso.getSelectedIndex();
+        String curso = this.listaPesquisaCurso.getSelectedValue();
+        this.campoPesquisaCurso.setText(curso);
+        modelCurso = controllerCurso.retornarCursoController(curso);
+    }
+    
     /**
      * Verifica se uma string possuí números.
      * @param texto
@@ -461,21 +1083,52 @@ public class ViewAluno extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnNovo;
-    private javax.swing.JButton btnPesquisar;
-    private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnCancelarAluno;
+    private javax.swing.JButton btnCancelarCurso;
+    private javax.swing.JButton btnCancelarCursoAluno;
+    private javax.swing.JButton btnEditarAluno;
+    private javax.swing.JButton btnEditarCurso;
+    private javax.swing.JButton btnEditarCursoAluno;
+    private javax.swing.JButton btnExcluirAluno;
+    private javax.swing.JButton btnExcluirCurso;
+    private javax.swing.JButton btnExcluirCursoAluno;
+    private javax.swing.JButton btnNovoAluno;
+    private javax.swing.JButton btnNovoCurso;
+    private javax.swing.JButton btnPesquisarAluno;
+    private javax.swing.JButton btnPesquisarCurso;
+    private javax.swing.JButton btnSalvarAluno;
+    private javax.swing.JButton btnSalvarCurso;
+    private javax.swing.JButton btnSalvarCursoAluno;
+    private javax.swing.JTextField campoPesquisaAluno;
+    private javax.swing.JTextField campoPesquisaCurso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jObrigatorio;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jObrigatorioAluno;
+    private javax.swing.JLabel jObrigatorioCurso;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel jpAluno;
+    private javax.swing.JPanel jpCurso;
+    private javax.swing.JPanel jpCursoAluno;
     private javax.swing.JTable jtableAluno;
+    private javax.swing.JTable jtableCurso;
+    private javax.swing.JTextArea jtextEmentaCurso;
     private javax.swing.JTextField jtfCodigoAluno;
+    private javax.swing.JTextField jtfCodigoCurso;
     private javax.swing.JTextField jtfNomeAluno;
-    private javax.swing.JTextField jtfPesquisa;
+    private javax.swing.JTextField jtfNomeCurso;
+    private javax.swing.JTextField jtfPesquisaAluno;
+    private javax.swing.JTextField jtfPesquisaCurso;
+    private javax.swing.JList<String> listaPesquisaAluno;
+    private javax.swing.JList<String> listaPesquisaCurso;
     // End of variables declaration//GEN-END:variables
 }

@@ -52,14 +52,23 @@ public class ControllerAluno {
         return this.daoAluno.retornarAlunoDAO(pIdAluno);
     }
     
+    public ModelAluno retornarAlunoController(String nome) {
+        return this.daoAluno.retornarAlunoNomeDAO(nome);
+    }
+    
     /**
-     * Retorna lista de alunos
+     * Retorna lista de alunos pelo código.
      * @return  ArrayList
      */
     public ArrayList<ModelAluno> retornarListarAlunosController() {
         return this.daoAluno.listarAlunos();
     }
     
+    /**
+     * Retorna lista alunos pelo nome.
+     * @param nome
+     * @return 
+     */
     public ArrayList<ModelAluno> retornarListarPesquisaAlunosController(String nome) {
         return this.daoAluno.listarPesquisaAluno(nome);
     }

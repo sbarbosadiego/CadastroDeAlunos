@@ -52,12 +52,25 @@ public class ControllerCurso {
         return this.daoCurso.retornarCursoDAO(pIdCurso);
     }
     
+    public ModelCurso retornarCursoController(String nome) {
+        return this.daoCurso.retornarCursoNomeDAO(nome);
+    }
+    
     /**
      * Retorna lista de Cursos
      * @return  ArrayList
      */
     public ArrayList<ModelCurso> retornarListarCursosController() {
         return this.daoCurso.listarCursos();
+    }
+    
+    /**
+     * Retorna lista cursos pelo nome.
+     * @param curso
+     * @return 
+     */
+    public ArrayList<ModelCurso> retornarListarPesquisaCursosController(String curso) {
+        return this.daoCurso.listarPesquisaCurso(curso);
     }
     
 }

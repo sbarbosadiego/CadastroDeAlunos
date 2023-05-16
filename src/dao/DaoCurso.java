@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import model.ModelAluno;
 import model.ModelCurso;
 
 /**
@@ -113,6 +114,25 @@ public class DaoCurso extends ConexaoMySql {
         }
         return modelCurso;
     }
+    
+    public ModelCurso retornarCursoNomeDAO(String curso) {
+        ModelCurso modelCurso = new ModelCurso();
+        try {
+            String sql = "SELECT * FROM curso WHERE curso_descricao like '" + curso + "%' LIMIT 1;";
+            Statement stmt = this.conectar().createStatement();
+            stmt.executeQuery(sql);
+            ResultSet retorno = stmt.executeQuery(sql);
+            while (retorno.next()) {
+                modelCurso.setCodigoCurso(retorno.getInt(1));
+                modelCurso.setDescricaoCurso(retorno.getString(2));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+            this.desconectar();
+        }
+        return modelCurso;
+    }
 
     /**
      * Retorna lista de cursos
@@ -130,6 +150,34 @@ public class DaoCurso extends ConexaoMySql {
                 modelCursos.setCodigoCurso(retorno.getInt(1));
                 modelCursos.setDescricaoCurso(retorno.getString(2));
                 modelCursos.setEmentaCurso(retorno.getString(3));
+                listaModelCursos.add(modelCursos);
+            }
+            retorno.close();
+            consulta.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+            this.desconectar();
+        }
+        return listaModelCursos;
+    }
+    
+    /**
+     * Retorna lista de cursos pelo nome.
+     * @param nome
+     * @return 
+     */
+    public ArrayList<ModelCurso> listarPesquisaCurso(String curso) {
+        ArrayList<ModelCurso> listaModelCursos = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM curso WHERE curso_descricao like '" + curso + "%' ORDER BY curso_descricao;";
+            Statement consulta = this.conectar().createStatement();
+            ResultSet retorno = consulta.executeQuery(sql);
+
+            while (retorno.next()) {
+                ModelCurso modelCursos = new ModelCurso();
+                modelCursos.setCodigoCurso(retorno.getInt(1));
+                modelCursos.setDescricaoCurso(retorno.getString(2));
                 listaModelCursos.add(modelCursos);
             }
             retorno.close();

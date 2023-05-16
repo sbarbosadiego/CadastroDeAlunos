@@ -46,7 +46,7 @@ public class ViewTeste extends javax.swing.JFrame {
         listaPesquisa = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        idAluno = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,7 +81,8 @@ public class ViewTeste extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel2.setText("ID:");
 
-        jTextField1.setEnabled(false);
+        idAluno.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        idAluno.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -96,7 +97,7 @@ public class ViewTeste extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(listaPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -111,7 +112,7 @@ public class ViewTeste extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(108, 108, 108))
         );
 
@@ -132,14 +133,12 @@ public class ViewTeste extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisaActionPerformed
-        // TODO add your handling code here:
         this.listaPesquisa.setVisible(false);
         Enter = 1;
         
     }//GEN-LAST:event_campoPesquisaActionPerformed
 
     private void campoPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPesquisaKeyReleased
-        // TODO add your handling code here:
         if (Enter == 0 ) {
             ListarPesquisa();
         } else {
@@ -153,6 +152,7 @@ public class ViewTeste extends javax.swing.JFrame {
 
     private void listaPesquisaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPesquisaMousePressed
         // TODO add your handling code here:
+        this.RecuperarPesquisa();
         this.listaPesquisa.setVisible(false);
         
     }//GEN-LAST:event_listaPesquisaMousePressed
@@ -207,13 +207,22 @@ public class ViewTeste extends javax.swing.JFrame {
         }
     }
     
+    
+    private void RecuperarPesquisa() {
+        int linha = this.listaPesquisa.getSelectedIndex();
+        String nome = this.listaPesquisa.getSelectedValue();
+        this.campoPesquisa.setText(nome);
+        modelAluno = controllerAluno.retornarAlunoController(nome);
+        this.idAluno.setText(String.valueOf(modelAluno.getCodigoAluno()));
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField campoPesquisa;
+    private javax.swing.JTextField idAluno;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JList<String> listaPesquisa;
     // End of variables declaration//GEN-END:variables
 }

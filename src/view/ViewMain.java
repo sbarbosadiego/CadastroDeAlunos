@@ -6,6 +6,7 @@ package view;
 
 import controller.ControllerAluno;
 import controller.ControllerCurso;
+import controller.ControllerCursoAluno;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
@@ -16,12 +17,13 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import model.ModelAluno;
 import model.ModelCurso;
+import model.ModelCursoAluno;
 
 /**
  *
  * @author Diego Barbosa
  */
-public class ViewAluno extends javax.swing.JFrame {
+public class ViewMain extends javax.swing.JFrame {
 
     ModelAluno modelAluno = new ModelAluno();
     ControllerAluno controllerAluno = new ControllerAluno();
@@ -35,16 +37,21 @@ public class ViewAluno extends javax.swing.JFrame {
     ArrayList<ModelCurso> listaModelPesquisaCursos = new ArrayList<>();
     DefaultListModel listaAluno;
     
+    ModelCursoAluno modelCursoAluno = new ModelCursoAluno();
+    ControllerCursoAluno controllerCursoAluno = new ControllerCursoAluno();
+    ArrayList<ModelCursoAluno> listaModelCursoAluno = new ArrayList<>();
+    
     int Enter = 0;
     String editarSalvar;
 
     /**
      * Creates new form ViewAluno
      */
-    public ViewAluno() {
+    public ViewMain() {
         initComponents();
         this.listarAlunos();
         this.listarCursos();
+        this.listarCursoAluno();
         this.habilitarDesabilitarCamposAluno(false);
         this.habilitarDesabilitarCamposCurso(false);
         listaAluno = new DefaultListModel();
@@ -112,13 +119,16 @@ public class ViewAluno extends javax.swing.JFrame {
         listaPesquisaCurso = new javax.swing.JList<>();
         btnExcluirCursoAluno = new javax.swing.JButton();
         btnCancelarCursoAluno = new javax.swing.JButton();
-        btnEditarCursoAluno = new javax.swing.JButton();
         btnSalvarCursoAluno = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jtableCursoAluno = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Alunos");
         setLocation(new java.awt.Point(700, 200));
         setResizable(false);
+
+        jTabbedPane1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel1.setText("Cód. do Aluno");
@@ -459,9 +469,9 @@ public class ViewAluno extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpCursoLayout.createSequentialGroup()
-                        .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jtfPesquisaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtfPesquisaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16)
@@ -477,11 +487,17 @@ public class ViewAluno extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Curso", jpCurso);
 
+        jpCursoAluno.setLayout(null);
+
         jLabel8.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel8.setText("Curso:");
+        jpCursoAluno.add(jLabel8);
+        jLabel8.setBounds(317, 15, 46, 19);
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel9.setText("Aluno:");
+        jpCursoAluno.add(jLabel9);
+        jLabel9.setBounds(10, 15, 43, 19);
 
         campoPesquisaCurso.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         campoPesquisaCurso.addActionListener(new java.awt.event.ActionListener() {
@@ -494,6 +510,8 @@ public class ViewAluno extends javax.swing.JFrame {
                 campoPesquisaCursoKeyReleased(evt);
             }
         });
+        jpCursoAluno.add(campoPesquisaCurso);
+        campoPesquisaCurso.setBounds(369, 10, 210, 30);
 
         campoPesquisaAluno.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         campoPesquisaAluno.addActionListener(new java.awt.event.ActionListener() {
@@ -506,18 +524,24 @@ public class ViewAluno extends javax.swing.JFrame {
                 campoPesquisaAlunoKeyReleased(evt);
             }
         });
+        jpCursoAluno.add(campoPesquisaAluno);
+        campoPesquisaAluno.setBounds(59, 10, 252, 30);
 
         listaPesquisaAluno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 listaPesquisaAlunoMousePressed(evt);
             }
         });
+        jpCursoAluno.add(listaPesquisaAluno);
+        listaPesquisaAluno.setBounds(59, 40, 252, 78);
 
         listaPesquisaCurso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 listaPesquisaCursoMousePressed(evt);
             }
         });
+        jpCursoAluno.add(listaPesquisaCurso);
+        listaPesquisaCurso.setBounds(369, 40, 210, 78);
 
         btnExcluirCursoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnExcluirCursoAluno.setForeground(new java.awt.Color(255, 0, 0));
@@ -527,6 +551,8 @@ public class ViewAluno extends javax.swing.JFrame {
                 btnExcluirCursoAlunoActionPerformed(evt);
             }
         });
+        jpCursoAluno.add(btnExcluirCursoAluno);
+        btnExcluirCursoAluno.setBounds(10, 426, 100, 30);
 
         btnCancelarCursoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCancelarCursoAluno.setForeground(new java.awt.Color(255, 0, 0));
@@ -536,15 +562,8 @@ public class ViewAluno extends javax.swing.JFrame {
                 btnCancelarCursoAlunoActionPerformed(evt);
             }
         });
-
-        btnEditarCursoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnEditarCursoAluno.setForeground(new java.awt.Color(0, 0, 153));
-        btnEditarCursoAluno.setText("Editar");
-        btnEditarCursoAluno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarCursoAlunoActionPerformed(evt);
-            }
-        });
+        jpCursoAluno.add(btnCancelarCursoAluno);
+        btnCancelarCursoAluno.setBounds(128, 426, 100, 30);
 
         btnSalvarCursoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSalvarCursoAluno.setForeground(new java.awt.Color(0, 153, 51));
@@ -554,59 +573,39 @@ public class ViewAluno extends javax.swing.JFrame {
                 btnSalvarCursoAlunoActionPerformed(evt);
             }
         });
+        jpCursoAluno.add(btnSalvarCursoAluno);
+        btnSalvarCursoAluno.setBounds(246, 426, 100, 30);
 
-        javax.swing.GroupLayout jpCursoAlunoLayout = new javax.swing.GroupLayout(jpCursoAluno);
-        jpCursoAluno.setLayout(jpCursoAlunoLayout);
-        jpCursoAlunoLayout.setHorizontalGroup(
-            jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpCursoAlunoLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpCursoAlunoLayout.createSequentialGroup()
-                        .addComponent(btnExcluirCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addComponent(btnCancelarCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(btnEditarCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(btnSalvarCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpCursoAlunoLayout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(listaPesquisaAluno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(campoPesquisaAluno))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(listaPesquisaCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(campoPesquisaCurso, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))))
-                .addGap(10, 10, 10))
-        );
-        jpCursoAlunoLayout.setVerticalGroup(
-            jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpCursoAlunoLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(campoPesquisaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(campoPesquisaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
-                .addGroup(jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(listaPesquisaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(listaPesquisaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 307, Short.MAX_VALUE)
-                .addGroup(jpCursoAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExcluirCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelarCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditarCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalvarCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
-        );
+        jtableCursoAluno.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Cód.", "Aluno", "Curso"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
-        jTabbedPane1.addTab("Curso/Aluno", jpCursoAluno);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(jtableCursoAluno);
+        if (jtableCursoAluno.getColumnModel().getColumnCount() > 0) {
+            jtableCursoAluno.getColumnModel().getColumn(0).setMinWidth(80);
+            jtableCursoAluno.getColumnModel().getColumn(0).setPreferredWidth(80);
+            jtableCursoAluno.getColumnModel().getColumn(0).setMaxWidth(80);
+        }
+
+        jpCursoAluno.add(jScrollPane4);
+        jScrollPane4.setBounds(10, 50, 570, 360);
+
+        jTabbedPane1.addTab("Matrícula", jpCursoAluno);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -796,19 +795,30 @@ public class ViewAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_listaPesquisaCursoMousePressed
 
     private void btnExcluirCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirCursoAlunoActionPerformed
-        // TODO add your handling code here:
+        int linha = this.jtableCursoAluno.getSelectedRow();
+        int codigoCursoAluno = (int) this.jtableCursoAluno.getValueAt(linha, 0);
+        if (JOptionPane.showConfirmDialog(this, "Excluir Curso?", "Excluir",
+            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        if (controllerCursoAluno.excluirCursoAlunoController(codigoCursoAluno)) {
+            JOptionPane.showMessageDialog(this, "Matrícula excluida", "ATENÇÃO",
+                JOptionPane.WARNING_MESSAGE);
+            this.listarCursoAluno();
+            this.limparCamposCursoAluno();
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
+                JOptionPane.ERROR_MESSAGE);
+        }
+        }
     }//GEN-LAST:event_btnExcluirCursoAlunoActionPerformed
 
     private void btnCancelarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCursoAlunoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarCursoAlunoActionPerformed
 
-    private void btnEditarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCursoAlunoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditarCursoAlunoActionPerformed
-
     private void btnSalvarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCursoAlunoActionPerformed
-        // TODO add your handling code here:
+        
+        this.salvarCursoAluno();
+        
     }//GEN-LAST:event_btnSalvarCursoAlunoActionPerformed
 
     /**
@@ -828,20 +838,21 @@ public class ViewAluno extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ViewAluno().setVisible(true);
+                new ViewMain().setVisible(true);
             }
         });
     }
@@ -876,6 +887,21 @@ public class ViewAluno extends javax.swing.JFrame {
             tabela.addRow(new Object[]{
                 listaModelCursos.get(c).getCodigoCurso(),
                 listaModelCursos.get(c).getDescricaoCurso()
+            });
+        }
+    }
+    
+    private void listarCursoAluno() {
+        listaModelCursoAluno = controllerCursoAluno.retornarListarCursoAlunosController();
+        DefaultTableModel tabela = (DefaultTableModel) this.jtableCursoAluno.getModel();
+        tabela.setNumRows(0);
+
+        int contador = listaModelCursoAluno.size();
+        for (int c = 0; c < contador; c++) {
+            tabela.addRow(new Object[]{
+                listaModelCursoAluno.get(c).getCodigoCursoAluno(),
+                listaModelCursoAluno.get(c).getAluno(),
+                listaModelCursoAluno.get(c).getCurso()
             });
         }
     }
@@ -923,7 +949,7 @@ public class ViewAluno extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE);
         } else {
             this.modelCurso.setDescricaoCurso(this.jtfNomeCurso.getText().toUpperCase());
-            modelCurso.setEmentaCurso(this.jtextEmentaCurso.getText());
+            this.modelCurso.setEmentaCurso(this.jtextEmentaCurso.getText());
             if (controllerCurso.salvarCursoController(modelCurso) > 0) {
                 JOptionPane.showMessageDialog(null, "Cadastrado Curso com sucesso", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
@@ -933,6 +959,31 @@ public class ViewAluno extends javax.swing.JFrame {
                 this.jObrigatorioAluno.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Curso não cadastrado", "ATENÇÃO",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }
+    
+    private void salvarCursoAluno() {
+        if (this.campoPesquisaAluno.getText().isEmpty() || this.campoPesquisaCurso.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campo vazio", "ATENÇÃO",
+                    JOptionPane.WARNING_MESSAGE);
+        } else if (this.campoPesquisaAluno.getText().length() >= 51 || this.campoPesquisaCurso.getText().length() >= 51) {
+            this.jObrigatorioAluno.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!!", "ATENÇÃO",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            String nome = this.campoPesquisaAluno.getText();
+            String curso = this.campoPesquisaCurso.getText();
+            modelAluno.setCodigoAluno(controllerAluno.retornarAlunoController(nome).getCodigoAluno());
+            modelCurso.setCodigoCurso(controllerCurso.retornarCursoController(curso).getCodigoCurso());
+            if (controllerCursoAluno.salvarCursoAlunoController(modelAluno, modelCurso) > 0) {
+                JOptionPane.showMessageDialog(null, "Aluno cadastrado ao curso com sucesso!", "ATENÇÃO",
+                        JOptionPane.INFORMATION_MESSAGE);
+                this.listarCursoAluno();
+                this.limparCamposCursoAluno();
+            } else {
+                JOptionPane.showMessageDialog(null, "Aluno não vinculado ao curso", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         }
@@ -1008,6 +1059,11 @@ public class ViewAluno extends javax.swing.JFrame {
         this.jtfCodigoCurso.setText("");
         this.jtfNomeCurso.setText("");
         this.jtextEmentaCurso.setText("");
+    }
+    
+    private void limparCamposCursoAluno() {
+        this.campoPesquisaAluno.setText("");
+        this.campoPesquisaCurso.setText("");
     }
 
     /**
@@ -1088,7 +1144,6 @@ public class ViewAluno extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelarCursoAluno;
     private javax.swing.JButton btnEditarAluno;
     private javax.swing.JButton btnEditarCurso;
-    private javax.swing.JButton btnEditarCursoAluno;
     private javax.swing.JButton btnExcluirAluno;
     private javax.swing.JButton btnExcluirCurso;
     private javax.swing.JButton btnExcluirCursoAluno;
@@ -1115,12 +1170,14 @@ public class ViewAluno extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel jpAluno;
     private javax.swing.JPanel jpCurso;
     private javax.swing.JPanel jpCursoAluno;
     private javax.swing.JTable jtableAluno;
     private javax.swing.JTable jtableCurso;
+    private javax.swing.JTable jtableCursoAluno;
     private javax.swing.JTextArea jtextEmentaCurso;
     private javax.swing.JTextField jtfCodigoAluno;
     private javax.swing.JTextField jtfCodigoCurso;

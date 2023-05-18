@@ -6,13 +6,17 @@ package model;
 
 /**
  *
- * @author Diego Barbosa
+ * @author Diego Barbosa da Silva
  */
 public class ModelCurso {
     
     private int codigoCurso;
     private String ementaCurso;
     private String descricaoCurso;
+
+    public ModelCurso() {
+    }
+    
     
     
     public int getCodigoCurso() {

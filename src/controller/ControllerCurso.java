@@ -10,14 +10,14 @@ import model.ModelCurso;
 
 /**
  *
- * @author Diego Barbosa
+ * @author Diego Barbosa da Silva
  */
 public class ControllerCurso {
     
     private DaoCurso daoCurso = new DaoCurso();
     
     /**
-     * Salvar curso controller
+     * Passa os parâmetros para salvar um novo registro na base de dados.
      * @param descricao
      * @return int
      */
@@ -26,7 +26,7 @@ public class ControllerCurso {
     }
     
     /**
-     * Excluir curso por código de cadastro
+     * Passa os parâmetros de código de um curso para a exclusão de um registro na base de dados.
      * @param codigoCurso
      * @return boolean
      */
@@ -35,7 +35,7 @@ public class ControllerCurso {
     }
     
     /**
-     * Edita o cadastro de um curso
+     * Passa os parâmetros para atualizar um registro na base de dados.
      * @param pModelCurso
      * @return boolean
      */
@@ -44,7 +44,7 @@ public class ControllerCurso {
     }
     
     /**
-     * Retorna a consulta dos dados de um Curso no banco de dados
+     * Retorna a consulta dos dados de um curso no banco de dados.
      * @param pIdCurso
      * @return ModelCurso
      */
@@ -52,6 +52,11 @@ public class ControllerCurso {
         return this.daoCurso.retornarCursoDAO(pIdCurso);
     }
     
+    /**
+     * Retorna o nome de um registro na base de dados.
+     * @param nome
+     * @return 
+     */
     public ModelCurso retornarCursoController(String nome) {
         return this.daoCurso.retornarCursoNomeDAO(nome);
     }

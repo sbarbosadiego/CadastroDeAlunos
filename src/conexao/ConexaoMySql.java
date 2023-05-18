@@ -9,7 +9,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
- * @author Diego Barbosa
+ * @author Diego Barbosa da Silva
  */
 public class ConexaoMySql {
 
@@ -37,7 +37,7 @@ public class ConexaoMySql {
     }
     
     /**
-     * Formata a URL de conexão ao banco de dados
+     * Formata a URL de conexão ao banco de dados.
      * @return String
      */
     private String url() {
@@ -46,24 +46,21 @@ public class ConexaoMySql {
     }
 
     /**
-     * Método que realiza a conexão ao banco de dados
+     * Realiza a conexão com a base de dados.
      * @return connection
      */
     public Connection conectar() {
         try {
             // Carrega o driver do JDBC
             Class.forName("com.mysql.cj.jdbc.Driver");
-
             // Conecta no banco de dados
             this.setConnection((Connection) DriverManager.getConnection(
                     this.url(),
                     this.usuario,
                     this.senha));
-            
             // Chama o método que configura o banco de dados
             this.configurarBanco(connection);
             this.status = true;
-            
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return null;
@@ -72,7 +69,7 @@ public class ConexaoMySql {
     }
 
     /**
-     * Método que encerra a conexão com o banco de dados
+     * Encerra a conexão com o banco de dados.
      * @return boolean
      */
     public boolean desconectar() {
@@ -90,7 +87,7 @@ public class ConexaoMySql {
     }
 
     /**
-     * Método responsável pela criação do banco de dados e tabelas do mesmo
+     * Realiza a criação do banco de dados, tabelas e seus relacionamentos.
      * @param connection
      */
     private void configurarBanco(Connection connection) {

@@ -15,12 +15,12 @@ import model.ModelAluno;
 import model.ModelCurso;
 
 /**
- * @author Diego Barbosa
+ * @author Diego Barbosa da Silva
  */
 public class DaoCurso extends ConexaoMySql {
     
     /**
-     * Faz o insert do Curso no banco de dados
+     * Realiza a inserção de dados na tabela curso.
      * @param pModelCurso
      * @return int
      */
@@ -41,7 +41,7 @@ public class DaoCurso extends ConexaoMySql {
     }
 
     /**
-     * Atualiza o cadastro de um curso no banco de dados
+     * Atualiza o cadastro de um registro na tabela curso.
      * @param pModelCurso
      * @return boolean
      */
@@ -67,7 +67,7 @@ public class DaoCurso extends ConexaoMySql {
     }
 
     /**
-     * Faz a exclusão de um curso no banco de dados
+     * Realiza a exclusão de um registro na tabela curso.
      * @param codigoCurso
      * @return boolean
      */
@@ -87,7 +87,7 @@ public class DaoCurso extends ConexaoMySql {
     }
 
     /**
-     * Retorna a consulta de dados de um curso no banco de dados
+     * Retorna a consulta de dados de um curso no banco de dados.
      * @param pIdCurso
      * @return modelCurso
      */
@@ -115,6 +115,11 @@ public class DaoCurso extends ConexaoMySql {
         return modelCurso;
     }
     
+    /**
+     * Retorna a consulta de um curso por caracteres.
+     * @param curso
+     * @return modelCurso
+     */
     public ModelCurso retornarCursoNomeDAO(String curso) {
         ModelCurso modelCurso = new ModelCurso();
         try {

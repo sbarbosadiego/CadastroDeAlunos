@@ -20,23 +20,31 @@ import model.ModelCurso;
 import model.ModelCursoAluno;
 
 /**
- *
- * @author Diego Barbosa
+ * @author Diego Barbosa da Silva
  */
 public class ViewMain extends javax.swing.JFrame {
-
+    
+    /**
+     * Variáveis referentes a dados do aluno.
+     */
     ModelAluno modelAluno = new ModelAluno();
     ControllerAluno controllerAluno = new ControllerAluno();
     ArrayList<ModelAluno> listaModelAlunos = new ArrayList<>();
     ArrayList<ModelAluno> listaModelPesquisaAlunos = new ArrayList<>();
     DefaultListModel listaCurso;
     
+    /**
+     * Variáveis referentes a dados do curso.
+     */
     ModelCurso modelCurso = new ModelCurso();
     ControllerCurso controllerCurso = new ControllerCurso();
     ArrayList<ModelCurso> listaModelCursos = new ArrayList<>();
     ArrayList<ModelCurso> listaModelPesquisaCursos = new ArrayList<>();
     DefaultListModel listaAluno;
     
+    /**
+     * Variáveis referentes a curso e aluno.
+     */
     ModelCursoAluno modelCursoAluno = new ModelCursoAluno();
     ControllerCursoAluno controllerCursoAluno = new ControllerCursoAluno();
     ArrayList<ModelCursoAluno> listaModelCursoAluno = new ArrayList<>();
@@ -645,7 +653,6 @@ public class ViewMain extends javax.swing.JFrame {
             this.jtfCodigoAluno.setText(String.valueOf(modelAluno.getCodigoAluno()));
             this.jtfNomeAluno.setText(modelAluno.getNomeAluno());
         } catch (Exception e) {
-            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Nenhum registro selecionado");
         }
     }//GEN-LAST:event_btnEditarAlunoActionPerformed
@@ -668,7 +675,6 @@ public class ViewMain extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
             }
         }
-
     }//GEN-LAST:event_btnExcluirAlunoActionPerformed
 
     private void btnCancelarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarAlunoActionPerformed
@@ -733,16 +739,16 @@ public class ViewMain extends javax.swing.JFrame {
         int linha = this.jtableCurso.getSelectedRow();
         int codigoCurso = (int) this.jtableCurso.getValueAt(linha, 0);
         if (JOptionPane.showConfirmDialog(this, "Excluir Curso?", "Excluir",
-            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-        if (controllerCurso.excluirCursoController(codigoCurso)) {
-            JOptionPane.showMessageDialog(this, "Curso excluído", "ATENÇÃO",
-                JOptionPane.WARNING_MESSAGE);
-            this.listarCursos();
-            this.limparCamposAluno();
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
-                JOptionPane.ERROR_MESSAGE);
-        }
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (controllerCurso.excluirCursoController(codigoCurso)) {
+                JOptionPane.showMessageDialog(this, "Curso excluído", "ATENÇÃO",
+                        JOptionPane.WARNING_MESSAGE);
+                this.listarCursos();
+                this.limparCamposAluno();
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnExcluirCursoActionPerformed
 
@@ -798,27 +804,25 @@ public class ViewMain extends javax.swing.JFrame {
         int linha = this.jtableCursoAluno.getSelectedRow();
         int codigoCursoAluno = (int) this.jtableCursoAluno.getValueAt(linha, 0);
         if (JOptionPane.showConfirmDialog(this, "Excluir Curso?", "Excluir",
-            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-        if (controllerCursoAluno.excluirCursoAlunoController(codigoCursoAluno)) {
-            JOptionPane.showMessageDialog(this, "Matrícula excluida", "ATENÇÃO",
-                JOptionPane.WARNING_MESSAGE);
-            this.listarCursoAluno();
-            this.limparCamposCursoAluno();
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
-                JOptionPane.ERROR_MESSAGE);
-        }
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (controllerCursoAluno.excluirCursoAlunoController(codigoCursoAluno)) {
+                JOptionPane.showMessageDialog(this, "Matrícula excluida", "ATENÇÃO",
+                        JOptionPane.WARNING_MESSAGE);
+                this.listarCursoAluno();
+                this.limparCamposCursoAluno();
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnExcluirCursoAlunoActionPerformed
 
     private void btnCancelarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCursoAlunoActionPerformed
-        // TODO add your handling code here:
+        this.limparCamposCursoAluno();
     }//GEN-LAST:event_btnCancelarCursoAlunoActionPerformed
 
     private void btnSalvarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCursoAlunoActionPerformed
-        
         this.salvarCursoAluno();
-        
     }//GEN-LAST:event_btnSalvarCursoAlunoActionPerformed
 
     /**
@@ -875,7 +879,7 @@ public class ViewMain extends javax.swing.JFrame {
     }
     
     /**
-     * Lista os Cursos cadastrados no banco de dados.
+     * Lista os cursos cadastrados no banco de dados.
      */
     private void listarCursos() {
         listaModelCursos = controllerCurso.retornarListarCursosController();
@@ -891,6 +895,9 @@ public class ViewMain extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Lista alunos vinculados a cursos no banco de dados.
+     */
     private void listarCursoAluno() {
         listaModelCursoAluno = controllerCursoAluno.retornarListarCursoAlunosController();
         DefaultTableModel tabela = (DefaultTableModel) this.jtableCursoAluno.getModel();
@@ -936,7 +943,7 @@ public class ViewMain extends javax.swing.JFrame {
     }
     
     /**
-     * Salva o cadastro de dados de um novo Curso no banco de dados.
+     * Salva o cadastro de dados de um novo curso no banco de dados.
      */
     private void salvarCurso() {
         if (this.jtfNomeCurso.getText().isEmpty()) {
@@ -964,6 +971,9 @@ public class ViewMain extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Salva o cadastro de um aluno a um curso no banco de dados.
+     */
     private void salvarCursoAluno() {
         if (this.campoPesquisaAluno.getText().isEmpty() || this.campoPesquisaCurso.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campo vazio", "ATENÇÃO",
@@ -975,7 +985,7 @@ public class ViewMain extends javax.swing.JFrame {
         } else {
             String nome = this.campoPesquisaAluno.getText();
             String curso = this.campoPesquisaCurso.getText();
-            modelAluno.setCodigoAluno(controllerAluno.retornarAlunoController(nome).getCodigoAluno());
+            modelAluno.setCodigoAluno(controllerAluno.retornarAlunoNomeController(nome).getCodigoAluno());
             modelCurso.setCodigoCurso(controllerCurso.retornarCursoController(curso).getCodigoCurso());
             if (controllerCursoAluno.salvarCursoAlunoController(modelAluno, modelCurso) > 0) {
                 JOptionPane.showMessageDialog(null, "Aluno cadastrado ao curso com sucesso!", "ATENÇÃO",
@@ -1016,7 +1026,7 @@ public class ViewMain extends javax.swing.JFrame {
     }
     
     /**
-     * Edita os dados de um Curso já existente no banco de dados.
+     * Edita os dados de um curso já existente no banco de dados.
      */
     private void editarCurso() {
         if (this.jtfNomeCurso.getText().isEmpty()) {
@@ -1061,13 +1071,16 @@ public class ViewMain extends javax.swing.JFrame {
         this.jtextEmentaCurso.setText("");
     }
     
+    /**
+     * Método para limpar os campos da tela matrícula.
+     */
     private void limparCamposCursoAluno() {
         this.campoPesquisaAluno.setText("");
         this.campoPesquisaCurso.setText("");
     }
 
     /**
-     * Habilitar e desabilitar campos de texto.
+     * Habilitar e desabilitar campos de texto da tela aluno.
      * @param condicao
      */
     private void habilitarDesabilitarCamposAluno(boolean condicao) {
@@ -1075,7 +1088,7 @@ public class ViewMain extends javax.swing.JFrame {
     }
     
     /**
-     * Habilitar e desabilitar campos de texto.
+     * Habilitar e desabilitar campos de texto da tela curso.
      * @param condicao
      */
     private void habilitarDesabilitarCamposCurso(boolean condicao) {
@@ -1083,6 +1096,9 @@ public class ViewMain extends javax.swing.JFrame {
         this.jtextEmentaCurso.setEnabled(condicao);
     }
     
+    /**
+     * Lista os aluno na pesquisa dinâmica na tela de matrícula.
+     */
     private void ListarPesquisaAluno() {
         String nomeAluno = this.campoPesquisaAluno.getText();
         listaModelPesquisaAlunos = controllerAluno.retornarListarPesquisaAlunosController(nomeAluno);
@@ -1097,6 +1113,9 @@ public class ViewMain extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Lista os cursos na pesquisa dinâmica na tela de matrícula.
+     */
     private void ListarPesquisaCurso() {
         String nomeCurso = this.campoPesquisaCurso.getText();
         listaModelPesquisaCursos = controllerCurso.retornarListarPesquisaCursosController(nomeCurso);
@@ -1111,13 +1130,19 @@ public class ViewMain extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Recupera o nome e dados de aluno ao clicar na lista de pesquisa dinâmica.
+     */
     private void RecuperarPesquisaAluno() {
         int linha = this.listaPesquisaAluno.getSelectedIndex();
         String nome = this.listaPesquisaAluno.getSelectedValue();
         this.campoPesquisaAluno.setText(nome);
-        modelAluno = controllerAluno.retornarAlunoController(nome);
+        modelAluno = controllerAluno.retornarAlunoNomeController(nome);
     }
     
+    /**
+     * Recupera o nome e dados de curso ao clicar na lista de pesquisa dinâmica.
+     */
     private void RecuperarPesquisaCurso() {
         int linha = this.listaPesquisaCurso.getSelectedIndex();
         String curso = this.listaPesquisaCurso.getSelectedValue();

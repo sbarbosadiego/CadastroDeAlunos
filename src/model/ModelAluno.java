@@ -5,14 +5,15 @@
 package model;
 
 /**
- *
- * @author Diego Barbosa
+ * @author Diego Barbosa da Silva
  */
 public class ModelAluno {
     
     private int codigoAluno;
     private String nomeAluno;
     
+    public ModelAluno() {
+    }
 
     public int getCodigoAluno() {
         return codigoAluno;

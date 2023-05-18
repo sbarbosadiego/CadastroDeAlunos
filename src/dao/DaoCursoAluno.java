@@ -16,13 +16,12 @@ import model.ModelCurso;
 import model.ModelCursoAluno;
 
 /**
- *
  * @author Diego Barbosa da Silva
  */
 public class DaoCursoAluno extends ConexaoMySql {
     
     /**
-     * Vincula um aluno a um curso no banco de dados.
+     * Faz a inserção na tabela curso_aluno associando um registro de aluno com um curso.
      * @param pModelAluno
      * @param pModelCurso
      * @return int

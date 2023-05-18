@@ -14,13 +14,12 @@ import javax.swing.JOptionPane;
 import model.ModelAluno;
 
 /**
- *
- * @author Diego Barbosa
+ * @author Diego Barbosa da Silva
  */
 public class DaoAluno extends ConexaoMySql {
 
     /**
-     * Faz o insert do aluno no banco de dados
+     * Realiza a inserção de dados na tabela aluno.
      * @param pModelAluno
      * @return int
      */
@@ -40,7 +39,7 @@ public class DaoAluno extends ConexaoMySql {
     }
 
     /**
-     * Atualiza o cadastro de um aluno no banco de dados
+     * Atualiza os dados de um registro na tabela aluno.
      * @param pModelAluno
      * @return boolean
      */
@@ -64,7 +63,7 @@ public class DaoAluno extends ConexaoMySql {
     }
 
     /**
-     * Faz a exclusão de um aluno no banco de dados
+     * Realiza a exclusão de um registro na tabela aluno.
      * @param codigoAluno
      * @return boolean
      */
@@ -84,7 +83,7 @@ public class DaoAluno extends ConexaoMySql {
     }
 
     /**
-     * Retorna a consulta de dados de um aluno no banco de dados
+     * Retorna a consulta de dados de um aluno no banco de dados.
      * @param pIdAluno
      * @return modelAluno
      */

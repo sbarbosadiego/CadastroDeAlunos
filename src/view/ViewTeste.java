@@ -10,7 +10,6 @@ import javax.swing.DefaultListModel;
 import model.ModelAluno;
 
 /**
- *
  * @author Diego Barbosa da Silva
  */
 public class ViewTeste extends javax.swing.JFrame {
@@ -212,7 +211,7 @@ public class ViewTeste extends javax.swing.JFrame {
         int linha = this.listaPesquisa.getSelectedIndex();
         String nome = this.listaPesquisa.getSelectedValue();
         this.campoPesquisa.setText(nome);
-        modelAluno = controllerAluno.retornarAlunoController(nome);
+        modelAluno = controllerAluno.retornarAlunoNomeController(nome);
         this.idAluno.setText(String.valueOf(modelAluno.getCodigoAluno()));
     }
     

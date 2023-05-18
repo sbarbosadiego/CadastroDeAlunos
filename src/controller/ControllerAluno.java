@@ -10,14 +10,14 @@ import model.ModelAluno;
 
 /**
  *
- * @author Diego Barbosa
+ * @author Diego Barbosa da Silva
  */
 public class ControllerAluno {
     
     private DaoAluno daoAluno = new DaoAluno();
     
     /**
-     * Salvar aluno controller
+     * Passa os parâmetros para salvar um novo registro na base de dados.
      * @param nome
      * @return int
      */
@@ -26,7 +26,7 @@ public class ControllerAluno {
     }
     
     /**
-     * Excluir aluno por código de cadastro
+     * Passa os parâmetros de código de um aluno para a exclusão de um registro na base de dados.
      * @param codigoAluno
      * @return boolean
      */
@@ -35,7 +35,7 @@ public class ControllerAluno {
     }
     
     /**
-     * Edita o cadastro de um aluno
+     * Passa os parâmetros para atualizar um registro na base de dados. 
      * @param pModelAluno
      * @return boolean
      */
@@ -44,7 +44,7 @@ public class ControllerAluno {
     }
     
     /**
-     * Retorna a consulta dos dados de um aluno no banco de dados
+     * Retorna a consulta dos dados de um aluno no banco de dados.
      * @param pIdAluno
      * @return ModelAluno
      */
@@ -52,7 +52,12 @@ public class ControllerAluno {
         return this.daoAluno.retornarAlunoDAO(pIdAluno);
     }
     
-    public ModelAluno retornarAlunoController(String nome) {
+    /**
+     * Retorna o nome de um registro na base de dados.
+     * @param nome
+     * @return 
+     */
+    public ModelAluno retornarAlunoNomeController(String nome) {
         return this.daoAluno.retornarAlunoNomeDAO(nome);
     }
     

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import model.ModelAluno;
 
 /**
- *
  * @author Diego Barbosa da Silva
  */
 public class ControllerAluno {
@@ -55,7 +54,7 @@ public class ControllerAluno {
     /**
      * Retorna o nome de um registro na base de dados.
      * @param nome
-     * @return 
+     * @return ModelAluno
      */
     public ModelAluno retornarAlunoNomeController(String nome) {
         return this.daoAluno.retornarAlunoNomeDAO(nome);
@@ -63,7 +62,7 @@ public class ControllerAluno {
     
     /**
      * Retorna lista de alunos pelo código.
-     * @return  ArrayList
+     * @return ArrayList
      */
     public ArrayList<ModelAluno> retornarListarAlunosController() {
         return this.daoAluno.listarAlunos();
@@ -72,9 +71,10 @@ public class ControllerAluno {
     /**
      * Retorna lista alunos pelo nome.
      * @param nome
-     * @return 
+     * @return ArrayList
      */
     public ArrayList<ModelAluno> retornarListarPesquisaAlunosController(String nome) {
         return this.daoAluno.listarPesquisaAluno(nome);
     }
+    
 }

@@ -112,7 +112,7 @@ public class DaoAluno extends ConexaoMySql {
     /**
      * Retorna aluno da pesquisa por caracteres.
      * @param nome
-     * @return 
+     * @return modelAluno
      */
     public ModelAluno retornarAlunoNomeDAO(String nome) {
         ModelAluno modelAluno = new ModelAluno();
@@ -163,7 +163,7 @@ public class DaoAluno extends ConexaoMySql {
     /**
      * Retorna lista de alunos pelo nome.
      * @param nome
-     * @return 
+     * @return ArrayList
      */
     public ArrayList<ModelAluno> listarPesquisaAluno(String nome) {
         ArrayList<ModelAluno> listaModelAlunos = new ArrayList<>();

@@ -11,7 +11,6 @@ import model.ModelCurso;
 import model.ModelCursoAluno;
 
 /**
- *
  * @author Diego Barbosa da Silva
  */
 public class ControllerCursoAluno {

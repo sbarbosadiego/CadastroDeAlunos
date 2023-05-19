@@ -170,7 +170,7 @@ public class DaoCurso extends ConexaoMySql {
     /**
      * Retorna lista de cursos pelo nome.
      * @param nome
-     * @return 
+     * @return ArrayList
      */
     public ArrayList<ModelCurso> listarPesquisaCurso(String curso) {
         ArrayList<ModelCurso> listaModelCursos = new ArrayList<>();

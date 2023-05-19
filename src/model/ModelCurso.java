@@ -5,7 +5,6 @@
 package model;
 
 /**
- *
  * @author Diego Barbosa da Silva
  */
 public class ModelCurso {

@@ -70,6 +70,7 @@ public class DaoCursoAluno extends ConexaoMySql {
         ArrayList<ModelCursoAluno> listaModelCursoAluno = new ArrayList<>();
         try {
             String sql = "SELECT E.pk_codigo, "
+                    + "A.pk_codigo_aluno, "
                     + "A.aluno_nome, "
                     + "C.curso_descricao "
                     + "FROM curso_aluno E "
@@ -83,8 +84,9 @@ public class DaoCursoAluno extends ConexaoMySql {
             while (retorno.next()) {
                 ModelCursoAluno modelCursoAluno = new ModelCursoAluno();
                 modelCursoAluno.setCodigoCursoAluno(retorno.getInt(1));
-                modelCursoAluno.setAluno(retorno.getString(2));
-                modelCursoAluno.setCurso(retorno.getString(3));
+                modelCursoAluno.setCodigoAluno(retorno.getInt(2));
+                modelCursoAluno.setAluno(retorno.getString(3));
+                modelCursoAluno.setCurso(retorno.getString(4));
                 listaModelCursoAluno.add(modelCursoAluno);
             }
             retorno.close();
@@ -96,7 +98,5 @@ public class DaoCursoAluno extends ConexaoMySql {
         }
         return listaModelCursoAluno;
     }
-    
-
     
 }

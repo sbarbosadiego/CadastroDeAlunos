@@ -25,7 +25,6 @@ public class ConexaoMySql {
     private String senha = "privada3";
 
     public ConexaoMySql() {
-
     }
 
     public ConexaoMySql(String servidor, String database, String porta, String usuario, String senha) {

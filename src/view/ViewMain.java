@@ -132,7 +132,7 @@ public class ViewMain extends javax.swing.JFrame {
         jtableCursoAluno = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Cadastro de Alunos");
+        setTitle("Cadastro de Alunos - Diego Barbosa");
         setLocation(new java.awt.Point(700, 200));
         setResizable(false);
 
@@ -403,6 +403,7 @@ public class ViewMain extends javax.swing.JFrame {
         jLabel7.setText("Ementa:");
 
         jtextEmentaCurso.setColumns(20);
+        jtextEmentaCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtextEmentaCurso.setRows(5);
         jScrollPane3.setViewportView(jtextEmentaCurso);
 
@@ -586,17 +587,17 @@ public class ViewMain extends javax.swing.JFrame {
 
         jtableCursoAluno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Cód.", "Aluno", "Curso"
+                "Matrícula", "Cód. Aluno", "Aluno", "Curso"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -608,6 +609,9 @@ public class ViewMain extends javax.swing.JFrame {
             jtableCursoAluno.getColumnModel().getColumn(0).setMinWidth(80);
             jtableCursoAluno.getColumnModel().getColumn(0).setPreferredWidth(80);
             jtableCursoAluno.getColumnModel().getColumn(0).setMaxWidth(80);
+            jtableCursoAluno.getColumnModel().getColumn(1).setMinWidth(80);
+            jtableCursoAluno.getColumnModel().getColumn(1).setPreferredWidth(80);
+            jtableCursoAluno.getColumnModel().getColumn(1).setMaxWidth(80);
         }
 
         jpCursoAluno.add(jScrollPane4);
@@ -907,6 +911,7 @@ public class ViewMain extends javax.swing.JFrame {
         for (int c = 0; c < contador; c++) {
             tabela.addRow(new Object[]{
                 listaModelCursoAluno.get(c).getCodigoCursoAluno(),
+                listaModelCursoAluno.get(c).getCodigoAluno(),
                 listaModelCursoAluno.get(c).getAluno(),
                 listaModelCursoAluno.get(c).getCurso()
             });
@@ -947,7 +952,7 @@ public class ViewMain extends javax.swing.JFrame {
      */
     private void salvarCurso() {
         if (this.jtfNomeCurso.getText().isEmpty()) {
-            this.jObrigatorioAluno.setVisible(true);
+            this.jObrigatorioCurso.setVisible(true);
             JOptionPane.showMessageDialog(null, "Campo vazio", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
         } else if (this.jtfNomeCurso.getText().length() >= 51) {
@@ -963,7 +968,7 @@ public class ViewMain extends javax.swing.JFrame {
                 this.listarCursos();
                 this.habilitarDesabilitarCamposCurso(false);
                 this.limparCamposCurso();
-                this.jObrigatorioAluno.setVisible(false);
+                this.jObrigatorioCurso.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Curso não cadastrado", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
@@ -986,9 +991,9 @@ public class ViewMain extends javax.swing.JFrame {
             String nome = this.campoPesquisaAluno.getText();
             String curso = this.campoPesquisaCurso.getText();
             modelAluno.setCodigoAluno(controllerAluno.retornarAlunoNomeController(nome).getCodigoAluno());
-            modelCurso.setCodigoCurso(controllerCurso.retornarCursoController(curso).getCodigoCurso());
+            modelCurso.setCodigoCurso(controllerCurso.retornarCursoNomeController(curso).getCodigoCurso());
             if (controllerCursoAluno.salvarCursoAlunoController(modelAluno, modelCurso) > 0) {
-                JOptionPane.showMessageDialog(null, "Aluno cadastrado ao curso com sucesso!", "ATENÇÃO",
+                JOptionPane.showMessageDialog(null, "Matrícula realizada com sucesso", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
                 this.listarCursoAluno();
                 this.limparCamposCursoAluno();
@@ -1147,7 +1152,7 @@ public class ViewMain extends javax.swing.JFrame {
         int linha = this.listaPesquisaCurso.getSelectedIndex();
         String curso = this.listaPesquisaCurso.getSelectedValue();
         this.campoPesquisaCurso.setText(curso);
-        modelCurso = controllerCurso.retornarCursoController(curso);
+        modelCurso = controllerCurso.retornarCursoNomeController(curso);
     }
     
     /**

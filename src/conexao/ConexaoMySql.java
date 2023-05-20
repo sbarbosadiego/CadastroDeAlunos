@@ -93,9 +93,9 @@ public class ConexaoMySql {
         try {
             Statement stmt = connection.createStatement();
             // Cria a base de dados
-            stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS teste;");
+            stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS escola;");
             // Seleciona base de dados
-            stmt.executeUpdate("USE teste;");
+            stmt.executeUpdate("USE escola;");
             // Cria tabela curso
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS curso ("
                     + "pk_codigo_curso SERIAL NOT NULL PRIMARY KEY,"

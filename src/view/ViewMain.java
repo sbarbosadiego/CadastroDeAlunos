@@ -130,6 +130,10 @@ public class ViewMain extends javax.swing.JFrame {
         btnSalvarCursoAluno = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jtableCursoAluno = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        campoPesquisaAluno1 = new javax.swing.JTextField();
+        jtfPesquisaCursoAluno = new javax.swing.JTextField();
+        btnPesquisarCursoAluno = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Alunos - Diego Barbosa");
@@ -151,6 +155,7 @@ public class ViewMain extends javax.swing.JFrame {
 
         jtfPesquisaAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
+        jtableAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtableAluno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -167,6 +172,7 @@ public class ViewMain extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtableAluno.setRowHeight(23);
         jScrollPane1.setViewportView(jtableAluno);
         if (jtableAluno.getColumnModel().getColumnCount() > 0) {
             jtableAluno.getColumnModel().getColumn(0).setMinWidth(80);
@@ -337,6 +343,7 @@ public class ViewMain extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtableCurso.setRowHeight(23);
         jScrollPane2.setViewportView(jtableCurso);
         if (jtableCurso.getColumnModel().getColumnCount() > 0) {
             jtableCurso.getColumnModel().getColumn(0).setMinWidth(80);
@@ -542,7 +549,7 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
         jpCursoAluno.add(listaPesquisaAluno);
-        listaPesquisaAluno.setBounds(59, 40, 252, 78);
+        listaPesquisaAluno.setBounds(60, 40, 252, 78);
 
         listaPesquisaCurso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -550,7 +557,7 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
         jpCursoAluno.add(listaPesquisaCurso);
-        listaPesquisaCurso.setBounds(369, 40, 210, 78);
+        listaPesquisaCurso.setBounds(370, 90, 210, 78);
 
         btnExcluirCursoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnExcluirCursoAluno.setForeground(new java.awt.Color(255, 0, 0));
@@ -585,6 +592,7 @@ public class ViewMain extends javax.swing.JFrame {
         jpCursoAluno.add(btnSalvarCursoAluno);
         btnSalvarCursoAluno.setBounds(246, 426, 100, 30);
 
+        jtableCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtableCursoAluno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -615,7 +623,40 @@ public class ViewMain extends javax.swing.JFrame {
         }
 
         jpCursoAluno.add(jScrollPane4);
-        jScrollPane4.setBounds(10, 50, 570, 360);
+        jScrollPane4.setBounds(10, 100, 570, 310);
+
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel10.setText("Pesquisar:");
+        jpCursoAluno.add(jLabel10);
+        jLabel10.setBounds(10, 60, 75, 19);
+
+        campoPesquisaAluno1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        campoPesquisaAluno1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoPesquisaAluno1ActionPerformed(evt);
+            }
+        });
+        campoPesquisaAluno1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoPesquisaAluno1KeyReleased(evt);
+            }
+        });
+        jpCursoAluno.add(campoPesquisaAluno1);
+        campoPesquisaAluno1.setBounds(59, 10, 252, 30);
+
+        jtfPesquisaCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jpCursoAluno.add(jtfPesquisaCursoAluno);
+        jtfPesquisaCursoAluno.setBounds(90, 53, 382, 30);
+
+        btnPesquisarCursoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnPesquisarCursoAluno.setText("Filtrar");
+        btnPesquisarCursoAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarCursoAlunoActionPerformed(evt);
+            }
+        });
+        jpCursoAluno.add(btnPesquisarCursoAluno);
+        btnPesquisarCursoAluno.setBounds(479, 53, 100, 30);
 
         jTabbedPane1.addTab("Matrícula", jpCursoAluno);
 
@@ -828,6 +869,32 @@ public class ViewMain extends javax.swing.JFrame {
     private void btnSalvarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCursoAlunoActionPerformed
         this.salvarCursoAluno();
     }//GEN-LAST:event_btnSalvarCursoAlunoActionPerformed
+
+    private void campoPesquisaAluno1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisaAluno1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoPesquisaAluno1ActionPerformed
+
+    private void campoPesquisaAluno1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPesquisaAluno1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoPesquisaAluno1KeyReleased
+
+    private void btnPesquisarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarCursoAlunoActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) this.jtableCursoAluno.getModel();
+        final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
+        this.jtableCursoAluno.setRowSorter(classifica);
+        String pesquisa = this.jtfPesquisaCursoAluno.getText();
+        if (this.testaString(pesquisa) == true) {
+            classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
+            if (this.jtableCursoAluno.getRowCount() == 0) {
+                classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 1));
+            }
+        } else if (this.testaString(pesquisa) == false) {
+            classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 2));
+            if (this.jtableCursoAluno.getRowCount() == 0) {
+                classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 3));
+            }
+        } 
+    }//GEN-LAST:event_btnPesquisarCursoAlunoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1181,12 +1248,15 @@ public class ViewMain extends javax.swing.JFrame {
     private javax.swing.JButton btnNovoCurso;
     private javax.swing.JButton btnPesquisarAluno;
     private javax.swing.JButton btnPesquisarCurso;
+    private javax.swing.JButton btnPesquisarCursoAluno;
     private javax.swing.JButton btnSalvarAluno;
     private javax.swing.JButton btnSalvarCurso;
     private javax.swing.JButton btnSalvarCursoAluno;
     private javax.swing.JTextField campoPesquisaAluno;
+    private javax.swing.JTextField campoPesquisaAluno1;
     private javax.swing.JTextField campoPesquisaCurso;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1215,6 +1285,7 @@ public class ViewMain extends javax.swing.JFrame {
     private javax.swing.JTextField jtfNomeCurso;
     private javax.swing.JTextField jtfPesquisaAluno;
     private javax.swing.JTextField jtfPesquisaCurso;
+    private javax.swing.JTextField jtfPesquisaCursoAluno;
     private javax.swing.JList<String> listaPesquisaAluno;
     private javax.swing.JList<String> listaPesquisaCurso;
     // End of variables declaration//GEN-END:variables

@@ -7,6 +7,7 @@ package view;
 import controller.ControllerAluno;
 import controller.ControllerCurso;
 import controller.ControllerCursoAluno;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
@@ -62,6 +63,7 @@ public class ViewMain extends javax.swing.JFrame {
         this.listarCursoAluno();
         this.habilitarDesabilitarCamposAluno(false);
         this.habilitarDesabilitarCamposCurso(false);
+        this.habilitarDesabilitarCamposCursoAluno(false);
         listaAluno = new DefaultListModel();
         listaCurso = new DefaultListModel();
         this.listaPesquisaAluno.setModel(listaAluno);
@@ -127,13 +129,13 @@ public class ViewMain extends javax.swing.JFrame {
         listaPesquisaCurso = new javax.swing.JList<>();
         btnExcluirCursoAluno = new javax.swing.JButton();
         btnCancelarCursoAluno = new javax.swing.JButton();
-        btnSalvarCursoAluno = new javax.swing.JButton();
+        btnNovoCursoAluno = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jtableCursoAluno = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
-        campoPesquisaAluno1 = new javax.swing.JTextField();
         jtfPesquisaCursoAluno = new javax.swing.JTextField();
         btnPesquisarCursoAluno = new javax.swing.JButton();
+        btnSalvarCursoAluno = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Alunos - Diego Barbosa");
@@ -146,6 +148,11 @@ public class ViewMain extends javax.swing.JFrame {
         jLabel1.setText("Cód. do Aluno");
 
         jtfNomeAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtfNomeAluno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfNomeAlunoKeyPressed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel2.setText("Nome:");
@@ -154,6 +161,11 @@ public class ViewMain extends javax.swing.JFrame {
         jLabel3.setText("Pesquisar:");
 
         jtfPesquisaAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtfPesquisaAluno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfPesquisaAlunoKeyPressed(evt);
+            }
+        });
 
         jtableAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtableAluno.setModel(new javax.swing.table.DefaultTableModel(
@@ -180,15 +192,20 @@ public class ViewMain extends javax.swing.JFrame {
             jtableAluno.getColumnModel().getColumn(0).setMaxWidth(80);
         }
 
-        btnPesquisarAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnPesquisarAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnPesquisarAluno.setText("Filtrar");
         btnPesquisarAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPesquisarAlunoActionPerformed(evt);
             }
         });
+        btnPesquisarAluno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnPesquisarAlunoKeyPressed(evt);
+            }
+        });
 
-        btnSalvarAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSalvarAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnSalvarAluno.setForeground(new java.awt.Color(0, 153, 51));
         btnSalvarAluno.setText("Salvar");
         btnSalvarAluno.addActionListener(new java.awt.event.ActionListener() {
@@ -196,8 +213,13 @@ public class ViewMain extends javax.swing.JFrame {
                 btnSalvarAlunoActionPerformed(evt);
             }
         });
+        btnSalvarAluno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarAlunoKeyPressed(evt);
+            }
+        });
 
-        btnEditarAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEditarAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnEditarAluno.setForeground(new java.awt.Color(0, 0, 153));
         btnEditarAluno.setText("Editar");
         btnEditarAluno.addActionListener(new java.awt.event.ActionListener() {
@@ -206,7 +228,7 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
 
-        btnExcluirAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnExcluirAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnExcluirAluno.setForeground(new java.awt.Color(255, 0, 0));
         btnExcluirAluno.setText("Excluir");
         btnExcluirAluno.addActionListener(new java.awt.event.ActionListener() {
@@ -215,7 +237,7 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
 
-        btnCancelarAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCancelarAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnCancelarAluno.setForeground(new java.awt.Color(255, 0, 0));
         btnCancelarAluno.setText("Cancelar");
         btnCancelarAluno.addActionListener(new java.awt.event.ActionListener() {
@@ -224,7 +246,7 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
 
-        btnNovoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnNovoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnNovoAluno.setText("Novo");
         btnNovoAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -318,6 +340,11 @@ public class ViewMain extends javax.swing.JFrame {
         jLabel4.setText("Cód. do Curso:");
 
         jtfNomeCurso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtfNomeCurso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfNomeCursoKeyPressed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel5.setText("Curso:");
@@ -326,7 +353,13 @@ public class ViewMain extends javax.swing.JFrame {
         jLabel6.setText("Pesquisar:");
 
         jtfPesquisaCurso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtfPesquisaCurso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfPesquisaCursoKeyPressed(evt);
+            }
+        });
 
+        jtableCurso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtableCurso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -351,15 +384,20 @@ public class ViewMain extends javax.swing.JFrame {
             jtableCurso.getColumnModel().getColumn(0).setMaxWidth(80);
         }
 
-        btnPesquisarCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnPesquisarCurso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnPesquisarCurso.setText("Filtrar");
         btnPesquisarCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPesquisarCursoActionPerformed(evt);
             }
         });
+        btnPesquisarCurso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnPesquisarCursoKeyPressed(evt);
+            }
+        });
 
-        btnSalvarCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSalvarCurso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnSalvarCurso.setForeground(new java.awt.Color(0, 153, 51));
         btnSalvarCurso.setText("Salvar");
         btnSalvarCurso.addActionListener(new java.awt.event.ActionListener() {
@@ -368,7 +406,7 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
 
-        btnEditarCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEditarCurso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnEditarCurso.setForeground(new java.awt.Color(0, 0, 153));
         btnEditarCurso.setText("Editar");
         btnEditarCurso.addActionListener(new java.awt.event.ActionListener() {
@@ -377,7 +415,7 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
 
-        btnExcluirCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnExcluirCurso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnExcluirCurso.setForeground(new java.awt.Color(255, 0, 0));
         btnExcluirCurso.setText("Excluir");
         btnExcluirCurso.addActionListener(new java.awt.event.ActionListener() {
@@ -386,7 +424,7 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
 
-        btnCancelarCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCancelarCurso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnCancelarCurso.setForeground(new java.awt.Color(255, 0, 0));
         btnCancelarCurso.setText("Cancelar");
         btnCancelarCurso.addActionListener(new java.awt.event.ActionListener() {
@@ -395,7 +433,7 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
 
-        btnNovoCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnNovoCurso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnNovoCurso.setText("Novo");
         btnNovoCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -485,7 +523,7 @@ public class ViewMain extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpCursoLayout.createSequentialGroup()
-                        .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jpCursoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfPesquisaCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -543,23 +581,27 @@ public class ViewMain extends javax.swing.JFrame {
         jpCursoAluno.add(campoPesquisaAluno);
         campoPesquisaAluno.setBounds(59, 10, 252, 30);
 
+        listaPesquisaAluno.setBorder(null);
+        listaPesquisaAluno.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         listaPesquisaAluno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 listaPesquisaAlunoMousePressed(evt);
             }
         });
         jpCursoAluno.add(listaPesquisaAluno);
-        listaPesquisaAluno.setBounds(60, 40, 252, 78);
+        listaPesquisaAluno.setBounds(61, 38, 249, 78);
 
+        listaPesquisaCurso.setBorder(null);
+        listaPesquisaCurso.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         listaPesquisaCurso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 listaPesquisaCursoMousePressed(evt);
             }
         });
         jpCursoAluno.add(listaPesquisaCurso);
-        listaPesquisaCurso.setBounds(370, 90, 210, 78);
+        listaPesquisaCurso.setBounds(371, 38, 207, 78);
 
-        btnExcluirCursoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnExcluirCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnExcluirCursoAluno.setForeground(new java.awt.Color(255, 0, 0));
         btnExcluirCursoAluno.setText("Excluir");
         btnExcluirCursoAluno.addActionListener(new java.awt.event.ActionListener() {
@@ -568,9 +610,9 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
         jpCursoAluno.add(btnExcluirCursoAluno);
-        btnExcluirCursoAluno.setBounds(10, 426, 100, 30);
+        btnExcluirCursoAluno.setBounds(10, 429, 100, 30);
 
-        btnCancelarCursoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCancelarCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnCancelarCursoAluno.setForeground(new java.awt.Color(255, 0, 0));
         btnCancelarCursoAluno.setText("Cancelar");
         btnCancelarCursoAluno.addActionListener(new java.awt.event.ActionListener() {
@@ -579,18 +621,17 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
         jpCursoAluno.add(btnCancelarCursoAluno);
-        btnCancelarCursoAluno.setBounds(128, 426, 100, 30);
+        btnCancelarCursoAluno.setBounds(128, 429, 100, 30);
 
-        btnSalvarCursoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSalvarCursoAluno.setForeground(new java.awt.Color(0, 153, 51));
-        btnSalvarCursoAluno.setText("Salvar");
-        btnSalvarCursoAluno.addActionListener(new java.awt.event.ActionListener() {
+        btnNovoCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnNovoCursoAluno.setText("Novo");
+        btnNovoCursoAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarCursoAlunoActionPerformed(evt);
+                btnNovoCursoAlunoActionPerformed(evt);
             }
         });
-        jpCursoAluno.add(btnSalvarCursoAluno);
-        btnSalvarCursoAluno.setBounds(246, 426, 100, 30);
+        jpCursoAluno.add(btnNovoCursoAluno);
+        btnNovoCursoAluno.setBounds(364, 429, 100, 30);
 
         jtableCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtableCursoAluno.setModel(new javax.swing.table.DefaultTableModel(
@@ -630,33 +671,40 @@ public class ViewMain extends javax.swing.JFrame {
         jpCursoAluno.add(jLabel10);
         jLabel10.setBounds(10, 60, 75, 19);
 
-        campoPesquisaAluno1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        campoPesquisaAluno1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoPesquisaAluno1ActionPerformed(evt);
-            }
-        });
-        campoPesquisaAluno1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                campoPesquisaAluno1KeyReleased(evt);
-            }
-        });
-        jpCursoAluno.add(campoPesquisaAluno1);
-        campoPesquisaAluno1.setBounds(59, 10, 252, 30);
-
         jtfPesquisaCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtfPesquisaCursoAluno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfPesquisaCursoAlunoKeyPressed(evt);
+            }
+        });
         jpCursoAluno.add(jtfPesquisaCursoAluno);
         jtfPesquisaCursoAluno.setBounds(90, 53, 382, 30);
 
-        btnPesquisarCursoAluno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnPesquisarCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnPesquisarCursoAluno.setText("Filtrar");
         btnPesquisarCursoAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPesquisarCursoAlunoActionPerformed(evt);
             }
         });
+        btnPesquisarCursoAluno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnPesquisarCursoAlunoKeyPressed(evt);
+            }
+        });
         jpCursoAluno.add(btnPesquisarCursoAluno);
         btnPesquisarCursoAluno.setBounds(479, 53, 100, 30);
+
+        btnSalvarCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnSalvarCursoAluno.setForeground(new java.awt.Color(0, 153, 51));
+        btnSalvarCursoAluno.setText("Salvar");
+        btnSalvarCursoAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarCursoAlunoActionPerformed(evt);
+            }
+        });
+        jpCursoAluno.add(btnSalvarCursoAluno);
+        btnSalvarCursoAluno.setBounds(246, 429, 100, 30);
 
         jTabbedPane1.addTab("Matrícula", jpCursoAluno);
 
@@ -732,6 +780,7 @@ public class ViewMain extends javax.swing.JFrame {
         this.limparCamposAluno();
         this.habilitarDesabilitarCamposAluno(true);
         editarSalvar = "salvar";
+        this.jtfNomeAluno.requestFocus();
     }//GEN-LAST:event_btnNovoAlunoActionPerformed
 
     private void btnSalvarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarAlunoActionPerformed
@@ -774,7 +823,6 @@ public class ViewMain extends javax.swing.JFrame {
             this.jtfNomeCurso.setText(modelCurso.getDescricaoCurso());
             this.jtextEmentaCurso.setText(modelCurso.getEmentaCurso());
         } catch (Exception e) {
-            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Nenhum registro selecionado");
         }
     }//GEN-LAST:event_btnEditarCursoActionPerformed
@@ -807,6 +855,7 @@ public class ViewMain extends javax.swing.JFrame {
         this.limparCamposAluno();
         this.habilitarDesabilitarCamposCurso(true);
         editarSalvar = "salvar";
+        this.jtfNomeCurso.requestFocus();
     }//GEN-LAST:event_btnNovoCursoActionPerformed
 
     private void campoPesquisaCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisaCursoActionPerformed
@@ -821,19 +870,6 @@ public class ViewMain extends javax.swing.JFrame {
             Enter = 0;
         }
     }//GEN-LAST:event_campoPesquisaCursoKeyReleased
-
-    private void campoPesquisaAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisaAlunoActionPerformed
-        this.listaPesquisaAluno.setVisible(false);
-        Enter = 1;
-    }//GEN-LAST:event_campoPesquisaAlunoActionPerformed
-
-    private void campoPesquisaAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPesquisaAlunoKeyReleased
-        if (Enter == 0 ) {
-            ListarPesquisaAluno();
-        } else {
-            Enter = 0;
-        }
-    }//GEN-LAST:event_campoPesquisaAlunoKeyReleased
 
     private void listaPesquisaAlunoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPesquisaAlunoMousePressed
         this.RecuperarPesquisaAluno();
@@ -864,19 +900,12 @@ public class ViewMain extends javax.swing.JFrame {
 
     private void btnCancelarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCursoAlunoActionPerformed
         this.limparCamposCursoAluno();
+        this.habilitarDesabilitarCamposCursoAluno(false);
     }//GEN-LAST:event_btnCancelarCursoAlunoActionPerformed
 
-    private void btnSalvarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCursoAlunoActionPerformed
-        this.salvarCursoAluno();
-    }//GEN-LAST:event_btnSalvarCursoAlunoActionPerformed
-
-    private void campoPesquisaAluno1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisaAluno1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoPesquisaAluno1ActionPerformed
-
-    private void campoPesquisaAluno1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPesquisaAluno1KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoPesquisaAluno1KeyReleased
+    private void btnNovoCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoCursoAlunoActionPerformed
+        this.habilitarDesabilitarCamposCursoAluno(true);
+    }//GEN-LAST:event_btnNovoCursoAlunoActionPerformed
 
     private void btnPesquisarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarCursoAlunoActionPerformed
         DefaultTableModel modelo = (DefaultTableModel) this.jtableCursoAluno.getModel();
@@ -895,6 +924,111 @@ public class ViewMain extends javax.swing.JFrame {
             }
         } 
     }//GEN-LAST:event_btnPesquisarCursoAlunoActionPerformed
+
+    private void jtfPesquisaAlunoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesquisaAlunoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            this.btnPesquisarAluno.requestFocus();
+        }
+    }//GEN-LAST:event_jtfPesquisaAlunoKeyPressed
+
+    private void btnPesquisarAlunoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPesquisarAlunoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            DefaultTableModel modelo = (DefaultTableModel) this.jtableAluno.getModel();
+            final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
+            this.jtableAluno.setRowSorter(classifica);
+            String pesquisa = this.jtfPesquisaAluno.getText();
+            if (this.testaString(pesquisa) == true) {
+                classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
+            } else {
+                classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 1));
+            }
+        }
+    }//GEN-LAST:event_btnPesquisarAlunoKeyPressed
+
+    private void jtfPesquisaCursoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesquisaCursoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            this.btnPesquisarCurso.requestFocus();
+        }
+    }//GEN-LAST:event_jtfPesquisaCursoKeyPressed
+
+    private void btnPesquisarCursoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPesquisarCursoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            DefaultTableModel modelo = (DefaultTableModel) this.jtableCurso.getModel();
+            final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
+            this.jtableCurso.setRowSorter(classifica);
+            String pesquisa = this.jtfPesquisaCurso.getText();
+            if (this.testaString(pesquisa) == true) {
+                classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
+            } else {
+                classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 1));
+            }
+        }
+    }//GEN-LAST:event_btnPesquisarCursoKeyPressed
+
+    private void jtfPesquisaCursoAlunoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesquisaCursoAlunoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            this.btnPesquisarCursoAluno.requestFocus();
+        }
+    }//GEN-LAST:event_jtfPesquisaCursoAlunoKeyPressed
+
+    private void btnPesquisarCursoAlunoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPesquisarCursoAlunoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            DefaultTableModel modelo = (DefaultTableModel) this.jtableCursoAluno.getModel();
+            final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
+            this.jtableCursoAluno.setRowSorter(classifica);
+            String pesquisa = this.jtfPesquisaCursoAluno.getText();
+            if (this.testaString(pesquisa) == true) {
+                classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
+                if (this.jtableCursoAluno.getRowCount() == 0) {
+                    classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 1));
+                }
+            } else if (this.testaString(pesquisa) == false) {
+                classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 2));
+                if (this.jtableCursoAluno.getRowCount() == 0) {
+                    classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 3));
+                }
+            }
+        }
+    }//GEN-LAST:event_btnPesquisarCursoAlunoKeyPressed
+
+    private void jtfNomeAlunoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNomeAlunoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            this.btnSalvarAluno.requestFocus();
+        }
+    }//GEN-LAST:event_jtfNomeAlunoKeyPressed
+
+    private void btnSalvarAlunoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarAlunoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (editarSalvar.equals("salvar")) {
+                this.salvarAluno();
+            } else if (editarSalvar.equals("editar")) {
+                this.editarAluno();
+            }
+        }
+    }//GEN-LAST:event_btnSalvarAlunoKeyPressed
+
+    private void jtfNomeCursoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNomeCursoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            this.jtextEmentaCurso.requestFocus();
+        }
+    }//GEN-LAST:event_jtfNomeCursoKeyPressed
+
+    private void btnSalvarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCursoAlunoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvarCursoAlunoActionPerformed
+
+    private void campoPesquisaAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPesquisaAlunoKeyReleased
+        if (Enter == 0 ) {
+            ListarPesquisaAluno();
+        } else {
+            Enter = 0;
+        }
+    }//GEN-LAST:event_campoPesquisaAlunoKeyReleased
+
+    private void campoPesquisaAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisaAlunoActionPerformed
+        this.listaPesquisaAluno.setVisible(false);
+        Enter = 1;
+    }//GEN-LAST:event_campoPesquisaAlunoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1169,6 +1303,15 @@ public class ViewMain extends javax.swing.JFrame {
     }
     
     /**
+     * Habilitar e desabilitar campos de matrícula.
+     * @param condicao
+     */
+    private void habilitarDesabilitarCamposCursoAluno(boolean condicao) {
+        this.campoPesquisaAluno.setEnabled(condicao);
+        this.campoPesquisaCurso.setEnabled(condicao);
+    }
+    
+    /**
      * Lista os aluno na pesquisa dinâmica na tela de matrícula.
      */
     private void ListarPesquisaAluno() {
@@ -1246,6 +1389,7 @@ public class ViewMain extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluirCursoAluno;
     private javax.swing.JButton btnNovoAluno;
     private javax.swing.JButton btnNovoCurso;
+    private javax.swing.JButton btnNovoCursoAluno;
     private javax.swing.JButton btnPesquisarAluno;
     private javax.swing.JButton btnPesquisarCurso;
     private javax.swing.JButton btnPesquisarCursoAluno;
@@ -1253,7 +1397,6 @@ public class ViewMain extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvarCurso;
     private javax.swing.JButton btnSalvarCursoAluno;
     private javax.swing.JTextField campoPesquisaAluno;
-    private javax.swing.JTextField campoPesquisaAluno1;
     private javax.swing.JTextField campoPesquisaCurso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

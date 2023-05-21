@@ -1014,7 +1014,7 @@ public class ViewMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfNomeCursoKeyPressed
 
     private void btnSalvarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCursoAlunoActionPerformed
-        // TODO add your handling code here:
+        this.salvarCursoAluno();
     }//GEN-LAST:event_btnSalvarCursoAlunoActionPerformed
 
     private void campoPesquisaAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPesquisaAlunoKeyReleased

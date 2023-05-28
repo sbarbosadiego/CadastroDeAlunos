@@ -28,7 +28,7 @@ public class ViewTeste extends javax.swing.JFrame {
         this.listaPesquisa.setVisible(false);
         modelo = new DefaultListModel();
         this.listaPesquisa.setModel(modelo);
-        ListarPesquisa();
+        listarPesquisa();
     }
 
     /**
@@ -139,7 +139,7 @@ public class ViewTeste extends javax.swing.JFrame {
 
     private void campoPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPesquisaKeyReleased
         if (Enter == 0 ) {
-            ListarPesquisa();
+            listarPesquisa();
         } else {
             Enter = 0;
         }
@@ -151,7 +151,7 @@ public class ViewTeste extends javax.swing.JFrame {
 
     private void listaPesquisaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPesquisaMousePressed
         // TODO add your handling code here:
-        this.RecuperarPesquisa();
+        this.recuperarPesquisa();
         this.listaPesquisa.setVisible(false);
         
     }//GEN-LAST:event_listaPesquisaMousePressed
@@ -192,7 +192,7 @@ public class ViewTeste extends javax.swing.JFrame {
         });
     }
     
-    private void ListarPesquisa() {
+    private void listarPesquisa() {
         String nomeAluno = this.campoPesquisa.getText();
         listaModelAlunos = controllerAluno.retornarListarPesquisaAlunosController(nomeAluno);
         modelo.removeAllElements();
@@ -207,7 +207,7 @@ public class ViewTeste extends javax.swing.JFrame {
     }
     
     
-    private void RecuperarPesquisa() {
+    private void recuperarPesquisa() {
         int linha = this.listaPesquisa.getSelectedIndex();
         String nome = this.listaPesquisa.getSelectedValue();
         this.campoPesquisa.setText(nome);

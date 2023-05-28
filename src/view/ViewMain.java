@@ -72,7 +72,7 @@ public class ViewMain extends javax.swing.JFrame {
         this.jObrigatorioCurso.setVisible(false);
         this.listaPesquisaAluno.setVisible(false);
         this.listaPesquisaCurso.setVisible(false);
-        ListarPesquisaAluno();
+        listarPesquisaAluno();
     }
 
     /**
@@ -121,12 +121,12 @@ public class ViewMain extends javax.swing.JFrame {
         jtextEmentaCurso = new javax.swing.JTextArea();
         jObrigatorioCurso = new javax.swing.JLabel();
         jpCursoAluno = new javax.swing.JPanel();
+        listaPesquisaAluno = new javax.swing.JList<>();
+        listaPesquisaCurso = new javax.swing.JList<>();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         campoPesquisaCurso = new javax.swing.JTextField();
         campoPesquisaAluno = new javax.swing.JTextField();
-        listaPesquisaAluno = new javax.swing.JList<>();
-        listaPesquisaCurso = new javax.swing.JList<>();
         btnExcluirCursoAluno = new javax.swing.JButton();
         btnCancelarCursoAluno = new javax.swing.JButton();
         btnNovoCursoAluno = new javax.swing.JButton();
@@ -543,15 +543,35 @@ public class ViewMain extends javax.swing.JFrame {
 
         jpCursoAluno.setLayout(null);
 
+        listaPesquisaAluno.setBorder(null);
+        listaPesquisaAluno.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        listaPesquisaAluno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                listaPesquisaAlunoMousePressed(evt);
+            }
+        });
+        jpCursoAluno.add(listaPesquisaAluno);
+        listaPesquisaAluno.setBounds(61, 38, 249, 78);
+
+        listaPesquisaCurso.setBorder(null);
+        listaPesquisaCurso.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        listaPesquisaCurso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                listaPesquisaCursoMousePressed(evt);
+            }
+        });
+        jpCursoAluno.add(listaPesquisaCurso);
+        listaPesquisaCurso.setBounds(371, 38, 207, 78);
+
         jLabel8.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel8.setText("Curso:");
         jpCursoAluno.add(jLabel8);
-        jLabel8.setBounds(317, 15, 46, 19);
+        jLabel8.setBounds(317, 15, 52, 19);
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel9.setText("Aluno:");
         jpCursoAluno.add(jLabel9);
-        jLabel9.setBounds(10, 15, 43, 19);
+        jLabel9.setBounds(10, 15, 49, 19);
 
         campoPesquisaCurso.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         campoPesquisaCurso.addActionListener(new java.awt.event.ActionListener() {
@@ -580,26 +600,6 @@ public class ViewMain extends javax.swing.JFrame {
         });
         jpCursoAluno.add(campoPesquisaAluno);
         campoPesquisaAluno.setBounds(59, 10, 252, 30);
-
-        listaPesquisaAluno.setBorder(null);
-        listaPesquisaAluno.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        listaPesquisaAluno.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                listaPesquisaAlunoMousePressed(evt);
-            }
-        });
-        jpCursoAluno.add(listaPesquisaAluno);
-        listaPesquisaAluno.setBounds(61, 38, 249, 78);
-
-        listaPesquisaCurso.setBorder(null);
-        listaPesquisaCurso.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        listaPesquisaCurso.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                listaPesquisaCursoMousePressed(evt);
-            }
-        });
-        jpCursoAluno.add(listaPesquisaCurso);
-        listaPesquisaCurso.setBounds(371, 38, 207, 78);
 
         btnExcluirCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnExcluirCursoAluno.setForeground(new java.awt.Color(255, 0, 0));
@@ -669,7 +669,7 @@ public class ViewMain extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel10.setText("Pesquisar:");
         jpCursoAluno.add(jLabel10);
-        jLabel10.setBounds(10, 60, 75, 19);
+        jLabel10.setBounds(10, 60, 81, 19);
 
         jtfPesquisaCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtfPesquisaCursoAluno.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -865,19 +865,19 @@ public class ViewMain extends javax.swing.JFrame {
 
     private void campoPesquisaCursoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPesquisaCursoKeyReleased
         if (Enter == 0 ) {
-            ListarPesquisaCurso();
+            listarPesquisaCurso();
         } else {
             Enter = 0;
         }
     }//GEN-LAST:event_campoPesquisaCursoKeyReleased
 
     private void listaPesquisaAlunoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPesquisaAlunoMousePressed
-        this.RecuperarPesquisaAluno();
+        this.recuperarPesquisaAluno();
         this.listaPesquisaAluno.setVisible(false);
     }//GEN-LAST:event_listaPesquisaAlunoMousePressed
 
     private void listaPesquisaCursoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPesquisaCursoMousePressed
-        this.RecuperarPesquisaCurso();
+        this.recuperarPesquisaCurso();
         this.listaPesquisaCurso.setVisible(false);
     }//GEN-LAST:event_listaPesquisaCursoMousePressed
 
@@ -1019,7 +1019,7 @@ public class ViewMain extends javax.swing.JFrame {
 
     private void campoPesquisaAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPesquisaAlunoKeyReleased
         if (Enter == 0 ) {
-            ListarPesquisaAluno();
+            listarPesquisaAluno();
         } else {
             Enter = 0;
         }
@@ -1314,7 +1314,7 @@ public class ViewMain extends javax.swing.JFrame {
     /**
      * Lista os aluno na pesquisa dinâmica na tela de matrícula.
      */
-    private void ListarPesquisaAluno() {
+    private void listarPesquisaAluno() {
         String nomeAluno = this.campoPesquisaAluno.getText();
         listaModelPesquisaAlunos = controllerAluno.retornarListarPesquisaAlunosController(nomeAluno);
         listaAluno.removeAllElements();
@@ -1331,7 +1331,7 @@ public class ViewMain extends javax.swing.JFrame {
     /**
      * Lista os cursos na pesquisa dinâmica na tela de matrícula.
      */
-    private void ListarPesquisaCurso() {
+    private void listarPesquisaCurso() {
         String nomeCurso = this.campoPesquisaCurso.getText();
         listaModelPesquisaCursos = controllerCurso.retornarListarPesquisaCursosController(nomeCurso);
         listaCurso.removeAllElements();
@@ -1348,7 +1348,7 @@ public class ViewMain extends javax.swing.JFrame {
     /**
      * Recupera o nome e dados de aluno ao clicar na lista de pesquisa dinâmica.
      */
-    private void RecuperarPesquisaAluno() {
+    private void recuperarPesquisaAluno() {
         int linha = this.listaPesquisaAluno.getSelectedIndex();
         String nome = this.listaPesquisaAluno.getSelectedValue();
         this.campoPesquisaAluno.setText(nome);
@@ -1358,7 +1358,7 @@ public class ViewMain extends javax.swing.JFrame {
     /**
      * Recupera o nome e dados de curso ao clicar na lista de pesquisa dinâmica.
      */
-    private void RecuperarPesquisaCurso() {
+    private void recuperarPesquisaCurso() {
         int linha = this.listaPesquisaCurso.getSelectedIndex();
         String curso = this.listaPesquisaCurso.getSelectedValue();
         this.campoPesquisaCurso.setText(curso);

@@ -884,7 +884,7 @@ public class ViewMain extends javax.swing.JFrame {
     private void btnExcluirCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirCursoAlunoActionPerformed
         int linha = this.jtableCursoAluno.getSelectedRow();
         int codigoCursoAluno = (int) this.jtableCursoAluno.getValueAt(linha, 0);
-        if (JOptionPane.showConfirmDialog(this, "Excluir Curso?", "Excluir",
+        if (JOptionPane.showConfirmDialog(this, "Excluir matrícula?", "Excluir",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             if (controllerCursoAluno.excluirCursoAlunoController(codigoCursoAluno)) {
                 JOptionPane.showMessageDialog(this, "Matrícula excluida", "ATENÇÃO",

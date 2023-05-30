@@ -138,7 +138,7 @@ public class ViewMain extends javax.swing.JFrame {
         btnSalvarCursoAluno = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Cadastro de Alunos - Diego Barbosa");
+        setTitle("Cadastro de Alunos");
         setLocation(new java.awt.Point(700, 200));
         setResizable(false);
 
@@ -610,7 +610,7 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
         jpCursoAluno.add(btnExcluirCursoAluno);
-        btnExcluirCursoAluno.setBounds(10, 429, 100, 30);
+        btnExcluirCursoAluno.setBounds(10, 425, 100, 30);
 
         btnCancelarCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnCancelarCursoAluno.setForeground(new java.awt.Color(255, 0, 0));
@@ -621,7 +621,7 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
         jpCursoAluno.add(btnCancelarCursoAluno);
-        btnCancelarCursoAluno.setBounds(128, 429, 100, 30);
+        btnCancelarCursoAluno.setBounds(128, 425, 100, 30);
 
         btnNovoCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnNovoCursoAluno.setText("Novo");
@@ -631,7 +631,7 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
         jpCursoAluno.add(btnNovoCursoAluno);
-        btnNovoCursoAluno.setBounds(364, 429, 100, 30);
+        btnNovoCursoAluno.setBounds(364, 425, 100, 30);
 
         jtableCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtableCursoAluno.setModel(new javax.swing.table.DefaultTableModel(
@@ -704,7 +704,7 @@ public class ViewMain extends javax.swing.JFrame {
             }
         });
         jpCursoAluno.add(btnSalvarCursoAluno);
-        btnSalvarCursoAluno.setBounds(246, 429, 100, 30);
+        btnSalvarCursoAluno.setBounds(246, 425, 100, 30);
 
         jTabbedPane1.addTab("Matrícula", jpCursoAluno);
 
@@ -1182,11 +1182,11 @@ public class ViewMain extends javax.swing.JFrame {
      */
     private void salvarCursoAluno() {
         if (this.campoPesquisaAluno.getText().isEmpty() || this.campoPesquisaCurso.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Campo vazio", "ATENÇÃO",
+            JOptionPane.showMessageDialog(null, "Campo vazio!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
         } else if (this.campoPesquisaAluno.getText().length() >= 51 || this.campoPesquisaCurso.getText().length() >= 51) {
             this.jObrigatorioAluno.setVisible(true);
-            JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!!", "ATENÇÃO",
+            JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
         } else {
             String nome = this.campoPesquisaAluno.getText();
@@ -1210,18 +1210,21 @@ public class ViewMain extends javax.swing.JFrame {
      */
     private void editarAluno() {
         if (this.jtfNomeAluno.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Campo vazio", "ATENÇÃO",
+            JOptionPane.showMessageDialog(null, "Campo vazio!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
+            this.jObrigatorioAluno.setVisible(true);
         } else if (this.jtfNomeAluno.getText().length() >= 51) {
-            JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!!", "ATENÇÃO",
+            JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
+            this.jObrigatorioAluno.setVisible(true);
         } else {
             modelAluno.setNomeAluno(this.jtfNomeAluno.getText().toUpperCase());
             if (controllerAluno.editarAlunoController(modelAluno)) {
                 JOptionPane.showMessageDialog(this, "Editado com sucesso!!", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
-                this.listarAlunos();
                 this.habilitarDesabilitarCamposAluno(false);
+                this.jObrigatorioAluno.setVisible(false);
+                this.listarAlunos();
                 this.limparCamposAluno();
             } else {
                 JOptionPane.showMessageDialog(this, "Não foi aplicado a edição, verifique as informações", "ERRO",
@@ -1236,23 +1239,23 @@ public class ViewMain extends javax.swing.JFrame {
      */
     private void editarCurso() {
         if (this.jtfNomeCurso.getText().isEmpty()) {
-            this.jObrigatorioAluno.setVisible(true);
-            JOptionPane.showMessageDialog(null, "Campo vazio", "ATENÇÃO",
+            JOptionPane.showMessageDialog(null, "Campo vazio!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
+            this.jObrigatorioCurso.setVisible(true);
         } else if (this.jtfNomeCurso.getText().length() >= 51) {
-            this.jObrigatorioAluno.setVisible(true);
-            JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!!", "ATENÇÃO",
+            JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
+            this.jObrigatorioCurso.setVisible(true);
         } else {
             modelCurso.setDescricaoCurso(this.jtfNomeCurso.getText().toUpperCase());
             modelCurso.setEmentaCurso(this.jtextEmentaCurso.getText());
             if (controllerCurso.editarCursoController(modelCurso)) {
                 JOptionPane.showMessageDialog(this, "Editado com sucesso!!", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
-                this.listarCursos();
                 this.habilitarDesabilitarCamposCurso(false);
-                this.limparCamposCurso();
                 this.jObrigatorioAluno.setVisible(false);
+                this.listarCursos();
+                this.limparCamposCurso();
             } else {
                 JOptionPane.showMessageDialog(this, "Não foi aplicado a edição, verifique as informações", "ERRO",
                         JOptionPane.ERROR_MESSAGE);

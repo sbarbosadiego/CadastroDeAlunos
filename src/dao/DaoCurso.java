@@ -8,6 +8,7 @@ import conexao.ConexaoMySql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -78,6 +79,9 @@ public class DaoCurso extends ConexaoMySql {
             stmt.setInt(1, codigoCurso);
             stmt.executeUpdate();
             return true;
+        } catch (SQLIntegrityConstraintViolationException e) {
+            JOptionPane.showMessageDialog(null, "Curso referenciado em aluno");
+            return false;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return false;

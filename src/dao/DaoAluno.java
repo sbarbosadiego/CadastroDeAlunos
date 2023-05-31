@@ -8,6 +8,7 @@ import conexao.ConexaoMySql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -74,6 +75,9 @@ public class DaoAluno extends ConexaoMySql {
             stmt.setInt(1, codigoAluno);
             stmt.executeUpdate();
             return true;
+        } catch (SQLIntegrityConstraintViolationException e) {
+            JOptionPane.showMessageDialog(null, "Aluno ainda possuí matrícula ativa");
+            return false;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return false;

@@ -1,11 +1,13 @@
 package conexao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,30 +20,25 @@ public class ConexaoMySql {
     private PreparedStatement statement;
     private ResultSet resultSet;
     private Statement states;
-    private String servidor = "localhost";
-    private String database = "";
-    private String porta = "3306";
-    private String usuario = "root";
-    private String senha = "privada3";
 
     public ConexaoMySql() {
-    }
-
-    public ConexaoMySql(String servidor, String database, String porta, String usuario, String senha) {
-        this.servidor = servidor;
-        this.database = database;
-        this.porta = porta;
-        this.usuario = usuario;
-        this.senha = senha;
+        
     }
     
     /**
-     * Formata a URL de conexão ao banco de dados.
-     * @return String
+     * Retorna os dados de acesso configurados no properties.
+     * @return prop
      */
-    private String url() {
-        String url = "jdbc:mysql://" + this.servidor + ":" + this.porta + "/" + this.database + "?serverTimezone=UTC";
-        return url;
+    private static Properties loadProperties() {
+        try {
+            Properties prop = new Properties();
+            String caminho = "/db.properties";
+            prop.load(ConexaoMySql.class.getResourceAsStream(caminho));
+            return prop;
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Fueda");
+        }
+        return null;
     }
 
     /**
@@ -52,11 +49,16 @@ public class ConexaoMySql {
         try {
             // Carrega o driver do JDBC
             Class.forName("com.mysql.cj.jdbc.Driver");
+            // Retorna os dados do properties
+            Properties properties = loadProperties();
+            final String urlBanco = properties.getProperty("banco.url");
+            final String userBanco = properties.getProperty("banco.usuario");
+            final String passwordBanco = properties.getProperty("banco.senha");
             // Conecta no banco de dados
             this.setConnection((Connection) DriverManager.getConnection(
-                    this.url(),
-                    this.usuario,
-                    this.senha));
+                    urlBanco,
+                    userBanco,
+                    passwordBanco));
             // Chama o método que configura o banco de dados
             this.configurarBanco(connection);
             this.status = true;

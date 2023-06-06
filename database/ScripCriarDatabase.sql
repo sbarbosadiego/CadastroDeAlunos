@@ -1,5 +1,5 @@
 /* Cria a base de dados */
-CREATE DATABASE dbalunoscurso;
+CREATE DATABASE escola;
 
 /* Seleciona a base de dados */
 USE dbalunoscurso;

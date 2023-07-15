@@ -4,7 +4,7 @@ Está sendo utilizado o banco de dados MySQL e desenvolvido em um ambiente Java 
 
 ##
 ### Configurações de Ambiente
-SO: Pop!_OS (Linux) / Windows 10<br>
+SO: Xubuntu 22.04 / Pop!_OS 22.04 / Windows 10<br>
 JDK: 17.0.6<br>
 MySQL: 8.0.32 Community
 

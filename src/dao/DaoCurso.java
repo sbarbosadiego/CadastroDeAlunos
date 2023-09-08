@@ -127,7 +127,7 @@ public class DaoCurso extends ConexaoMySql {
     public ModelCurso retornarCursoNomeDAO(String curso) {
         ModelCurso modelCurso = new ModelCurso();
         try {
-            String sql = "SELECT * FROM curso WHERE curso_descricao like '" + curso + "%' LIMIT 1;";
+            String sql = "SELECT * FROM curso WHERE curso_descricao LIKE '" + curso + "%' LIMIT 1;";
             Statement stmt = this.conectar().createStatement();
             stmt.executeQuery(sql);
             ResultSet retorno = stmt.executeQuery(sql);
@@ -179,7 +179,7 @@ public class DaoCurso extends ConexaoMySql {
     public ArrayList<ModelCurso> listarPesquisaCurso(String curso) {
         ArrayList<ModelCurso> listaModelCursos = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM curso WHERE curso_descricao like '" + curso + "%' ORDER BY curso_descricao;";
+            String sql = "SELECT * FROM curso WHERE curso_descricao LIKE '%" + curso + "%' ORDER BY curso_descricao;";
             Statement consulta = this.conectar().createStatement();
             ResultSet retorno = consulta.executeQuery(sql);
 

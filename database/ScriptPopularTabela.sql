@@ -1,3 +1,5 @@
+DELIMITER $
+
 INSERT INTO curso
 (curso_descricao, curso_ementa)
 VALUES
@@ -50,3 +52,5 @@ VALUES
 ('AMANDA OLIVEIRA PEREIRA'),
 ('DANILO CARDOSO CARVALHO'),
 ('LUCAS PINTO SOUSA');
+
+$

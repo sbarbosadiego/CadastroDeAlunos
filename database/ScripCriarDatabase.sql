@@ -1,8 +1,11 @@
+/* Altera o delimitador para ser executado o script */
+DELIMITER $
+
 /* Cria a base de dados */
 CREATE DATABASE escola;
 
 /* Seleciona a base de dados */
-USE dbalunoscurso;
+USE escola;
 
 /* Cria as tabelas e configura as fks */
 CREATE TABLE IF NOT EXISTS curso (
@@ -23,3 +26,5 @@ fk_curso BIGINT UNSIGNED,
 FOREIGN KEY (fk_aluno) REFERENCES aluno(pk_codigo_aluno),
 FOREIGN KEY (fk_curso) REFERENCES curso(pk_codigo_curso)
 );
+
+$

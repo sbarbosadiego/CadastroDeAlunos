@@ -172,7 +172,7 @@ public class DaoAluno extends ConexaoMySql {
     public ArrayList<ModelAluno> listarPesquisaAluno(String nome) {
         ArrayList<ModelAluno> listaModelAlunos = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM aluno WHERE aluno_nome LIKE '" + nome + "%' ORDER BY aluno_nome;";
+            String sql = "SELECT * FROM aluno WHERE aluno_nome LIKE '%" + nome + "%' ORDER BY aluno_nome;";
             Statement consulta = this.conectar().createStatement();
             ResultSet retorno = consulta.executeQuery(sql);
 

@@ -76,7 +76,7 @@ public class DaoAluno extends ConexaoMySql {
             stmt.executeUpdate();
             return true;
         } catch (SQLIntegrityConstraintViolationException e) {
-            JOptionPane.showMessageDialog(null, "Aluno ainda possuí matrícula ativa");
+            JOptionPane.showMessageDialog(null, "Aluno possuí matrícula ativa");
             return false;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());

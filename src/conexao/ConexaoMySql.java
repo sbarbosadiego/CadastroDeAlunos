@@ -26,15 +26,17 @@ public class ConexaoMySql {
     }
     
     /**
-     * Retorna os dados de acesso configurados no properties.
-     * @return prop
+     * Método para carregar as configurações do properties.
+     * @return properties
      */
     private static Properties loadProperties() {
         try {
-            Properties prop = new Properties();
-            String caminho = "/db.properties";
-            prop.load(ConexaoMySql.class.getResourceAsStream(caminho));
-            return prop;
+            Properties properties = new Properties();
+            String path = System.getProperty("user.home").replace('\\', '/');
+            String caminho = path + "/db.properties";
+            System.out.println(caminho);
+            properties.load(ConexaoMySql.class.getResourceAsStream(caminho));
+            return properties;
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Fueda");
         }
@@ -42,25 +44,30 @@ public class ConexaoMySql {
     }
 
     /**
-     * Realiza a conexão com a base de dados.
+     * Método que realiza a conexão com o servidor.
      * @return connection
      */
     public Connection conectar() {
         try {
             // Carrega o driver do JDBC
             Class.forName("com.mysql.cj.jdbc.Driver");
+            
             // Retorna os dados do properties
             Properties properties = loadProperties();
-            final String urlBanco = properties.getProperty("banco.url");
-            final String userBanco = properties.getProperty("banco.usuario");
-            final String passwordBanco = properties.getProperty("banco.senha");
+            String urlBanco = properties.getProperty("banco.url");
+            String userBanco = properties.getProperty("banco.usuario");
+            String passwordBanco = properties.getProperty("banco.senha");
+            
             // Conecta no banco de dados
             this.setConnection((Connection) DriverManager.getConnection(
                     urlBanco,
                     userBanco,
                     passwordBanco));
+            
             // Chama o método que configura o banco de dados
-            this.configurarBanco(connection);
+            if (this.testarConexao() == false) {
+                this.configurarBanco(connection);
+            }
             this.status = true;
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -79,16 +86,31 @@ public class ConexaoMySql {
                 this.getResultSet().close();
                 this.statement.close();
             }
-            this.getConnection().close();
+            //this.getConnection().close();
             return true;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return false;
     }
+    
+    /**
+     * Testa a conexão com o banco de dados.
+     * @return boolean
+     */
+    private boolean testarConexao() {
+        try {
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate("USE escola;");
+            return true;
+        } catch (SQLException e) {
+            
+        }
+        return false;
+    }  
 
     /**
-     * Realiza a criação do banco de dados, tabelas e seus relacionamentos.
+     * Cria a base de dados, tabelas e configura os relacionamentos.
      * @param connection
      */
     private void configurarBanco(Connection connection) {

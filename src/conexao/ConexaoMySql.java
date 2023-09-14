@@ -1,5 +1,6 @@
 package conexao;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,12 +31,11 @@ public class ConexaoMySql {
      * @return properties
      */
     private static Properties loadProperties() {
+        Properties properties = new Properties();
+        FileInputStream caminho = null;
         try {
-            Properties properties = new Properties();
-            String path = System.getProperty("user.home").replace('\\', '/');
-            String caminho = path + "/db.properties";
-            System.out.println(caminho);
-            properties.load(ConexaoMySql.class.getResourceAsStream(caminho));
+            caminho = new FileInputStream("C:/CadastroDeAlunos/db.properties");
+            properties.load(caminho);
             return properties;
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Fueda");

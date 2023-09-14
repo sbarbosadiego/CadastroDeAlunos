@@ -14,4 +14,5 @@ MySQL: <a href="https://www.youtube.com/watch?v=DKMrVxtJyUk">Windows</a> / <a hr
 NetBeans: <a href="https://www.youtube.com/watch?v=dmnerOpFj1E">Windows</a> / <a href="https://www.youtube.com/watch?v=SiPJcbrW9K8" target="_blank">Linux</a>
 
 ### Acesso ao Banco de dados
-Para fazer o acesso ao banco de dados é necessário informar o usuário e senha do banco de dados configurado em seu ambiente, através do arquivo "db_modelo.properties" e renomear este para "db.properties".
+Para realizar o acesso ao servidor de banco de dados é necessário criar na C: um diretório nomeado como "CadastroDeAlunos", com um db.properties dentro, pode ser copiado este diretório com properties da pasta resources.<br>
+Com a pasta criada junto com o properties, deve ser passado o usuário e senha de seu servidor em que será automaticamente criado pela aplicação o banco de dados nomeado como "escola".

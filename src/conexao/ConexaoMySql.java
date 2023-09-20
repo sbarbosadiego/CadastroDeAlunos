@@ -33,12 +33,24 @@ public class ConexaoMySql {
     private static Properties loadProperties() {
         Properties properties = new Properties();
         FileInputStream caminho = null;
-        try {
-            caminho = new FileInputStream("C:/CadastroDeAlunos/db.properties");
-            properties.load(caminho);
-            return properties;
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Fueda");
+        String distro = System.getProperty("os.name");
+        String path = System.getProperty("user.home");
+        if (distro.equals("Linux")) {
+            try {
+                caminho = new FileInputStream(path + "/CadastroDeAlunos/db.properties");
+                properties.load(caminho);
+                return properties;
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Arquivo properties não encontrado.");
+            }
+        } else {
+            try {
+                caminho = new FileInputStream("C:/CadastroDeAlunos/db.properties");
+                properties.load(caminho);
+                return properties;
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Arquivo properties não encontrado.");
+            }
         }
         return null;
     }

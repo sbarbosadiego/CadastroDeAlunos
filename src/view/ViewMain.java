@@ -25,27 +25,21 @@ import model.ModelCursoAluno;
  */
 public class ViewMain extends javax.swing.JFrame {
     
-    /**
-     * Variáveis referentes a dados do aluno.
-     */
+    // Variáveis aluno
     ModelAluno modelAluno = new ModelAluno();
     ControllerAluno controllerAluno = new ControllerAluno();
     ArrayList<ModelAluno> listaModelAlunos = new ArrayList<>();
     ArrayList<ModelAluno> listaModelPesquisaAlunos = new ArrayList<>();
     DefaultListModel listaCurso;
     
-    /**
-     * Variáveis referentes a dados do curso.
-     */
+    // Variáveis curso
     ModelCurso modelCurso = new ModelCurso();
     ControllerCurso controllerCurso = new ControllerCurso();
     ArrayList<ModelCurso> listaModelCursos = new ArrayList<>();
     ArrayList<ModelCurso> listaModelPesquisaCursos = new ArrayList<>();
     DefaultListModel listaAluno;
     
-    /**
-     * Variáveis referentes a curso e aluno.
-     */
+    // Variáveis matrícula
     ModelCursoAluno modelCursoAluno = new ModelCursoAluno();
     ControllerCursoAluno controllerCursoAluno = new ControllerCursoAluno();
     ArrayList<ModelCursoAluno> listaModelCursoAluno = new ArrayList<>();
@@ -405,6 +399,11 @@ public class ViewMain extends javax.swing.JFrame {
                 btnSalvarCursoActionPerformed(evt);
             }
         });
+        btnSalvarCurso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarCursoKeyPressed(evt);
+            }
+        });
 
         btnEditarCurso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnEditarCurso.setForeground(new java.awt.Color(0, 0, 153));
@@ -450,6 +449,11 @@ public class ViewMain extends javax.swing.JFrame {
         jtextEmentaCurso.setColumns(20);
         jtextEmentaCurso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jtextEmentaCurso.setRows(5);
+        jtextEmentaCurso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtextEmentaCursoKeyPressed(evt);
+            }
+        });
         jScrollPane3.setViewportView(jtextEmentaCurso);
 
         jObrigatorioCurso.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -566,12 +570,12 @@ public class ViewMain extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel8.setText("Curso:");
         jpCursoAluno.add(jLabel8);
-        jLabel8.setBounds(317, 15, 52, 19);
+        jLabel8.setBounds(317, 15, 46, 19);
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel9.setText("Aluno:");
         jpCursoAluno.add(jLabel9);
-        jLabel9.setBounds(10, 15, 49, 19);
+        jLabel9.setBounds(10, 15, 43, 19);
 
         campoPesquisaCurso.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         campoPesquisaCurso.addActionListener(new java.awt.event.ActionListener() {
@@ -669,7 +673,7 @@ public class ViewMain extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel10.setText("Pesquisar:");
         jpCursoAluno.add(jLabel10);
-        jLabel10.setBounds(10, 60, 81, 19);
+        jLabel10.setBounds(10, 60, 75, 19);
 
         jtfPesquisaCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtfPesquisaCursoAluno.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -724,15 +728,7 @@ public class ViewMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarAlunoActionPerformed
-        DefaultTableModel modelo = (DefaultTableModel) this.jtableAluno.getModel();
-        final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
-        this.jtableAluno.setRowSorter(classifica);
-        String pesquisa = this.jtfPesquisaAluno.getText();
-        if (this.testaString(pesquisa) == true) {
-            classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
-        } else {
-            classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 1));
-        }
+        pesquisaAluno();
     }//GEN-LAST:event_btnPesquisarAlunoActionPerformed
 
     private void btnEditarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlunoActionPerformed
@@ -792,15 +788,7 @@ public class ViewMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarAlunoActionPerformed
 
     private void btnPesquisarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarCursoActionPerformed
-        DefaultTableModel modelo = (DefaultTableModel) this.jtableCurso.getModel();
-        final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
-        this.jtableCurso.setRowSorter(classifica);
-        String pesquisa = this.jtfPesquisaCurso.getText();
-        if (this.testaString(pesquisa) == true) {
-            classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
-        } else {
-            classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 1));
-        }
+        pesquisaCurso();
     }//GEN-LAST:event_btnPesquisarCursoActionPerformed
 
     private void btnSalvarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCursoActionPerformed
@@ -933,15 +921,7 @@ public class ViewMain extends javax.swing.JFrame {
 
     private void btnPesquisarAlunoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPesquisarAlunoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            DefaultTableModel modelo = (DefaultTableModel) this.jtableAluno.getModel();
-            final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
-            this.jtableAluno.setRowSorter(classifica);
-            String pesquisa = this.jtfPesquisaAluno.getText();
-            if (this.testaString(pesquisa) == true) {
-                classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
-            } else {
-                classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 1));
-            }
+            pesquisaAluno();
         }
     }//GEN-LAST:event_btnPesquisarAlunoKeyPressed
 
@@ -953,15 +933,7 @@ public class ViewMain extends javax.swing.JFrame {
 
     private void btnPesquisarCursoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPesquisarCursoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            DefaultTableModel modelo = (DefaultTableModel) this.jtableCurso.getModel();
-            final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
-            this.jtableCurso.setRowSorter(classifica);
-            String pesquisa = this.jtfPesquisaCurso.getText();
-            if (this.testaString(pesquisa) == true) {
-                classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
-            } else {
-                classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 1));
-            }
+            pesquisaCurso();
         }
     }//GEN-LAST:event_btnPesquisarCursoKeyPressed
 
@@ -1029,6 +1001,22 @@ public class ViewMain extends javax.swing.JFrame {
         this.listaPesquisaAluno.setVisible(false);
         Enter = 1;
     }//GEN-LAST:event_campoPesquisaAlunoActionPerformed
+
+    private void btnSalvarCursoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarCursoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (editarSalvar.equals("salvar")) {
+                this.salvarCurso();
+            } else if (editarSalvar.equals("editar")) {
+                this.editarCurso();
+            }
+        }
+    }//GEN-LAST:event_btnSalvarCursoKeyPressed
+
+    private void jtextEmentaCursoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtextEmentaCursoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            this.btnSalvarCurso.requestFocus();
+        }
+    }//GEN-LAST:event_jtextEmentaCursoKeyPressed
 
     /**
      * @param args the command line arguments
@@ -1125,16 +1113,16 @@ public class ViewMain extends javax.swing.JFrame {
     private void salvarAluno() {
         if (this.jtfNomeAluno.getText().isEmpty()) {
             this.jObrigatorioAluno.setVisible(true);
-            JOptionPane.showMessageDialog(null, "Campo vazio", "ATENÇÃO",
+            JOptionPane.showMessageDialog(null, "Campo vazio!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
-        } else if (this.jtfNomeAluno.getText().length() >= 51) {
+        } else if (this.jtfNomeAluno.getText().length() >= 50) {
             this.jObrigatorioAluno.setVisible(true);
-            JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!!", "ATENÇÃO",
+            JOptionPane.showMessageDialog(null, "Campo nome excede o limite de 50 caracteres!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
         } else {
             this.modelAluno.setNomeAluno(this.jtfNomeAluno.getText().toUpperCase());
             if (controllerAluno.salvarAlunoController(modelAluno) > 0) {
-                JOptionPane.showMessageDialog(null, "Cadastrado aluno com sucesso", "ATENÇÃO",
+                JOptionPane.showMessageDialog(null, "Aluno cadastrado com sucesso", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
                 this.listarAlunos();
                 this.habilitarDesabilitarCamposAluno(false);
@@ -1154,17 +1142,17 @@ public class ViewMain extends javax.swing.JFrame {
     private void salvarCurso() {
         if (this.jtfNomeCurso.getText().isEmpty()) {
             this.jObrigatorioCurso.setVisible(true);
-            JOptionPane.showMessageDialog(null, "Campo vazio", "ATENÇÃO",
+            JOptionPane.showMessageDialog(null, "Campo vazio!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
         } else if (this.jtfNomeCurso.getText().length() >= 51) {
             this.jObrigatorioAluno.setVisible(true);
-            JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!!", "ATENÇÃO",
+            JOptionPane.showMessageDialog(null, "Campo curso excede o limite de 50 caracteres!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
         } else {
             this.modelCurso.setDescricaoCurso(this.jtfNomeCurso.getText().toUpperCase());
             this.modelCurso.setEmentaCurso(this.jtextEmentaCurso.getText());
             if (controllerCurso.salvarCursoController(modelCurso) > 0) {
-                JOptionPane.showMessageDialog(null, "Cadastrado Curso com sucesso", "ATENÇÃO",
+                JOptionPane.showMessageDialog(null, "Curso cadastrado com sucesso", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
                 this.listarCursos();
                 this.habilitarDesabilitarCamposCurso(false);
@@ -1366,6 +1354,30 @@ public class ViewMain extends javax.swing.JFrame {
         String curso = this.listaPesquisaCurso.getSelectedValue();
         this.campoPesquisaCurso.setText(curso);
         modelCurso = controllerCurso.retornarCursoNomeController(curso);
+    }
+    
+    public void pesquisaAluno() {
+        DefaultTableModel modelo = (DefaultTableModel) this.jtableAluno.getModel();
+        final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
+        this.jtableAluno.setRowSorter(classifica);
+        String pesquisa = this.jtfPesquisaAluno.getText();
+        if (this.testaString(pesquisa) == true) {
+            classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
+        } else {
+            classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 1));
+        }
+    }
+    
+    public void pesquisaCurso() {
+        DefaultTableModel modelo = (DefaultTableModel) this.jtableCurso.getModel();
+        final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
+        this.jtableCurso.setRowSorter(classifica);
+        String pesquisa = this.jtfPesquisaCurso.getText();
+        if (this.testaString(pesquisa) == true) {
+            classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
+        } else {
+            classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 1));
+        }
     }
     
     /**

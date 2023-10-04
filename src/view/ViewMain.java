@@ -52,20 +52,20 @@ public class ViewMain extends javax.swing.JFrame {
      */
     public ViewMain() {
         initComponents();
-        this.listarAlunos();
-        this.listarCursos();
-        this.listarCursoAluno();
-        this.habilitarDesabilitarCamposAluno(false);
-        this.habilitarDesabilitarCamposCurso(false);
-        this.habilitarDesabilitarCamposCursoAluno(false);
+        listarAlunos();
+        listarCursos();
+        listarCursoAluno();
+        habilitarDesabilitarCamposAluno(false);
+        habilitarDesabilitarCamposCurso(false);
+        habilitarDesabilitarCamposCursoAluno(false);
         listaAluno = new DefaultListModel();
         listaCurso = new DefaultListModel();
-        this.listaPesquisaAluno.setModel(listaAluno);
-        this.listaPesquisaCurso.setModel(listaCurso);
-        this.jObrigatorioAluno.setVisible(false);
-        this.jObrigatorioCurso.setVisible(false);
-        this.listaPesquisaAluno.setVisible(false);
-        this.listaPesquisaCurso.setVisible(false);
+        listaPesquisaAluno.setModel(listaAluno);
+        listaPesquisaCurso.setModel(listaCurso);
+        jObrigatorioAluno.setVisible(false);
+        jObrigatorioCurso.setVisible(false);
+        listaPesquisaAluno.setVisible(false);
+        listaPesquisaCurso.setVisible(false);
         listarPesquisaAluno();
     }
 
@@ -570,12 +570,12 @@ public class ViewMain extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel8.setText("Curso:");
         jpCursoAluno.add(jLabel8);
-        jLabel8.setBounds(317, 15, 46, 19);
+        jLabel8.setBounds(317, 15, 52, 19);
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel9.setText("Aluno:");
         jpCursoAluno.add(jLabel9);
-        jLabel9.setBounds(10, 15, 43, 19);
+        jLabel9.setBounds(10, 15, 49, 19);
 
         campoPesquisaCurso.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         campoPesquisaCurso.addActionListener(new java.awt.event.ActionListener() {
@@ -673,7 +673,7 @@ public class ViewMain extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel10.setText("Pesquisar:");
         jpCursoAluno.add(jLabel10);
-        jLabel10.setBounds(10, 60, 75, 19);
+        jLabel10.setBounds(10, 60, 81, 19);
 
         jtfPesquisaCursoAluno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jtfPesquisaCursoAluno.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -728,19 +728,22 @@ public class ViewMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarAlunoActionPerformed
+        if (jtfPesquisaAluno.getText().isBlank()) {
+            listarAlunos();
+        }
         pesquisaAluno();
     }//GEN-LAST:event_btnPesquisarAlunoActionPerformed
 
     private void btnEditarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAlunoActionPerformed
-        this.jObrigatorioAluno.setVisible(false);
+        jObrigatorioAluno.setVisible(false);
         editarSalvar = "editar";
-        int linha = this.jtableAluno.getSelectedRow();
-        this.habilitarDesabilitarCamposAluno(true);
+        int linha = jtableAluno.getSelectedRow();
+        habilitarDesabilitarCamposAluno(true);
         try {
-            int codigoAluno = (int) this.jtableAluno.getValueAt(linha, 0);
+            int codigoAluno = (int) jtableAluno.getValueAt(linha, 0);
             modelAluno = controllerAluno.retornarAlunoController(codigoAluno);
-            this.jtfCodigoAluno.setText(String.valueOf(modelAluno.getCodigoAluno()));
-            this.jtfNomeAluno.setText(modelAluno.getNomeAluno());
+            jtfCodigoAluno.setText(String.valueOf(modelAluno.getCodigoAluno()));
+            jtfNomeAluno.setText(modelAluno.getNomeAluno());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Nenhum registro selecionado");
         }
@@ -748,17 +751,17 @@ public class ViewMain extends javax.swing.JFrame {
 
     private void btnExcluirAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirAlunoActionPerformed
         // A variável vai receber a linha que está selecionado na tabela
-        this.jObrigatorioAluno.setVisible(false);
-        int linha = this.jtableAluno.getSelectedRow();
+        jObrigatorioAluno.setVisible(false);
+        int linha = jtableAluno.getSelectedRow();
         // Nesta é guardado o valor do código do aluno passando o número da linha, e na coluna 0 que é o código do mesmo
-        int codigoAluno = (int) this.jtableAluno.getValueAt(linha, 0);
+        int codigoAluno = (int) jtableAluno.getValueAt(linha, 0);
         if (JOptionPane.showConfirmDialog(this, "Excluir Aluno?", "Excluir",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             if (controllerAluno.excluirAlunoController(codigoAluno)) {
                 JOptionPane.showMessageDialog(this, "Aluno excluído", "ATENÇÃO",
                         JOptionPane.WARNING_MESSAGE);
-                this.listarAlunos();
-                this.limparCamposAluno();
+                listarAlunos();
+                limparCamposAluno();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
                         JOptionPane.ERROR_MESSAGE);
@@ -767,65 +770,68 @@ public class ViewMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirAlunoActionPerformed
 
     private void btnCancelarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarAlunoActionPerformed
-        this.habilitarDesabilitarCamposAluno(false);
-        this.limparCamposAluno();
-        this.jObrigatorioAluno.setVisible(false);
+        habilitarDesabilitarCamposAluno(false);
+        limparCamposAluno();
+        jObrigatorioAluno.setVisible(false);
     }//GEN-LAST:event_btnCancelarAlunoActionPerformed
 
     private void btnNovoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoAlunoActionPerformed
-        this.limparCamposAluno();
-        this.habilitarDesabilitarCamposAluno(true);
+        limparCamposAluno();
+        habilitarDesabilitarCamposAluno(true);
         editarSalvar = "salvar";
-        this.jtfNomeAluno.requestFocus();
+        jtfNomeAluno.requestFocus();
     }//GEN-LAST:event_btnNovoAlunoActionPerformed
 
     private void btnSalvarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarAlunoActionPerformed
         if (editarSalvar.equals("salvar")) {
-            this.salvarAluno();
+            salvarAluno();
         } else if (editarSalvar.equals("editar")) {
-            this.editarAluno();
+            editarAluno();
         }
     }//GEN-LAST:event_btnSalvarAlunoActionPerformed
 
     private void btnPesquisarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarCursoActionPerformed
+        if (jtfPesquisaCurso.getText().isBlank()) {
+            listarCursos();
+        }
         pesquisaCurso();
     }//GEN-LAST:event_btnPesquisarCursoActionPerformed
 
     private void btnSalvarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCursoActionPerformed
         if (editarSalvar.equals("salvar")) {
-            this.salvarCurso();
+            salvarCurso();
         } else if (editarSalvar.equals("editar")) {
-            this.editarCurso();
+            editarCurso();
         }
     }//GEN-LAST:event_btnSalvarCursoActionPerformed
 
     private void btnEditarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCursoActionPerformed
-        this.jObrigatorioAluno.setVisible(false);
+        jObrigatorioAluno.setVisible(false);
         editarSalvar = "editar";
-        int linha = this.jtableCurso.getSelectedRow();
-        this.habilitarDesabilitarCamposCurso(true);
+        int linha = jtableCurso.getSelectedRow();
+        habilitarDesabilitarCamposCurso(true);
         try {
-            int codigoCurso = (int) this.jtableCurso.getValueAt(linha, 0);
+            int codigoCurso = (int) jtableCurso.getValueAt(linha, 0);
             modelCurso = controllerCurso.retornarCursoController(codigoCurso);
-            this.jtfCodigoCurso.setText(String.valueOf(modelCurso.getCodigoCurso()));
-            this.jtfNomeCurso.setText(modelCurso.getDescricaoCurso());
-            this.jtextEmentaCurso.setText(modelCurso.getEmentaCurso());
+            jtfCodigoCurso.setText(String.valueOf(modelCurso.getCodigoCurso()));
+            jtfNomeCurso.setText(modelCurso.getDescricaoCurso());
+            jtextEmentaCurso.setText(modelCurso.getEmentaCurso());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Nenhum registro selecionado");
         }
     }//GEN-LAST:event_btnEditarCursoActionPerformed
 
     private void btnExcluirCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirCursoActionPerformed
-        this.jObrigatorioAluno.setVisible(false);
-        int linha = this.jtableCurso.getSelectedRow();
-        int codigoCurso = (int) this.jtableCurso.getValueAt(linha, 0);
+        jObrigatorioAluno.setVisible(false);
+        int linha = jtableCurso.getSelectedRow();
+        int codigoCurso = (int) jtableCurso.getValueAt(linha, 0);
         if (JOptionPane.showConfirmDialog(this, "Excluir Curso?", "Excluir",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             if (controllerCurso.excluirCursoController(codigoCurso)) {
                 JOptionPane.showMessageDialog(this, "Curso excluído", "ATENÇÃO",
                         JOptionPane.WARNING_MESSAGE);
-                this.listarCursos();
-                this.limparCamposAluno();
+                listarCursos();
+                limparCamposAluno();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
                         JOptionPane.ERROR_MESSAGE);
@@ -834,20 +840,20 @@ public class ViewMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirCursoActionPerformed
 
     private void btnCancelarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCursoActionPerformed
-        this.habilitarDesabilitarCamposCurso(false);
-        this.limparCamposCurso();
-        this.jObrigatorioCurso.setVisible(false);
+        habilitarDesabilitarCamposCurso(false);
+        limparCamposCurso();
+        jObrigatorioCurso.setVisible(false);
     }//GEN-LAST:event_btnCancelarCursoActionPerformed
 
     private void btnNovoCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoCursoActionPerformed
-        this.limparCamposAluno();
-        this.habilitarDesabilitarCamposCurso(true);
+        limparCamposAluno();
+        habilitarDesabilitarCamposCurso(true);
         editarSalvar = "salvar";
-        this.jtfNomeCurso.requestFocus();
+        jtfNomeCurso.requestFocus();
     }//GEN-LAST:event_btnNovoCursoActionPerformed
 
     private void campoPesquisaCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisaCursoActionPerformed
-        this.listaPesquisaCurso.setVisible(false);
+        listaPesquisaCurso.setVisible(false);
         Enter = 1;
     }//GEN-LAST:event_campoPesquisaCursoActionPerformed
 
@@ -860,25 +866,25 @@ public class ViewMain extends javax.swing.JFrame {
     }//GEN-LAST:event_campoPesquisaCursoKeyReleased
 
     private void listaPesquisaAlunoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPesquisaAlunoMousePressed
-        this.recuperarPesquisaAluno();
-        this.listaPesquisaAluno.setVisible(false);
+        recuperarPesquisaAluno();
+        listaPesquisaAluno.setVisible(false);
     }//GEN-LAST:event_listaPesquisaAlunoMousePressed
 
     private void listaPesquisaCursoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPesquisaCursoMousePressed
-        this.recuperarPesquisaCurso();
-        this.listaPesquisaCurso.setVisible(false);
+        recuperarPesquisaCurso();
+        listaPesquisaCurso.setVisible(false);
     }//GEN-LAST:event_listaPesquisaCursoMousePressed
 
     private void btnExcluirCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirCursoAlunoActionPerformed
-        int linha = this.jtableCursoAluno.getSelectedRow();
-        int codigoCursoAluno = (int) this.jtableCursoAluno.getValueAt(linha, 0);
+        int linha = jtableCursoAluno.getSelectedRow();
+        int codigoCursoAluno = (int) jtableCursoAluno.getValueAt(linha, 0);
         if (JOptionPane.showConfirmDialog(this, "Excluir matrícula?", "Excluir",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             if (controllerCursoAluno.excluirCursoAlunoController(codigoCursoAluno)) {
                 JOptionPane.showMessageDialog(this, "Matrícula excluida", "ATENÇÃO",
                         JOptionPane.WARNING_MESSAGE);
-                this.listarCursoAluno();
-                this.limparCamposCursoAluno();
+                listarCursoAluno();
+                limparCamposCursoAluno();
             } else {
                 JOptionPane.showMessageDialog(this, "Erro de exclusão", "ERRO",
                         JOptionPane.ERROR_MESSAGE);
@@ -887,35 +893,40 @@ public class ViewMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirCursoAlunoActionPerformed
 
     private void btnCancelarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCursoAlunoActionPerformed
-        this.limparCamposCursoAluno();
-        this.habilitarDesabilitarCamposCursoAluno(false);
+        limparCamposCursoAluno();
+        habilitarDesabilitarCamposCursoAluno(false);
     }//GEN-LAST:event_btnCancelarCursoAlunoActionPerformed
 
     private void btnNovoCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoCursoAlunoActionPerformed
-        this.habilitarDesabilitarCamposCursoAluno(true);
+        habilitarDesabilitarCamposCursoAluno(true);
     }//GEN-LAST:event_btnNovoCursoAlunoActionPerformed
 
     private void btnPesquisarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarCursoAlunoActionPerformed
-        DefaultTableModel modelo = (DefaultTableModel) this.jtableCursoAluno.getModel();
+        if (jtfPesquisaCursoAluno.getText().isBlank()) {
+            listarCursoAluno();
+        }
+        
+        DefaultTableModel modelo = (DefaultTableModel) jtableCursoAluno.getModel();
         final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
-        this.jtableCursoAluno.setRowSorter(classifica);
-        String pesquisa = this.jtfPesquisaCursoAluno.getText();
-        if (this.testaString(pesquisa) == true) {
+        jtableCursoAluno.setRowSorter(classifica);
+        String pesquisa = jtfPesquisaCursoAluno.getText();
+        boolean resultadoPesquisa = testaString(pesquisa);
+        if (resultadoPesquisa == true) {
             classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
-            if (this.jtableCursoAluno.getRowCount() == 0) {
+            if (jtableCursoAluno.getRowCount() == 0) {
                 classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 1));
             }
-        } else if (this.testaString(pesquisa) == false) {
+        } else if (resultadoPesquisa == false) {
             classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 2));
-            if (this.jtableCursoAluno.getRowCount() == 0) {
-                classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 3));
+            if (jtableCursoAluno.getRowCount() == 0) {
+                classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 3));
             }
         } 
     }//GEN-LAST:event_btnPesquisarCursoAlunoActionPerformed
 
     private void jtfPesquisaAlunoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesquisaAlunoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            this.btnPesquisarAluno.requestFocus();
+            btnPesquisarAluno.requestFocus();
         }
     }//GEN-LAST:event_jtfPesquisaAlunoKeyPressed
 
@@ -927,7 +938,7 @@ public class ViewMain extends javax.swing.JFrame {
 
     private void jtfPesquisaCursoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesquisaCursoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            this.btnPesquisarCurso.requestFocus();
+            btnPesquisarCurso.requestFocus();
         }
     }//GEN-LAST:event_jtfPesquisaCursoKeyPressed
 
@@ -939,24 +950,24 @@ public class ViewMain extends javax.swing.JFrame {
 
     private void jtfPesquisaCursoAlunoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesquisaCursoAlunoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            this.btnPesquisarCursoAluno.requestFocus();
+            btnPesquisarCursoAluno.requestFocus();
         }
     }//GEN-LAST:event_jtfPesquisaCursoAlunoKeyPressed
 
     private void btnPesquisarCursoAlunoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPesquisarCursoAlunoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            DefaultTableModel modelo = (DefaultTableModel) this.jtableCursoAluno.getModel();
+            DefaultTableModel modelo = (DefaultTableModel) jtableCursoAluno.getModel();
             final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
-            this.jtableCursoAluno.setRowSorter(classifica);
-            String pesquisa = this.jtfPesquisaCursoAluno.getText();
-            if (this.testaString(pesquisa) == true) {
+            jtableCursoAluno.setRowSorter(classifica);
+            String pesquisa = jtfPesquisaCursoAluno.getText();
+            if (testaString(pesquisa) == true) {
                 classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
-                if (this.jtableCursoAluno.getRowCount() == 0) {
+                if (jtableCursoAluno.getRowCount() == 0) {
                     classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 1));
                 }
-            } else if (this.testaString(pesquisa) == false) {
+            } else if (testaString(pesquisa) == false) {
                 classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 2));
-                if (this.jtableCursoAluno.getRowCount() == 0) {
+                if (jtableCursoAluno.getRowCount() == 0) {
                     classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 3));
                 }
             }
@@ -965,28 +976,28 @@ public class ViewMain extends javax.swing.JFrame {
 
     private void jtfNomeAlunoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNomeAlunoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            this.btnSalvarAluno.requestFocus();
+            btnSalvarAluno.requestFocus();
         }
     }//GEN-LAST:event_jtfNomeAlunoKeyPressed
 
     private void btnSalvarAlunoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarAlunoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (editarSalvar.equals("salvar")) {
-                this.salvarAluno();
+                salvarAluno();
             } else if (editarSalvar.equals("editar")) {
-                this.editarAluno();
+                editarAluno();
             }
         }
     }//GEN-LAST:event_btnSalvarAlunoKeyPressed
 
     private void jtfNomeCursoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNomeCursoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            this.jtextEmentaCurso.requestFocus();
+            jtextEmentaCurso.requestFocus();
         }
     }//GEN-LAST:event_jtfNomeCursoKeyPressed
 
     private void btnSalvarCursoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCursoAlunoActionPerformed
-        this.salvarCursoAluno();
+        salvarCursoAluno();
     }//GEN-LAST:event_btnSalvarCursoAlunoActionPerformed
 
     private void campoPesquisaAlunoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoPesquisaAlunoKeyReleased
@@ -998,23 +1009,23 @@ public class ViewMain extends javax.swing.JFrame {
     }//GEN-LAST:event_campoPesquisaAlunoKeyReleased
 
     private void campoPesquisaAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisaAlunoActionPerformed
-        this.listaPesquisaAluno.setVisible(false);
+        listaPesquisaAluno.setVisible(false);
         Enter = 1;
     }//GEN-LAST:event_campoPesquisaAlunoActionPerformed
 
     private void btnSalvarCursoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarCursoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (editarSalvar.equals("salvar")) {
-                this.salvarCurso();
+                salvarCurso();
             } else if (editarSalvar.equals("editar")) {
-                this.editarCurso();
+                editarCurso();
             }
         }
     }//GEN-LAST:event_btnSalvarCursoKeyPressed
 
     private void jtextEmentaCursoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtextEmentaCursoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            this.btnSalvarCurso.requestFocus();
+            btnSalvarCurso.requestFocus();
         }
     }//GEN-LAST:event_jtextEmentaCursoKeyPressed
 
@@ -1059,7 +1070,7 @@ public class ViewMain extends javax.swing.JFrame {
      */
     private void listarAlunos() {
         listaModelAlunos = controllerAluno.retornarListarAlunosController();
-        DefaultTableModel tabela = (DefaultTableModel) this.jtableAluno.getModel();
+        DefaultTableModel tabela = (DefaultTableModel) jtableAluno.getModel();
         tabela.setNumRows(0);
 
         int contador = listaModelAlunos.size();
@@ -1076,7 +1087,7 @@ public class ViewMain extends javax.swing.JFrame {
      */
     private void listarCursos() {
         listaModelCursos = controllerCurso.retornarListarCursosController();
-        DefaultTableModel tabela = (DefaultTableModel) this.jtableCurso.getModel();
+        DefaultTableModel tabela = (DefaultTableModel) jtableCurso.getModel();
         tabela.setNumRows(0);
 
         int contador = listaModelCursos.size();
@@ -1093,7 +1104,7 @@ public class ViewMain extends javax.swing.JFrame {
      */
     private void listarCursoAluno() {
         listaModelCursoAluno = controllerCursoAluno.retornarListarCursoAlunosController();
-        DefaultTableModel tabela = (DefaultTableModel) this.jtableCursoAluno.getModel();
+        DefaultTableModel tabela = (DefaultTableModel) jtableCursoAluno.getModel();
         tabela.setNumRows(0);
 
         int contador = listaModelCursoAluno.size();
@@ -1111,23 +1122,23 @@ public class ViewMain extends javax.swing.JFrame {
      * Salva o cadastro de dados de um novo aluno no banco de dados.
      */
     private void salvarAluno() {
-        if (this.jtfNomeAluno.getText().isEmpty()) {
-            this.jObrigatorioAluno.setVisible(true);
+        if (jtfNomeAluno.getText().isEmpty()) {
+            jObrigatorioAluno.setVisible(true);
             JOptionPane.showMessageDialog(null, "Campo vazio!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
-        } else if (this.jtfNomeAluno.getText().length() >= 50) {
-            this.jObrigatorioAluno.setVisible(true);
+        } else if (jtfNomeAluno.getText().length() >= 50) {
+            jObrigatorioAluno.setVisible(true);
             JOptionPane.showMessageDialog(null, "Campo nome excede o limite de 50 caracteres!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
         } else {
-            this.modelAluno.setNomeAluno(this.jtfNomeAluno.getText().toUpperCase());
+            modelAluno.setNomeAluno(jtfNomeAluno.getText().toUpperCase());
             if (controllerAluno.salvarAlunoController(modelAluno) > 0) {
                 JOptionPane.showMessageDialog(null, "Aluno cadastrado com sucesso", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
-                this.listarAlunos();
-                this.habilitarDesabilitarCamposAluno(false);
-                this.limparCamposAluno();
-                this.jObrigatorioAluno.setVisible(false);
+                listarAlunos();
+                habilitarDesabilitarCamposAluno(false);
+                limparCamposAluno();
+                jObrigatorioAluno.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Aluno não cadastrado", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
@@ -1140,24 +1151,24 @@ public class ViewMain extends javax.swing.JFrame {
      * Salva o cadastro de dados de um novo curso no banco de dados.
      */
     private void salvarCurso() {
-        if (this.jtfNomeCurso.getText().isEmpty()) {
-            this.jObrigatorioCurso.setVisible(true);
+        if (jtfNomeCurso.getText().isEmpty()) {
+            jObrigatorioCurso.setVisible(true);
             JOptionPane.showMessageDialog(null, "Campo vazio!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
-        } else if (this.jtfNomeCurso.getText().length() >= 51) {
-            this.jObrigatorioAluno.setVisible(true);
+        } else if (jtfNomeCurso.getText().length() >= 51) {
+            jObrigatorioAluno.setVisible(true);
             JOptionPane.showMessageDialog(null, "Campo curso excede o limite de 50 caracteres!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
         } else {
-            this.modelCurso.setDescricaoCurso(this.jtfNomeCurso.getText().toUpperCase());
-            this.modelCurso.setEmentaCurso(this.jtextEmentaCurso.getText());
+            modelCurso.setDescricaoCurso(jtfNomeCurso.getText().toUpperCase());
+            modelCurso.setEmentaCurso(jtextEmentaCurso.getText());
             if (controllerCurso.salvarCursoController(modelCurso) > 0) {
                 JOptionPane.showMessageDialog(null, "Curso cadastrado com sucesso", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
-                this.listarCursos();
-                this.habilitarDesabilitarCamposCurso(false);
-                this.limparCamposCurso();
-                this.jObrigatorioCurso.setVisible(false);
+                listarCursos();
+                habilitarDesabilitarCamposCurso(false);
+                limparCamposCurso();
+                jObrigatorioCurso.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Curso não cadastrado", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
@@ -1169,23 +1180,23 @@ public class ViewMain extends javax.swing.JFrame {
      * Salva o cadastro de um aluno a um curso no banco de dados.
      */
     private void salvarCursoAluno() {
-        if (this.campoPesquisaAluno.getText().isEmpty() || this.campoPesquisaCurso.getText().isEmpty()) {
+        if (campoPesquisaAluno.getText().isEmpty() || campoPesquisaCurso.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campo vazio!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
-        } else if (this.campoPesquisaAluno.getText().length() >= 51 || this.campoPesquisaCurso.getText().length() >= 51) {
-            this.jObrigatorioAluno.setVisible(true);
+        } else if (campoPesquisaAluno.getText().length() >= 51 || campoPesquisaCurso.getText().length() >= 51) {
+            jObrigatorioAluno.setVisible(true);
             JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
         } else {
-            String nome = this.campoPesquisaAluno.getText();
-            String curso = this.campoPesquisaCurso.getText();
+            String nome = campoPesquisaAluno.getText();
+            String curso = campoPesquisaCurso.getText();
             modelAluno.setCodigoAluno(controllerAluno.retornarAlunoNomeController(nome).getCodigoAluno());
             modelCurso.setCodigoCurso(controllerCurso.retornarCursoNomeController(curso).getCodigoCurso());
             if (controllerCursoAluno.salvarCursoAlunoController(modelAluno, modelCurso) > 0) {
                 JOptionPane.showMessageDialog(null, "Matrícula realizada com sucesso", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
-                this.listarCursoAluno();
-                this.limparCamposCursoAluno();
+                listarCursoAluno();
+                limparCamposCursoAluno();
             } else {
                 JOptionPane.showMessageDialog(null, "Aluno não vinculado ao curso", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
@@ -1197,23 +1208,23 @@ public class ViewMain extends javax.swing.JFrame {
      * Edita os dados de um aluno já existente no banco de dados.
      */
     private void editarAluno() {
-        if (this.jtfNomeAluno.getText().isEmpty()) {
+        if (jtfNomeAluno.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campo vazio!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
-            this.jObrigatorioAluno.setVisible(true);
-        } else if (this.jtfNomeAluno.getText().length() >= 51) {
+            jObrigatorioAluno.setVisible(true);
+        } else if (jtfNomeAluno.getText().length() >= 51) {
             JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
-            this.jObrigatorioAluno.setVisible(true);
+            jObrigatorioAluno.setVisible(true);
         } else {
-            modelAluno.setNomeAluno(this.jtfNomeAluno.getText().toUpperCase());
+            modelAluno.setNomeAluno(jtfNomeAluno.getText().toUpperCase());
             if (controllerAluno.editarAlunoController(modelAluno)) {
                 JOptionPane.showMessageDialog(this, "Editado com sucesso!!", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
-                this.habilitarDesabilitarCamposAluno(false);
-                this.jObrigatorioAluno.setVisible(false);
-                this.listarAlunos();
-                this.limparCamposAluno();
+                habilitarDesabilitarCamposAluno(false);
+                jObrigatorioAluno.setVisible(false);
+                listarAlunos();
+                limparCamposAluno();
             } else {
                 JOptionPane.showMessageDialog(this, "Não foi aplicado a edição, verifique as informações", "ERRO",
                         JOptionPane.ERROR_MESSAGE);
@@ -1226,24 +1237,24 @@ public class ViewMain extends javax.swing.JFrame {
      * Edita os dados de um curso já existente no banco de dados.
      */
     private void editarCurso() {
-        if (this.jtfNomeCurso.getText().isEmpty()) {
+        if (jtfNomeCurso.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campo vazio!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
-            this.jObrigatorioCurso.setVisible(true);
-        } else if (this.jtfNomeCurso.getText().length() >= 51) {
+            jObrigatorioCurso.setVisible(true);
+        } else if (jtfNomeCurso.getText().length() >= 51) {
             JOptionPane.showMessageDialog(null, "Excede o limite de 50 caracteres!", "ATENÇÃO",
                     JOptionPane.WARNING_MESSAGE);
-            this.jObrigatorioCurso.setVisible(true);
+            jObrigatorioCurso.setVisible(true);
         } else {
-            modelCurso.setDescricaoCurso(this.jtfNomeCurso.getText().toUpperCase());
-            modelCurso.setEmentaCurso(this.jtextEmentaCurso.getText());
+            modelCurso.setDescricaoCurso(jtfNomeCurso.getText().toUpperCase());
+            modelCurso.setEmentaCurso(jtextEmentaCurso.getText());
             if (controllerCurso.editarCursoController(modelCurso)) {
                 JOptionPane.showMessageDialog(this, "Editado com sucesso!!", "ATENÇÃO",
                         JOptionPane.INFORMATION_MESSAGE);
-                this.habilitarDesabilitarCamposCurso(false);
-                this.jObrigatorioAluno.setVisible(false);
-                this.listarCursos();
-                this.limparCamposCurso();
+                habilitarDesabilitarCamposCurso(false);
+                jObrigatorioAluno.setVisible(false);
+                listarCursos();
+                limparCamposCurso();
             } else {
                 JOptionPane.showMessageDialog(this, "Não foi aplicado a edição, verifique as informações", "ERRO",
                         JOptionPane.ERROR_MESSAGE);
@@ -1255,25 +1266,25 @@ public class ViewMain extends javax.swing.JFrame {
      * Método para limpar os campos da tela aluno.
      */
     private void limparCamposAluno() {
-        this.jtfCodigoAluno.setText("");
-        this.jtfNomeAluno.setText("");
+        jtfCodigoAluno.setText("");
+        jtfNomeAluno.setText("");
     }
     
     /**
      * Método para limpar os campos da tela curso.
      */
     private void limparCamposCurso() {
-        this.jtfCodigoCurso.setText("");
-        this.jtfNomeCurso.setText("");
-        this.jtextEmentaCurso.setText("");
+        jtfCodigoCurso.setText("");
+        jtfNomeCurso.setText("");
+        jtextEmentaCurso.setText("");
     }
     
     /**
      * Método para limpar os campos da tela matrícula.
      */
     private void limparCamposCursoAluno() {
-        this.campoPesquisaAluno.setText("");
-        this.campoPesquisaCurso.setText("");
+        campoPesquisaAluno.setText("");
+        campoPesquisaCurso.setText("");
     }
 
     /**
@@ -1281,7 +1292,7 @@ public class ViewMain extends javax.swing.JFrame {
      * @param condicao
      */
     private void habilitarDesabilitarCamposAluno(boolean condicao) {
-        this.jtfNomeAluno.setEnabled(condicao);
+        jtfNomeAluno.setEnabled(condicao);
     }
     
     /**
@@ -1289,8 +1300,8 @@ public class ViewMain extends javax.swing.JFrame {
      * @param condicao
      */
     private void habilitarDesabilitarCamposCurso(boolean condicao) {
-        this.jtfNomeCurso.setEnabled(condicao);
-        this.jtextEmentaCurso.setEnabled(condicao);
+        jtfNomeCurso.setEnabled(condicao);
+        jtextEmentaCurso.setEnabled(condicao);
     }
     
     /**
@@ -1298,24 +1309,24 @@ public class ViewMain extends javax.swing.JFrame {
      * @param condicao
      */
     private void habilitarDesabilitarCamposCursoAluno(boolean condicao) {
-        this.campoPesquisaAluno.setEnabled(condicao);
-        this.campoPesquisaCurso.setEnabled(condicao);
+        campoPesquisaAluno.setEnabled(condicao);
+        campoPesquisaCurso.setEnabled(condicao);
     }
     
     /**
      * Lista os aluno na pesquisa dinâmica na tela de matrícula.
      */
     private void listarPesquisaAluno() {
-        String nomeAluno = this.campoPesquisaAluno.getText();
+        String nomeAluno = campoPesquisaAluno.getText();
         listaModelPesquisaAlunos = controllerAluno.retornarListarPesquisaAlunosController(nomeAluno);
         listaAluno.removeAllElements();
         for (int c = 0; c < listaModelPesquisaAlunos.size(); c++) {
             listaAluno.addElement(listaModelPesquisaAlunos.get(c).getNomeAluno());
         }
-        if (this.campoPesquisaAluno.getText().isEmpty()) {
-            this.listaPesquisaAluno.setVisible(false);
+        if (campoPesquisaAluno.getText().isEmpty()) {
+            listaPesquisaAluno.setVisible(false);
         } else {
-            this.listaPesquisaAluno.setVisible(true);
+            listaPesquisaAluno.setVisible(true);
         }
     }
     
@@ -1323,16 +1334,16 @@ public class ViewMain extends javax.swing.JFrame {
      * Lista os cursos na pesquisa dinâmica na tela de matrícula.
      */
     private void listarPesquisaCurso() {
-        String nomeCurso = this.campoPesquisaCurso.getText();
+        String nomeCurso = campoPesquisaCurso.getText();
         listaModelPesquisaCursos = controllerCurso.retornarListarPesquisaCursosController(nomeCurso);
         listaCurso.removeAllElements();
         for (int c = 0; c < listaModelPesquisaCursos.size(); c++) {
             listaCurso.addElement(listaModelPesquisaCursos.get(c).getDescricaoCurso());
         }
-        if (this.campoPesquisaCurso.getText().isEmpty()) {
-            this.listaPesquisaCurso.setVisible(false);
+        if (campoPesquisaCurso.getText().isEmpty()) {
+            listaPesquisaCurso.setVisible(false);
         } else {
-            this.listaPesquisaCurso.setVisible(true);
+            listaPesquisaCurso.setVisible(true);
         }
     }
     
@@ -1340,9 +1351,9 @@ public class ViewMain extends javax.swing.JFrame {
      * Recupera o nome e dados de aluno ao clicar na lista de pesquisa dinâmica.
      */
     private void recuperarPesquisaAluno() {
-        int linha = this.listaPesquisaAluno.getSelectedIndex();
-        String nome = this.listaPesquisaAluno.getSelectedValue();
-        this.campoPesquisaAluno.setText(nome);
+        int linha = listaPesquisaAluno.getSelectedIndex();
+        String nome = listaPesquisaAluno.getSelectedValue();
+        campoPesquisaAluno.setText(nome);
         modelAluno = controllerAluno.retornarAlunoNomeController(nome);
     }
     
@@ -1350,18 +1361,18 @@ public class ViewMain extends javax.swing.JFrame {
      * Recupera o nome e dados de curso ao clicar na lista de pesquisa dinâmica.
      */
     private void recuperarPesquisaCurso() {
-        int linha = this.listaPesquisaCurso.getSelectedIndex();
-        String curso = this.listaPesquisaCurso.getSelectedValue();
-        this.campoPesquisaCurso.setText(curso);
+        int linha = listaPesquisaCurso.getSelectedIndex();
+        String curso = listaPesquisaCurso.getSelectedValue();
+        campoPesquisaCurso.setText(curso);
         modelCurso = controllerCurso.retornarCursoNomeController(curso);
     }
     
     public void pesquisaAluno() {
-        DefaultTableModel modelo = (DefaultTableModel) this.jtableAluno.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) jtableAluno.getModel();
         final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
-        this.jtableAluno.setRowSorter(classifica);
-        String pesquisa = this.jtfPesquisaAluno.getText();
-        if (this.testaString(pesquisa) == true) {
+        jtableAluno.setRowSorter(classifica);
+        String pesquisa = jtfPesquisaAluno.getText();
+        if (testaString(pesquisa) == true) {
             classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
         } else {
             classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 1));
@@ -1369,11 +1380,11 @@ public class ViewMain extends javax.swing.JFrame {
     }
     
     public void pesquisaCurso() {
-        DefaultTableModel modelo = (DefaultTableModel) this.jtableCurso.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) jtableCurso.getModel();
         final TableRowSorter<TableModel> classifica = new TableRowSorter<>(modelo);
-        this.jtableCurso.setRowSorter(classifica);
-        String pesquisa = this.jtfPesquisaCurso.getText();
-        if (this.testaString(pesquisa) == true) {
+        jtableCurso.setRowSorter(classifica);
+        String pesquisa = jtfPesquisaCurso.getText();
+        if (testaString(pesquisa) == true) {
             classifica.setRowFilter(RowFilter.regexFilter(pesquisa, 0));
         } else {
             classifica.setRowFilter(RowFilter.regexFilter(pesquisa.toUpperCase(), 1));
@@ -1386,10 +1397,10 @@ public class ViewMain extends javax.swing.JFrame {
      * @return boolean
      */
     private boolean testaString(String texto) {
-        Pattern p = Pattern.compile("[0-9]+");
+        Pattern pattern = Pattern.compile("[0-9]+");
         String pesquisa;
         pesquisa = texto;
-        boolean numerico = (pesquisa != null && p.matcher(pesquisa).find());
+        boolean numerico = (pesquisa != null && pattern.matcher(pesquisa).find());
         return numerico;
     }
 
